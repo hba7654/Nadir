@@ -23,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = new Vector2(transform.position.x + moveVector.x * moveSpeed * dopamine, transform.position.y + moveVector.y * moveSpeed * dopamine);
+        rb.velocity = moveVector * moveSpeed * dopamine;
+        //transform.position = new Vector2(transform.position.x + moveVector.x * moveSpeed * dopamine, transform.position.y + moveVector.y * moveSpeed * dopamine);
     }
 
     public void Move(InputAction.CallbackContext context)
