@@ -8,12 +8,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
 
     private Rigidbody2D rb;
-    private bool isMoving;
+    //private bool isMoving;
     private Vector2 moveVector;
+
     // Start is called before the first frame update
     void Start()
     {
-        isMoving = false;
+        //isMoving = false;
         moveVector = Vector2.zero;
         rb = GetComponent<Rigidbody2D>();
     }
@@ -22,19 +23,19 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = moveVector * moveSpeed * GameManager.dopamine;
-        //transform.position = new Vector2(transform.position.x + moveVector.x * moveSpeed * dopamine, transform.position.y + moveVector.y * moveSpeed * dopamine);
     }
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            isMoving = true;
-        }
-        else if (context.canceled)
-        {
-            isMoving = false;
-        }
+        //if (context.started)
+        //{
+        //    isMoving = true;
+        //}
+        //else if (context.canceled)
+        //{
+        //    isMoving = false;
+        //}
+
         moveVector = context.ReadValue<Vector2>();
 
     }

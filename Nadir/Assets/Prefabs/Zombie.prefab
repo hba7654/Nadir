@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59726472691acb4fa8800cea762f55f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombieSpeed: 5
+  zombieSpeed: 1
   playerObject: {fileID: 8964056549215536531, guid: 33e24231928619f409230c31756f1119, type: 3}
 --- !u!50 &6221381493184551701
 Rigidbody2D:
