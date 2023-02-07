@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,5 +16,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void DopamineTest(InputAction.CallbackContext context)
+    {
+        if(context.started)
+            dopamine += context.ReadValue<float>();
+
+        Debug.Log(dopamine);
     }
 }

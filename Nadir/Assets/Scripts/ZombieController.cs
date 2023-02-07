@@ -20,6 +20,6 @@ public class ZombieController : MonoBehaviour
     void Update()
     {
         playerPos = playerObject.transform.position;
-        rb.velocity = new Vector2(-transform.position.x + playerPos.x, -transform.position.y + playerPos.y).normalized * zombieSpeed * GameManager.dopamine;
+        rb.velocity = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y).normalized * zombieSpeed * GameManager.dopamine;
     }
 }

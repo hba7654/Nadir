@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  dopamine: 2
 --- !u!114 &5469158433382971559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +162,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4601922b-4605-4771-a344-8b623094944b
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8084440248026368063, guid: 15f63856625b3834984875ceb7fc6b04, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: DopamineTest
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 418b8eef-56ae-4957-adfb-42ff8c0c3c2a
+    m_ActionName: Player/Dopamine test[/Keyboard/q,/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
