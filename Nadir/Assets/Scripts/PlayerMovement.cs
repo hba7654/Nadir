@@ -5,13 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float moveSpeed;
+
+    private Rigidbody2D rb;
     private bool isMoving;
     private Vector2 moveVector;
-    [SerializeField]
-    private float moveSpeed;
-    [SerializeField]
-    private float dopamine;
-    private Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity = moveVector * moveSpeed * dopamine;
+        rb.velocity = moveVector * moveSpeed * GameManager.dopamine;
         //transform.position = new Vector2(transform.position.x + moveVector.x * moveSpeed * dopamine, transform.position.y + moveVector.y * moveSpeed * dopamine);
     }
 
