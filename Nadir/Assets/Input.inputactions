@@ -177,6 +177,28 @@
                 },
                 {
                     "name": "",
+                    "id": "6d8b3832-cd5e-4693-861e-179c12890713",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a4c3774-ac6a-4978-8180-eb0011c7dcef",
+                    "path": "<Joystick>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "163e47e5-7c27-4119-b381-ca9286d3492f",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -190,6 +212,17 @@
                     "name": "",
                     "id": "72185170-6745-49b0-ad80-9d67cc469352",
                     "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cbbadd09-808e-4132-b393-521286a5717d",
+                    "path": "<Joystick>/stick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

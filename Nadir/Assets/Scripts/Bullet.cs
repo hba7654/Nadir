@@ -44,8 +44,8 @@ public class Bullet : MonoBehaviour
         if (collision.tag == "Zombie")
         {
             Debug.Log("HIT");
-            Destroy(gameObject);
             Destroy(collision.gameObject);
+            Destroy(gameObject);
         }
         else if (collision.tag != "Player")
             Destroy(gameObject);
