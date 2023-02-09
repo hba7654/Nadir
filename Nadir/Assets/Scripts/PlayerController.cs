@@ -6,10 +6,15 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
+    [SerializeField] private GameObject bullet;
 
     private Rigidbody2D rb;
     //private bool isMoving;
     private Vector2 moveVector;
+    private bool isAiming;
+    private bool usingMouse;
+    private Vector2 mouseDirVector;
+    private Vector2 mousePosition;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +22,26 @@ public class PlayerController : MonoBehaviour
         //isMoving = false;
         moveVector = Vector2.zero;
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        if (usingMouse)
+        {
+            {
+                mousePosition = GetMousePosition();
+                mouseDirVector = GetMouseVector();
+            }
+            //crosshair.transform.position = mousePosition;
+        }
+        if (!usingMouse && isAiming)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseDirVector);
+            if (hit.collider != null)
+            {
+                //crosshair.transform.position = hit.point;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -38,5 +63,69 @@ public class PlayerController : MonoBehaviour
 
         moveVector = context.ReadValue<Vector2>();
 
+    }
+
+    public void Shoot(InputAction.CallbackContext context)
+    {
+        if (context.started && isAiming)
+        {
+            //soundManager.PlaySound("shoot");
+            GameObject bulletClone;
+            Vector2 bulletSpawnPosition;
+            //if (playerManager.isFacingRight)
+                bulletSpawnPosition = new Vector2(transform.position.x + 0.5f, transform.position.y);
+            //else
+            //    bulletSpawnPosition = new Vector2(transform.position.x - 0.5f, transform.position.y);
+            bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
+            bulletClone.GetComponent<Bullet>().InitialMove(mouseDirVector);
+        }
+    }
+
+    public void Aim(InputAction.CallbackContext context)
+    {
+        //if (!isGrappling) //Player shouldn't be able to aim when grappling
+        {
+            //Mouse Controls
+            if (context.control.displayName == "Position")
+            {
+                isAiming = true;
+                usingMouse = true;
+                //crosshair.SetActive(true);
+            }
+            //Controller Controls
+            else if (context.control.displayName == "Right Stick")
+            {
+                mouseDirVector = context.ReadValue<Vector2>();
+                mouseDirVector.x = Mathf.Round(mouseDirVector.x * 50) / 50;
+                mouseDirVector.y = Mathf.Round(mouseDirVector.y * 50) / 50;
+
+                isAiming = true;
+                usingMouse = false;
+                //crosshair.SetActive(true);
+            }
+        }
+
+        if (context.canceled)
+        {
+            isAiming = false;
+            //crosshair.SetActive(false);
+        }
+    }
+
+    //Gets the Aiming direction for mouse
+    public Vector2 GetMouseVector()
+    {
+
+        Vector3 playerPos = transform.position;
+        return new Vector2(mousePosition.x - playerPos.x, mousePosition.y - playerPos.y).normalized;
+    }
+
+    //get mouse position on the screen
+    public Vector2 GetMousePosition()
+    {
+        Vector3 playerPos = transform.position;
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        Vector3 Worldpos = Camera.main.ScreenToWorldPoint(mousePos);
+        return new Vector2(Worldpos.x, Worldpos.y);
     }
 }
