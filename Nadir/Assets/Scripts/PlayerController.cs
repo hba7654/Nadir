@@ -85,15 +85,9 @@ public class PlayerController : MonoBehaviour
     {
         //if (!isGrappling) //Player shouldn't be able to aim when grappling
         {
-            //Mouse Controls
-            if (context.control.displayName == "Position")
-            {
-                isAiming = true;
-                usingMouse = true;
-                //crosshair.SetActive(true);
-            }
+            Debug.Log(context.control.displayName);
             //Controller Controls
-            else if (context.control.displayName == "Right Stick")
+            if (context.control.displayName == "Right Stick")
             {
                 mouseDirVector = context.ReadValue<Vector2>();
                 mouseDirVector.x = Mathf.Round(mouseDirVector.x * 50) / 50;
@@ -101,6 +95,13 @@ public class PlayerController : MonoBehaviour
 
                 isAiming = true;
                 usingMouse = false;
+                //crosshair.SetActive(true);
+            }
+            //Mouse Controls
+            else if (context.control.displayName == "Position")
+            {
+                isAiming = true;
+                usingMouse = true;
                 //crosshair.SetActive(true);
             }
         }
