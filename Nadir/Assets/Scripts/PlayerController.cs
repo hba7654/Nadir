@@ -34,13 +34,13 @@ public class PlayerController : MonoBehaviour
             }
             //crosshair.transform.position = mousePosition;
         }
-        if (!usingMouse && isAiming)
+        else if (isAiming)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseDirVector);
-            if (hit.collider != null)
-            {
-                //crosshair.transform.position = hit.point;
-            }
+            //RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseDirVector);
+            //if (hit.collider != null)
+            //{
+            //    //crosshair.transform.position = hit.point;
+            //}
         }
     }
 
@@ -83,27 +83,24 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-        //if (!isGrappling) //Player shouldn't be able to aim when grappling
+        Debug.Log(context.control.displayName);
+        //Controller Controls
+        if (context.control.displayName == "Right Stick")
         {
-            Debug.Log(context.control.displayName);
-            //Controller Controls
-            if (context.control.displayName == "Right Stick")
-            {
-                mouseDirVector = context.ReadValue<Vector2>();
-                mouseDirVector.x = Mathf.Round(mouseDirVector.x * 50) / 50;
-                mouseDirVector.y = Mathf.Round(mouseDirVector.y * 50) / 50;
+            mouseDirVector = context.ReadValue<Vector2>();
+            //mouseDirVector.x = Mathf.Round(mouseDirVector.x * 50) / 50;
+            //mouseDirVector.y = Mathf.Round(mouseDirVector.y * 50) / 50;
 
-                isAiming = true;
-                usingMouse = false;
-                //crosshair.SetActive(true);
-            }
-            //Mouse Controls
-            else if (context.control.displayName == "Position")
-            {
-                isAiming = true;
-                usingMouse = true;
-                //crosshair.SetActive(true);
-            }
+            isAiming = true;
+            usingMouse = false;
+            //crosshair.SetActive(true);
+        }
+        //Mouse Controls
+        else if (context.control.displayName == "Position")
+        {
+            isAiming = true;
+            usingMouse = true;
+            //crosshair.SetActive(true);
         }
 
         if (context.canceled)
