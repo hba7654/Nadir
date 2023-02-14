@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.started && isAiming)
+        if (context.performed && isAiming)
         {
             //soundManager.PlaySound("shoot");
             GameObject bulletClone;

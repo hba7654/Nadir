@@ -168,7 +168,7 @@
                     "name": "",
                     "id": "6d8b3832-cd5e-4693-861e-179c12890713",
                     "path": "<Gamepad>/rightTrigger",
-                    "interactions": "Tap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Controller",
                     "action": "Shoot",
