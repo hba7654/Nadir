@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         health = startHealth;
+        ammo = startAmmo;
+
         //isMoving = false;
         moveVector = Vector2.zero;
         rb = GetComponent<Rigidbody2D>();
@@ -78,8 +80,11 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.performed && isAiming)
+        if (context.performed && isAiming && ammo > 0)
         {
+            //ammo--;
+            Debug.Log(ammo + " ammo left");
+
             //soundManager.PlaySound("shoot");
             GameObject bulletClone;
             Vector2 bulletSpawnPosition;
@@ -144,6 +149,20 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             Debug.Log("OUCH, health = " + health);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Ammo")
+        {
+            ammo += 5;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.tag == "Health")
+        {
+            health += 5;
+            Destroy(collision.gameObject);
         }
     }
 }
