@@ -368,17 +368,5 @@ PrefabInstance:
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 3132948330088085485}
-    - target: {fileID: 8084440248026368063, guid: 15f63856625b3834984875ceb7fc6b04, type: 3}
-      propertyPath: maxZombieCount
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8084440248026368063, guid: 15f63856625b3834984875ceb7fc6b04, type: 3}
-      propertyPath: zombieSpawnFrequency
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8084440248026368063, guid: 15f63856625b3834984875ceb7fc6b04, type: 3}
-      propertyPath: zombiesToSpawnAtOnce
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15f63856625b3834984875ceb7fc6b04, type: 3}
