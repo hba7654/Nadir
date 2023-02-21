@@ -44,5 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b281f819a92b094e9fa19133cde8aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxZombieCount: 20
+  camera: {fileID: 0}
   zombieObject: {fileID: 2632201647132010118, guid: 81d7b45518c151941907140770ed9b15, type: 3}
+  playerObject: {fileID: 0}
+  maxZombieCount: 15
+  zombieSpawnFrequency: 2
+  zombiesToSpawnAtOnce: 5
