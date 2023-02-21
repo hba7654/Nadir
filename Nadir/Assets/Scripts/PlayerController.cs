@@ -5,9 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private int startHealth;
+    [SerializeField] private int startAmmo;
     [SerializeField] private float moveSpeed;
     [SerializeField] private GameObject bullet;
 
+    private int health;
+    private int ammo;
     private Rigidbody2D rb;
     //private bool isMoving;
     private Vector2 moveVector;
@@ -19,6 +23,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = startHealth;
         //isMoving = false;
         moveVector = Vector2.zero;
         rb = GetComponent<Rigidbody2D>();
@@ -26,6 +31,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(health <= 0)
+        {
+            health = 0;
+            Debug.Log("Dead");
+        }
+
         if (usingMouse)
         {
             {
@@ -125,5 +136,14 @@ public class PlayerController : MonoBehaviour
         Vector3 mousePos = Mouse.current.position.ReadValue();
         Vector3 Worldpos = Camera.main.ScreenToWorldPoint(mousePos);
         return new Vector2(Worldpos.x, Worldpos.y);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Zombie")
+        {
+            health--;
+            Debug.Log("OUCH, health = " + health);
+        }
     }
 }

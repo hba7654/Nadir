@@ -294,9 +294,17 @@ PrefabInstance:
       propertyPath: m_DefaultControlScheme
       value: Controller
       objectReference: {fileID: 0}
+    - target: {fileID: 8284714578955861412, guid: 33e24231928619f409230c31756f1119, type: 3}
+      propertyPath: startHealth
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8964056549215536531, guid: 33e24231928619f409230c31756f1119, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9008388132530377652, guid: 33e24231928619f409230c31756f1119, type: 3}
+      propertyPath: orthographic size
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33e24231928619f409230c31756f1119, type: 3}
