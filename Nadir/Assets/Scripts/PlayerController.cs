@@ -8,13 +8,16 @@ public class PlayerController : MonoBehaviour
     public int bulletDamage;
 
     [SerializeField] private int startHealth;
-    [SerializeField] private int startAmmo;
     [SerializeField] private float moveSpeed;
     [SerializeField] private GameObject bullet;
-    [SerializeField] private float fireRate;
+    [SerializeField] private Weapons weapon;
 
+    private int startMGAmmo;
+    private int startSGAmmo;
+    private float fireRate;
     private int health;
-    private int ammo;
+    private int mgAmmo;
+    private int sgAmmo;
     private Rigidbody2D rb;
     //private bool isMoving;
     private Vector2 moveVector;
@@ -24,21 +27,41 @@ public class PlayerController : MonoBehaviour
     private Vector2 mousePosition;
     private float shootTimer;
 
+    enum Weapons {Pistol, Machinegun, Shotgun};
+
     // Start is called before the first frame update
     void Start()
     {
         health = startHealth;
-        ammo = startAmmo;
 
         //isMoving = false;
         moveVector = Vector2.zero;
         rb = GetComponent<Rigidbody2D>();
 
         shootTimer = 0;
+
+        startMGAmmo = 60;
+        startSGAmmo = 16;
     }
 
     private void Update()
     {
+        switch(weapon)
+        {
+            case Weapons.Pistol:
+                fireRate = 1f;
+                bulletDamage = 5;
+                break;
+            case Weapons.Machinegun:
+                fireRate = 5f;
+                bulletDamage = 10;
+                break;
+            case Weapons.Shotgun:
+                fireRate = 0.25f;
+                bulletDamage = 2;
+                break;
+        }
+
         shootTimer -= (Time.deltaTime * GameManager.dopamine);
 
         if(health <= 0)
@@ -88,12 +111,12 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.performed && isAiming && ammo > 0 && shootTimer <= 0)
+        if (context.performed && isAiming && /*ammo > 0 &&*/ shootTimer <= 0)
         {
             shootTimer = 1 / fireRate;
 
             //ammo--;
-            Debug.Log(ammo + " ammo left");
+            //Debug.Log(ammo + " ammo left");
 
             //soundManager.PlaySound("shoot");
             GameObject bulletClone;
@@ -166,7 +189,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Ammo")
         {
-            ammo += 5;
+            sgAmmo += 4;
+            mgAmmo += 15;
             Destroy(collision.gameObject);
         }
         else if (collision.tag == "Health")
