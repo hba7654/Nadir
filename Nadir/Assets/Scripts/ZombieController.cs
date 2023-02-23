@@ -6,17 +6,20 @@ public class ZombieController : MonoBehaviour
 {
     public GameObject playerObject;
 
+    [SerializeField] private int startHealth;
     [SerializeField] private float zombieSpeed;
     [SerializeField] private float ammoHealthDropPercentage;
     [SerializeField] private GameObject ammoDrop;
     [SerializeField] private GameObject healthDrop;
 
+    private int health;
     private Vector2 playerPos;
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
+        health = startHealth;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -25,15 +28,10 @@ public class ZombieController : MonoBehaviour
     {
         playerPos = playerObject.transform.position;
         rb.velocity = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y).normalized * zombieSpeed * GameManager.dopamine;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Bullet")
+    
+        if(health <= 0)
         {
-            Debug.Log("HIT");
             GameManager.zombies.Remove(gameObject);
-            Destroy(collision.gameObject);
             Destroy(gameObject);
 
             if (Random.Range(0, 1.0f) <= ammoHealthDropPercentage)
@@ -41,8 +39,29 @@ public class ZombieController : MonoBehaviour
                 //if (Random.Range(0, 1.0f) <= 0.5f)
                 //    Instantiate(ammoDrop, transform.position, Quaternion.identity);
                 //else
-                    Instantiate(healthDrop, transform.position, Quaternion.identity);
+                Instantiate(healthDrop, transform.position, Quaternion.identity);
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Bullet")
+        {
+            Debug.Log("HIT");
+            Destroy(collision.gameObject);
+            health -= playerObject.GetComponent<PlayerController>().bulletDamage;
+
+            StartCoroutine(Hurt());
+        }
+    }
+
+    private IEnumerator Hurt()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        spriteRenderer.color = Color.yellow;
+        yield return new WaitForSeconds(0.25f);
+        spriteRenderer.color = Color.red;
     }
 }

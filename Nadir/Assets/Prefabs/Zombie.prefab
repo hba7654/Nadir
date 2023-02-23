@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 8964056549215536531, guid: 33e24231928619f409230c31756f1119, type: 3}
+  startHealth: 15
   zombieSpeed: 1
   ammoHealthDropPercentage: 0.2
   ammoDrop: {fileID: 1422922528226641674, guid: 34f98b02c1dc79c43bef54f404b8fd90, type: 3}

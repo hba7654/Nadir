@@ -5,10 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public int bulletDamage;
+
     [SerializeField] private int startHealth;
     [SerializeField] private int startAmmo;
     [SerializeField] private float moveSpeed;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private float fireRate;
 
     private int health;
     private int ammo;
@@ -19,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool usingMouse;
     private Vector2 mouseDirVector;
     private Vector2 mousePosition;
+    private float shootTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +33,14 @@ public class PlayerController : MonoBehaviour
         //isMoving = false;
         moveVector = Vector2.zero;
         rb = GetComponent<Rigidbody2D>();
+
+        shootTimer = 0;
     }
 
     private void Update()
     {
+        shootTimer -= (Time.deltaTime * GameManager.dopamine);
+
         if(health <= 0)
         {
             health = 0;
@@ -80,8 +88,10 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.performed && isAiming && ammo > 0)
+        if (context.performed && isAiming && ammo > 0 && shootTimer <= 0)
         {
+            shootTimer = 1 / fireRate;
+
             //ammo--;
             Debug.Log(ammo + " ammo left");
 
