@@ -132,7 +132,6 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-        Debug.Log(context.control.displayName);
         //Controller Controls
         if (context.control.displayName == "Right Stick")
         {

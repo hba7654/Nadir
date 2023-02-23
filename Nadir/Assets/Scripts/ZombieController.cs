@@ -31,6 +31,7 @@ public class ZombieController : MonoBehaviour
     
         if(health <= 0)
         {
+            GameManager.IncreaseDopamine();
             GameManager.zombies.Remove(gameObject);
             Destroy(gameObject);
 
@@ -48,7 +49,6 @@ public class ZombieController : MonoBehaviour
     {
         if (collision.tag == "Bullet")
         {
-            Debug.Log("HIT");
             Destroy(collision.gameObject);
             health -= playerObject.GetComponent<PlayerController>().bulletDamage;
 
