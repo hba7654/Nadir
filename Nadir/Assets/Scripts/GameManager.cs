@@ -15,14 +15,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxZombieCount;
     [SerializeField] private int zombieSpawnFrequency;
     [SerializeField] private int zombiesToSpawnAtOnce;
+    private bool isSpawning;
 
     [Header("Dopamine Variables")]
     public static float dopamine = 1;
     public static float dopamineDecreaseRate = 0.25f;
     public static float dopamineIncreaseRate = 1;
     public static float dopamineLimit = 20;
-
-    private bool isSpawning;
 
     // Start is called before the first frame update
     void Start()

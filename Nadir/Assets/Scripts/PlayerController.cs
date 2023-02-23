@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             health = 0;
             Debug.Log("Dead");
+            SceneManager.LoadScene("Main Game");
         }
 
         if (usingMouse)
