@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     [Header("Global varibales")]
-    public static float dopamine;
     [SerializeField] private Camera camera;
     [SerializeField] private GameObject zombieObject;
     [SerializeField] private GameObject playerObject;
@@ -16,14 +15,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxZombieCount;
     [SerializeField] private int zombieSpawnFrequency;
     [SerializeField] private int zombiesToSpawnAtOnce;
-
     private bool isSpawning;
+
+    [Header("Dopamine Variables")]
+    public static float dopamine = 2;
+    public static float dopamineDecreaseRate = 0.25f;
+    public static float dopamineIncreaseRate = 1;
+    public static float dopamineLimit = 20;
 
     // Start is called before the first frame update
     void Start()
     {
-        dopamine = 5;
-
         zombies = new ArrayList();
 
         isSpawning = false;
@@ -32,11 +34,29 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isSpawning && (Mathf.FloorToInt(Time.time) % (zombieSpawnFrequency * 5 / dopamine)) == 0)
+        if (zombieSpawnFrequency * 5 < Mathf.FloorToInt(dopamine))
         {
-            isSpawning = true;
-            StartCoroutine(SpawnZombie());
+            if (!isSpawning)
+            {
+                Debug.Log("Time to Spawn");
+                isSpawning = true;
+                StartCoroutine(SpawnZombie());
+            }
         }
+        else if(Mathf.FloorToInt(Time.time) % zombieSpawnFrequency * 5 < Mathf.FloorToInt(dopamine))
+        {
+            if (!isSpawning)
+            {
+                Debug.Log("Time to Spawn");
+                isSpawning = true;
+                StartCoroutine(SpawnZombie());
+            }
+        }
+
+        if (dopamine > 2)
+            dopamine -= (Time.deltaTime * dopamineDecreaseRate);
+        else
+            dopamine = 2;
     }
 
     public void DopamineTest(InputAction.CallbackContext context)
@@ -45,6 +65,19 @@ public class GameManager : MonoBehaviour
             dopamine += context.ReadValue<float>();
 
         Debug.Log(dopamine);
+    }
+
+    public static void IncreaseDopamine()
+    {
+        if (dopamine < dopamineLimit)
+        {
+            dopamine += dopamineIncreaseRate;
+        }
+        else
+        {
+            dopamine = dopamineLimit;
+        }
+        
     }
 
     private IEnumerator SpawnZombie()
