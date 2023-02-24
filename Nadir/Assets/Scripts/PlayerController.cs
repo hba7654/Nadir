@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public int bulletDamage;
+    public int health;
+    public int mgAmmo;
+    public int sgAmmo;
 
     [SerializeField] private int startHealth;
     [SerializeField] private float moveSpeed;
@@ -16,9 +19,6 @@ public class PlayerController : MonoBehaviour
     private int startMGAmmo;
     private int startSGAmmo;
     private float fireRate;
-    private int health;
-    private int mgAmmo;
-    private int sgAmmo;
     private Rigidbody2D rb;
     //private bool isMoving;
     private Vector2 moveVector;

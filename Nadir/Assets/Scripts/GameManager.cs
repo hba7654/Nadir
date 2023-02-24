@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,14 +19,24 @@ public class GameManager : MonoBehaviour
     private bool isSpawning;
 
     [Header("Dopamine Variables")]
+    [SerializeField] private float dopamineStart;
+    [SerializeField] private float dopamineMax;
     public static float dopamine = 2;
-    public static float dopamineDecreaseRate = 0.25f;
-    public static float dopamineIncreaseRate = 1;
-    public static float dopamineLimit = 20;
+    private static float dopamineDecreaseRate = 0.25f;
+    private static float dopamineIncreaseRate = 1;
+    private static float dopamineLimit;
+
+    [Header("UI Objects")]
+    [SerializeField] private Text dopamineText;
+    [SerializeField] private Text healthText;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        dopamine = dopamineStart;
+        dopamineLimit = dopamineMax;
+
         zombies = new ArrayList();
 
         isSpawning = false;
@@ -34,29 +45,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (zombieSpawnFrequency * 5 < Mathf.FloorToInt(dopamine))
+        dopamineText.text = string.Format("Dopamine: {0:F1}", dopamine);
+        healthText.text = "Health: " + playerObject.GetComponent<PlayerController>().health;
+
+        if (!isSpawning && Mathf.FloorToInt(Time.time) % (zombieSpawnFrequency * 5 / Mathf.Floor(dopamine)) == 0)
         {
-            if (!isSpawning)
-            {
-                Debug.Log("Time to Spawn");
-                isSpawning = true;
-                StartCoroutine(SpawnZombie());
-            }
-        }
-        else if(Mathf.FloorToInt(Time.time) % zombieSpawnFrequency * 5 < Mathf.FloorToInt(dopamine))
-        {
-            if (!isSpawning)
-            {
-                Debug.Log("Time to Spawn");
-                isSpawning = true;
-                StartCoroutine(SpawnZombie());
-            }
+            Debug.Log("Time to Spawn");
+            isSpawning = true;
+            StartCoroutine(SpawnZombie());
         }
 
-        if (dopamine > 2)
+        if (dopamine > dopamineStart)
             dopamine -= (Time.deltaTime * dopamineDecreaseRate);
         else
-            dopamine = 2;
+            dopamine = dopamineStart;
     }
 
     public void DopamineTest(InputAction.CallbackContext context)
