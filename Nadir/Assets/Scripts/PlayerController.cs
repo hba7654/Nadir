@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             health = 0;
             Debug.Log("Dead");
-            SceneManager.LoadScene("Main Game");
+            SceneManager.LoadScene("Main Menu");
         }
 
         if (usingMouse)

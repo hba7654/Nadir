@@ -60,8 +60,8 @@ public class ZombieController : MonoBehaviour
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
-        spriteRenderer.color = Color.yellow;
-        yield return new WaitForSeconds(0.25f);
         spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.25f);
+        spriteRenderer.color = Color.white;
     }
 }
