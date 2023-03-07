@@ -12,11 +12,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerObject;
 
     [Header("Zombie Spawning Variables")]
-    public static ArrayList zombies;
+    public static List<GameObject> zombies;
+    [SerializeField] private Transform[] zombieSpawnPoints;
+    [SerializeField] private int zombieSpawnRadius;
     [SerializeField] private int maxZombieCount;
     [SerializeField] private int zombieSpawnFrequency;
     [SerializeField] private int zombiesToSpawnAtOnce;
+    [SerializeField] private int zombieDopamineMultiplier;
     private bool isSpawning;
+    private List<Vector2> closestZombieSpawnPoints;
 
     [Header("Dopamine Variables")]
     [SerializeField] private float dopamineStart;
@@ -37,9 +41,12 @@ public class GameManager : MonoBehaviour
         dopamine = dopamineStart;
         dopamineLimit = dopamineMax;
 
-        zombies = new ArrayList();
+        zombies = new List<GameObject>();
+        closestZombieSpawnPoints = new List<Vector2>();
 
         isSpawning = false;
+
+        //FindNearestSpawns();
     }
 
     // Update is called once per frame
@@ -52,6 +59,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Time to Spawn");
             isSpawning = true;
+            FindNearestSpawns();
             StartCoroutine(SpawnZombie());
         }
 
@@ -82,44 +90,41 @@ public class GameManager : MonoBehaviour
         
     }
 
+    private void FindNearestSpawns()
+    {
+        Collider2D[] collisions = Physics2D.OverlapCircleAll(playerObject.transform.position, zombieSpawnRadius, LayerMask.NameToLayer("ZombieSpawns"));
+        Debug.Log(collisions.Length);
+        for (int i = 0; i < collisions.Length; i++)
+        {
+            closestZombieSpawnPoints.Add(collisions[i].transform.position);
+            //Debug.Log("Spawn point " + i + ": " + closestZombieSpawnPoints[i]);
+        }
+    }
+
     private IEnumerator SpawnZombie()
     {
-        float height = camera.orthographicSize * 2;
-        float width = height * camera.aspect;
-
         int numSpawned = 0;
 
-        while (zombies.Count < (maxZombieCount + dopamine * 3) && numSpawned < (zombiesToSpawnAtOnce + dopamine))
+        while (zombies.Count < (maxZombieCount + dopamine * zombieDopamineMultiplier) && numSpawned < (zombiesToSpawnAtOnce + dopamine))
         {
-            int spawnIndex = Random.Range(0, 4);
-            Vector2 spawnPos;
-            switch (spawnIndex)
+            if (closestZombieSpawnPoints.Count > 0)
             {
-                case 0:
-                    spawnPos = new Vector2(camera.transform.position.x + Random.Range(-width, width), camera.transform.position.y + height);
-                    break;
+                int spawnIndex = Random.Range(0, closestZombieSpawnPoints.Count);
+                Vector2 spawnPos = closestZombieSpawnPoints[spawnIndex];
+                //Debug.Log("SpawnPoint: " + spawnPos);
 
-                case 1:
-                    spawnPos = new Vector2(camera.transform.position.x + Random.Range(-width, width), camera.transform.position.y - height);
-                    break;
+                GameObject zombie = Instantiate(zombieObject, spawnPos, Quaternion.identity);
+                zombie.GetComponent<ZombieController>().playerObject = playerObject;
+                zombies.Add(zombie);
 
-                case 2:
-                    spawnPos = new Vector2(camera.transform.position.x + width, camera.transform.position.y + Random.Range(-height, height));
-                    break;
+                numSpawned++;
 
-                default:
-                    spawnPos = new Vector2(camera.transform.position.x - width, camera.transform.position.y + Random.Range(-height, height));
-                    break;
-
+                yield return new WaitForSeconds(zombieSpawnFrequency / dopamine);
             }
-            GameObject zombie = Instantiate(zombieObject, spawnPos, Quaternion.identity);
-            zombie.GetComponent<ZombieController>().playerObject = playerObject;
-            zombies.Add(zombie);
-
-            numSpawned++;
-
-            yield return new WaitForSeconds(zombieSpawnFrequency/dopamine);
         }
+
+        closestZombieSpawnPoints.Clear();
+
 
         isSpawning = false;
         
