@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ZombieController : MonoBehaviour
 {
@@ -15,21 +16,39 @@ public class ZombieController : MonoBehaviour
     private int health;
     private Vector2 playerPos;
     private Rigidbody2D rb;
+    private NavMeshAgent agent;
+    private NavMeshPath path;
 
     // Start is called before the first frame update
     void Start()
     {
         health = startHealth;
         rb = GetComponent<Rigidbody2D>();
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        path = new NavMeshPath();
     }
 
     // Update is called once per frame
     void Update()
     {
         playerPos = playerObject.transform.position;
-        rb.velocity = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y).normalized * zombieSpeed * GameManager.dopamine;
-    
-        if(health <= 0)
+        agent.speed = zombieSpeed * GameManager.dopamine;
+        agent.SetDestination(playerObject.transform.position);
+
+        //if (agent.CalculatePath(playerPos, path))
+        //{
+        //    agent.SetPath(path);
+        //}
+        //agent.speed = zombieSpeed * GameManager.dopamine;
+        //else
+        //{
+        //    rb.velocity = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y).normalized * zombieSpeed * GameManager.dopamine;
+        //}
+
+        if (health <= 0)
         {
             GameManager.IncreaseDopamine();
             GameManager.zombies.Remove(gameObject);
