@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
             GameObject bulletClone;
             Vector2 bulletSpawnPosition;
             //if (playerManager.isFacingRight)
-                bulletSpawnPosition = new Vector2(transform.position.x + 0.5f, transform.position.y);
+            bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
             //else
             //    bulletSpawnPosition = new Vector2(transform.position.x - 0.5f, transform.position.y);
             bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
