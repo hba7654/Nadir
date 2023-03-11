@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Weapons weapon;
+    [SerializeField] private GameObject mainFloor;
+    [SerializeField] private GameObject caveOne;
+    [SerializeField] private GameObject caveTwo;
+    [SerializeField] private GameObject caveTwoInner;
 
     private int startMGAmmo;
     private int startSGAmmo;
@@ -198,6 +202,28 @@ public class PlayerController : MonoBehaviour
         {
             health += 5;
             Destroy(collision.gameObject);
+        }
+        else if (collision.tag == "Cave 1")
+        {
+            mainFloor.SetActive(false);
+            caveOne.SetActive(true);
+        }
+        else if (collision.tag == "Cave 2")
+        {
+            mainFloor.SetActive(false);
+            caveTwoInner.SetActive(false);
+            caveTwo.SetActive(true);
+        }
+        else if (collision.tag == "Cave 2 Inner")
+        {
+            caveTwo.SetActive(false);
+            caveTwoInner.SetActive(true);
+        }
+        else if (collision.tag == "Main Floor")
+        {
+            mainFloor.SetActive(true);
+            caveOne.SetActive(false);
+            caveTwo.SetActive(false);
         }
     }
 }

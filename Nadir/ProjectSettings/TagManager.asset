@@ -8,6 +8,10 @@ TagManager:
   - Bullet
   - Ammo
   - Health
+  - Main Floor
+  - Cave 1
+  - Cave 2
+  - Cave 2 Inner
   layers:
   - Default
   - TransparentFX
