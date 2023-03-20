@@ -51,53 +51,63 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        switch(weapon)
+        if (!GameManager.isPaused)
         {
-            case Weapons.Pistol:
-                fireRate = 1f;
-                bulletDamage = 5;
-                break;
-            case Weapons.Machinegun:
-                fireRate = 5f;
-                bulletDamage = 10;
-                break;
-            case Weapons.Shotgun:
-                fireRate = 0.25f;
-                bulletDamage = 2;
-                break;
-        }
-
-        shootTimer -= (Time.deltaTime * GameManager.dopamine);
-
-        if(health <= 0)
-        {
-            health = 0;
-            Debug.Log("Dead");
-            SceneManager.LoadScene("Main Menu");
-        }
-
-        if (usingMouse)
-        {
+            switch (weapon)
             {
-                mousePosition = GetMousePosition();
-                mouseDirVector = GetMouseVector();
+                case Weapons.Pistol:
+                    fireRate = 1f;
+                    bulletDamage = 5;
+                    break;
+                case Weapons.Machinegun:
+                    fireRate = 5f;
+                    bulletDamage = 10;
+                    break;
+                case Weapons.Shotgun:
+                    fireRate = 0.25f;
+                    bulletDamage = 2;
+                    break;
             }
-            //crosshair.transform.position = mousePosition;
-        }
-        else if (isAiming)
-        {
-            //RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseDirVector);
-            //if (hit.collider != null)
-            //{
-            //    //crosshair.transform.position = hit.point;
-            //}
+
+            shootTimer -= (Time.deltaTime * GameManager.dopamine);
+
+            if (health <= 0)
+            {
+                health = 0;
+                Debug.Log("Dead");
+                SceneManager.LoadScene("Main Menu");
+            }
+
+            if (usingMouse)
+            {
+                {
+                    mousePosition = GetMousePosition();
+                    mouseDirVector = GetMouseVector();
+                }
+                //crosshair.transform.position = mousePosition;
+            }
+            else if (isAiming)
+            {
+                //RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseDirVector);
+                //if (hit.collider != null)
+                //{
+                //    //crosshair.transform.position = hit.point;
+                //}
+            }
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity = moveVector * moveSpeed * GameManager.dopamine;
+        if (!GameManager.isPaused)
+        {
+            rb.velocity = moveVector * moveSpeed * GameManager.dopamine;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -117,7 +127,7 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.performed && isAiming && /*ammo > 0 &&*/ shootTimer <= 0)
+        if (!GameManager.isPaused && context.performed && isAiming && /*ammo > 0 &&*/ shootTimer <= 0)
         {
             shootTimer = 1 / fireRate;
 

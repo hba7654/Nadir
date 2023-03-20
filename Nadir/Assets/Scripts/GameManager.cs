@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [Header("Global varibales")]
+    public static bool isPaused;
     [SerializeField] private Camera camera;
     [SerializeField] private GameObject zombieObject;
     [SerializeField] private GameObject playerObject;
@@ -22,12 +23,15 @@ public class GameManager : MonoBehaviour
     private bool isSpawning;
 
     [Header("Dopamine Variables")]
+    [SerializeField] private float timeToStartLosingDopamine;
     [SerializeField] private float dopamineStart;
     [SerializeField] private float dopamineMax;
     public static float dopamine = 2;
     private static float dopamineDecreaseRate = 0.25f;
     private static float dopamineIncreaseRate = 1;
     private static float dopamineLimit;
+    private static float timeSinceLastKill;
+    private static float dopamineIncrease;
 
     [Header("UI Objects")]
     [SerializeField] private Text dopamineText;
@@ -45,27 +49,39 @@ public class GameManager : MonoBehaviour
 
         isSpawning = false;
 
+        timeSinceLastKill = 0;
+        dopamineIncrease = 0;
+
         //FindNearestSpawns();
     }
 
     // Update is called once per frame
     void Update()
     {
-        dopamineText.text = string.Format("Dopamine: {0:F1}", dopamine);
-        healthText.text = "Health: " + playerObject.GetComponent<PlayerController>().health;
-
-        if (!isSpawning && Mathf.FloorToInt(Time.time) % (zombieSpawnFrequency * 5 / Mathf.Floor(dopamine)) == 0)
+        if (!isPaused)
         {
-            Debug.Log("Time to Spawn");
-            isSpawning = true;
-            //FindNearestSpawns();
-            StartCoroutine(SpawnZombie());
-        }
+            dopamineText.text = string.Format("Dopamine: {0:F1}", dopamine);
+            healthText.text = "Health: " + playerObject.GetComponent<PlayerController>().health;
 
-        if (dopamine > dopamineStart)
-            dopamine -= (Time.deltaTime * dopamineDecreaseRate);
-        else
-            dopamine = dopamineStart;
+            if (!isSpawning && (zombies.Count == 0 || Mathf.FloorToInt(Time.time) % (zombieSpawnFrequency * 5 / Mathf.Floor(dopamine)) == 0))
+            {
+                Debug.Log("Time to Spawn");
+                isSpawning = true;
+                //FindNearestSpawns();
+                StartCoroutine(SpawnZombie());
+            }
+
+            //Player starts losing dopamine after a certain amount of time after gaining it
+            if (timeSinceLastKill > timeToStartLosingDopamine)
+            {
+                if (dopamine > dopamineStart)
+                    dopamine -= (Time.deltaTime * dopamineDecreaseRate);
+                else
+                    dopamine = dopamineStart;
+            }
+
+            timeSinceLastKill += Time.deltaTime;
+        }
     }
 
     public void DopamineTest(InputAction.CallbackContext context)
@@ -78,14 +94,18 @@ public class GameManager : MonoBehaviour
 
     public static void IncreaseDopamine()
     {
-        if (dopamine < dopamineLimit)
+        dopamineIncrease = 1 / timeSinceLastKill;
+
+        if ((dopamine + dopamineIncrease) <= dopamineLimit)
         {
-            dopamine += dopamineIncreaseRate;
+            dopamine += dopamineIncrease;
         }
         else
         {
             dopamine = dopamineLimit;
         }
+
+        timeSinceLastKill = 0;
         
     }
 
@@ -131,5 +151,13 @@ public class GameManager : MonoBehaviour
 
         isSpawning = false;
         
+    }
+
+    public static void Pause(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            isPaused = !isPaused;
+        }
     }
 }
