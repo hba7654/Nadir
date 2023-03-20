@@ -34,32 +34,34 @@ public class ZombieController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerPos = playerObject.transform.position;
+        if(!GameManager.isPaused)
+        { playerPos = playerObject.transform.position;
         agent.speed = zombieSpeed * GameManager.dopamine;
         agent.SetDestination(playerObject.transform.position);
 
-        //if (agent.CalculatePath(playerPos, path))
-        //{
-        //    agent.SetPath(path);
-        //}
-        //agent.speed = zombieSpeed * GameManager.dopamine;
-        //else
-        //{
-        //    rb.velocity = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y).normalized * zombieSpeed * GameManager.dopamine;
-        //}
+            //if (agent.CalculatePath(playerPos, path))
+            //{
+            //    agent.SetPath(path);
+            //}
+            //agent.speed = zombieSpeed * GameManager.dopamine;
+            //else
+            //{
+            //    rb.velocity = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y).normalized * zombieSpeed * GameManager.dopamine;
+            //}
 
-        if (health <= 0)
-        {
-            GameManager.IncreaseDopamine();
-            GameManager.zombies.Remove(gameObject);
-            Destroy(gameObject);
-
-            if (Random.Range(0, 1.0f) <= ammoHealthDropPercentage)
+            if (health <= 0)
             {
-                //if (Random.Range(0, 1.0f) <= 0.5f)
-                //    Instantiate(ammoDrop, transform.position, Quaternion.identity);
-                //else
-                Instantiate(healthDrop, transform.position, Quaternion.identity);
+                GameManager.IncreaseDopamine();
+                GameManager.zombies.Remove(gameObject);
+                Destroy(gameObject);
+
+                if (Random.Range(0, 1.0f) <= ammoHealthDropPercentage)
+                {
+                    //if (Random.Range(0, 1.0f) <= 0.5f)
+                    //    Instantiate(ammoDrop, transform.position, Quaternion.identity);
+                    //else
+                    Instantiate(healthDrop, transform.position, Quaternion.identity);
+                }
             }
         }
     }

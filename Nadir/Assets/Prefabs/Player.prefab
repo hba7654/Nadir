@@ -283,6 +283,10 @@ MonoBehaviour:
   moveSpeed: 1.5
   bullet: {fileID: 7601573119372149052, guid: 144df0d97aa815648a4972d94d85729c, type: 3}
   weapon: 0
+  mainFloor: {fileID: 0}
+  caveOne: {fileID: 0}
+  caveTwo: {fileID: 0}
+  caveTwoInner: {fileID: 0}
 --- !u!114 &5469158433382971559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,6 +376,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1dc9ba0f-195e-47b0-acda-90fd46bccbd1
     m_ActionName: Player/Aim[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8084440248026368063, guid: 15f63856625b3834984875ceb7fc6b04, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2416a381-92b5-4b89-934c-83bf1092f63c
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
