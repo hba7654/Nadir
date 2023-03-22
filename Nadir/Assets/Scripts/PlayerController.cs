@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +21,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject caveOne;
     [SerializeField] private GameObject caveTwo;
     [SerializeField] private GameObject caveTwoInner;
+    [SerializeField] private Tilemap tilemap;
+    [SerializeField] private Tile mockTile;
+    [SerializeField] private GameObject mountainTileSet;
+
 
     private int startMGAmmo;
     private int startSGAmmo;
@@ -32,6 +38,16 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseDirVector;
     private Vector2 mousePosition;
     private float shootTimer;
+    private SpriteRenderer playerSr;
+    private int bombParts;
+    
+
+    private bool questPickup1;
+    private bool questPickup2;
+    private bool questPickup3;
+
+    private int questStep;
+
 
     enum Weapons {Pistol, Machinegun, Shotgun};
 
@@ -49,11 +65,22 @@ public class PlayerController : MonoBehaviour
         startMGAmmo = 60;
         startSGAmmo = 16;
 
+        questPickup1 = false;
+        questPickup2 = false;
+        questPickup3 = false;
+        bombParts = 1;
+
+        questStep = 1;
+
         animator = GetComponent<Animator>();
+
+        playerSr = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
+       
+
         if (!GameManager.isPaused)
         {
             switch (weapon)
@@ -97,6 +124,31 @@ public class PlayerController : MonoBehaviour
                 //    //crosshair.transform.position = hit.point;
                 //}
             }
+
+            if (!questPickup1 && rb.position.x > 20.5 && rb.position.x < 21.5 && rb.position.y > 24 && rb.position.y < 25)
+            {
+                questPickup1 = true;
+                tilemap.SetTile(new Vector3Int(42, 48, 0), null);
+
+                bombParts++;
+                Debug.Log("QUEST PICKUP  " + bombParts + " Bomb parts have been collected");
+            }
+
+            if (!questPickup2 && rb.position.x > -35 && rb.position.x < -34 && rb.position.y > 8.5 && rb.position.y < 9.5)
+            {
+                questPickup2 = true;
+                tilemap.SetTile(new Vector3Int(-70, 17, 0), null);
+
+                bombParts++;
+                Debug.Log("quest pickup  " + bombParts + " bomb parts have been collected");
+            }
+
+            if (bombParts == 3)
+            {
+                Debug.Log("Mountain EXPLODED!!!!");
+                mountainTileSet.SetActive(false);
+                bombParts++; 
+            }
         }
     }
 
@@ -127,6 +179,17 @@ public class PlayerController : MonoBehaviour
         }
 
         moveVector = context.ReadValue<Vector2>();
+
+        if (moveVector.x > 0)
+        {
+            playerSr.flipX = false;
+        }
+        else if (moveVector.x < 0)
+        {
+            playerSr.flipX = true;
+        }
+
+       // Debug.Log(rb.position.x + " , " + rb.position.y);
 
     }
 

@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     [Header("UI Objects")]
     [SerializeField] private Text dopamineText;
     [SerializeField] private Text healthText;
+    [SerializeField] private GameObject panel;
 
 
     // Start is called before the first frame update
@@ -60,12 +61,14 @@ public class GameManager : MonoBehaviour
     {
         if (!isPaused)
         {
+            panel.SetActive(false);
+
             dopamineText.text = string.Format("Dopamine: {0:F1}", dopamine);
             healthText.text = "Health: " + playerObject.GetComponent<PlayerController>().health;
 
             if (!isSpawning && (zombies.Count == 0 || Mathf.FloorToInt(Time.time) % (zombieSpawnFrequency * 5 / Mathf.Floor(dopamine)) == 0))
             {
-                Debug.Log("Time to Spawn");
+                //Debug.Log("Time to Spawn");
                 isSpawning = true;
                 //FindNearestSpawns();
                 StartCoroutine(SpawnZombie());
@@ -81,6 +84,11 @@ public class GameManager : MonoBehaviour
             }
 
             timeSinceLastKill += Time.deltaTime;
+        }
+
+        if (isPaused)
+        {
+            panel.SetActive(true);
         }
     }
 
