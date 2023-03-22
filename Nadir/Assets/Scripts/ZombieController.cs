@@ -18,6 +18,7 @@ public class ZombieController : MonoBehaviour
     private Rigidbody2D rb;
     private NavMeshAgent agent;
     private NavMeshPath path;
+    private SpriteRenderer sr;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,8 @@ public class ZombieController : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         path = new NavMeshPath();
+
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -38,6 +41,16 @@ public class ZombieController : MonoBehaviour
         { playerPos = playerObject.transform.position;
         agent.speed = zombieSpeed * GameManager.dopamine;
         agent.SetDestination(playerObject.transform.position);
+
+           // Flip the zombies X based off of where the player is moving
+           //if(rb.velocity.x > 0)
+           // {
+           //     sr.flipX = false;
+           // }
+           // else
+           // {
+           //     sr.flipX = true;
+           // }
 
             //if (agent.CalculatePath(playerPos, path))
             //{

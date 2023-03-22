@@ -24,9 +24,10 @@ public class PlayerController : MonoBehaviour
     private int startSGAmmo;
     private float fireRate;
     private Rigidbody2D rb;
-    //private bool isMoving;
+    private bool isMoving;
     private Vector2 moveVector;
     private bool isAiming;
+    private Animator animator; 
     private bool usingMouse;
     private Vector2 mouseDirVector;
     private Vector2 mousePosition;
@@ -47,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
         startMGAmmo = 60;
         startSGAmmo = 16;
+
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -112,14 +115,16 @@ public class PlayerController : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        //if (context.started)
-        //{
-        //    isMoving = true;
-        //}
-        //else if (context.canceled)
-        //{
-        //    isMoving = false;
-        //}
+        if (context.started)
+        {
+            isMoving = true;
+            animator.SetBool("Walking", true);
+        }
+        else if (context.canceled)
+        {
+            isMoving = false;
+            animator.SetBool("Walking", false);
+        }
 
         moveVector = context.ReadValue<Vector2>();
 

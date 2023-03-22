@@ -22,6 +22,21 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Main Game");
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
+    public void InstructionsScene()
+    {
+        SceneManager.LoadScene("Instructions");
+    }
+
+    public void CreditsScene()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
     public void QuitGame()
     {
         Application.Quit();
