@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
 
         isSpawning = false;
 
+        isPaused = false;
+
         timeSinceLastKill = 0;
         dopamineIncrease = 0;
 

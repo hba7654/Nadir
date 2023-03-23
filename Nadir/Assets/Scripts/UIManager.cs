@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Main Game");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void MainMenu()
