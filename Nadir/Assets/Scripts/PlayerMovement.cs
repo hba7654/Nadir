@@ -26,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
 
         playerSr = GetComponent<SpriteRenderer>();
+
+        mainFloor.SetActive(true);
+        caveOne.SetActive(false);
+        caveTwo.SetActive(false);
+        caveTwoInner.SetActive(false);
     }
 
     void FixedUpdate()
@@ -91,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
             mainFloor.SetActive(true);
             caveOne.SetActive(false);
             caveTwo.SetActive(false);
+            caveTwoInner.SetActive(false);
         }
     }
 }

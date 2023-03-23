@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3196750539327005488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.2, y: 0.5, z: -21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -62,7 +62,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -164,10 +164,12 @@ GameObject:
   - component: {fileID: 973597252136112486}
   - component: {fileID: 1602747467626297373}
   - component: {fileID: 9145940345221244564}
-  - component: {fileID: 8284714578955861412}
   - component: {fileID: 5469158433382971559}
   - component: {fileID: -1106651799798074500}
   - component: {fileID: -8826184355517251618}
+  - component: {fileID: 1040911797694655608}
+  - component: {fileID: 5320482975103882925}
+  - component: {fileID: 3253272015980294290}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -264,30 +266,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &8284714578955861412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8964056549215536531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e604c74ba3ce8e54c92faec1ff3f75de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletDamage: 8
-  health: 0
-  mgAmmo: 0
-  sgAmmo: 0
-  startHealth: 20
-  moveSpeed: 1.5
-  bullet: {fileID: 7601573119372149052, guid: 144df0d97aa815648a4972d94d85729c, type: 3}
-  weapon: 0
-  mainFloor: {fileID: 0}
-  caveOne: {fileID: 0}
-  caveTwo: {fileID: 0}
-  caveTwoInner: {fileID: 0}
 --- !u!114 &5469158433382971559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,7 +293,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8284714578955861412}
+      - m_Target: {fileID: 1040911797694655608}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: Move
         m_Mode: 0
@@ -347,8 +325,8 @@ MonoBehaviour:
     m_ActionName: Player/Dopamine test[/Keyboard/q,/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8284714578955861412}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 5320482975103882925}
+        m_TargetAssemblyTypeName: PlayerShooting, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 0
         m_Arguments:
@@ -363,8 +341,8 @@ MonoBehaviour:
     m_ActionName: Player/Shoot[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8284714578955861412}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 5320482975103882925}
+        m_TargetAssemblyTypeName: PlayerShooting, Assembly-CSharp
         m_MethodName: Aim
         m_Mode: 0
         m_Arguments:
@@ -444,3 +422,54 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1040911797694655608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8964056549215536531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad8c7c844962144e9861e88c244f1e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1.15
+  mainFloor: {fileID: 0}
+  caveOne: {fileID: 0}
+  caveTwo: {fileID: 0}
+  caveTwoInner: {fileID: 0}
+--- !u!114 &5320482975103882925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8964056549215536531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d532c6ea1173e44b53ef1a0bc5773c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletDamage: 0
+  mgAmmo: 0
+  sgAmmo: 0
+  bullet: {fileID: 7601573119372149052, guid: 144df0d97aa815648a4972d94d85729c, type: 3}
+  weapon: 0
+--- !u!114 &3253272015980294290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8964056549215536531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e604c74ba3ce8e54c92faec1ff3f75de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  startHealth: 20
+  tilemap: {fileID: 0}
+  mockTile: {fileID: 0}
+  mountainTileSet: {fileID: 0}

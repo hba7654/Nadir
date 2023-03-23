@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
             panel.SetActive(false);
 
             dopamineText.text = string.Format("Dopamine: {0:F1}", dopamine);
-            healthText.text = "Health: " + playerObject.GetComponent<PlayerController>().health;
+            healthText.text = "Health: " + playerObject.GetComponent<PlayerManager>().health;
 
             if (!isSpawning && (zombies.Count == 0 || Mathf.FloorToInt(Time.time) % (zombieSpawnFrequency * 5 / Mathf.Floor(dopamine)) == 0))
             {

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     public int health;
 
