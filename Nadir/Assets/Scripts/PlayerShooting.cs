@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -14,6 +17,7 @@ public class PlayerShooting : MonoBehaviour
 
     private int startMGAmmo;
     private int startSGAmmo;
+    private bool isShootingMG;
     private float fireRate;
     private bool isAiming;
     private bool usingMouse;
@@ -29,7 +33,8 @@ public class PlayerShooting : MonoBehaviour
 
         startMGAmmo = 60;
         startSGAmmo = 16;
-
+        mgAmmo = startMGAmmo;
+        sgAmmo = startSGAmmo;
     }
 
     // Update is called once per frame
@@ -75,25 +80,92 @@ public class PlayerShooting : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        //Shoot Machine Gun
+        while (mgAmmo > 0 && isShootingMG && canShoot())
+        {
+            mgAmmo--;
+            StartCoroutine(ShootBullet());
+        }
+    }
+
+    public void NextWeapon(InputAction.CallbackContext context)
+    {
+        if(context.started)
+            weapon = (Weapons)((int)(weapon + 1) % (Enum.GetValues(typeof(Weapons)).Length));
+    }
+
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (!GameManager.isPaused && context.performed && isAiming && /*ammo > 0 &&*/ shootTimer <= 0)
+        if (context.canceled)
         {
+            isShootingMG = false;
+        }
+        if (context.started && canShoot())
+        {
+            switch(weapon)
+            {
+                case Weapons.Pistol:
+                    StartCoroutine(ShootBullet());
+                    break;
+                case Weapons.Machinegun: //Code handling machine gin fire is in FixedUpdate
+                    isShootingMG=true;
+                    break;
+                case Weapons.Shotgun:
+                    ShootSG();
+                    break;
+            }
+        }
+    }
+
+
+    private IEnumerator ShootBullet()
+    {
+        shootTimer = 1 / fireRate;
+
+        //ammo--;
+        //Debug.Log(ammo + " ammo left");
+
+        //soundManager.PlaySound("shoot");
+        GameObject bulletClone;
+        Vector2 bulletSpawnPosition;
+        //if (playerManager.isFacingRight)
+        bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
+        //else
+        //    bulletSpawnPosition = new Vector2(transform.position.x - 0.5f, transform.position.y);
+        bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
+        bulletClone.GetComponent<Bullet>().InitialMove(mouseDirVector);
+
+        yield return null;
+    }
+
+    private void ShootSG()
+    {
+        if(sgAmmo > 0)
+        {
+            sgAmmo--;
             shootTimer = 1 / fireRate;
 
-            //ammo--;
-            //Debug.Log(ammo + " ammo left");
-
-            //soundManager.PlaySound("shoot");
+            //soundManager.PlaySound("shotgun");
             GameObject bulletClone;
             Vector2 bulletSpawnPosition;
             //if (playerManager.isFacingRight)
             bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
             //else
             //    bulletSpawnPosition = new Vector2(transform.position.x - 0.5f, transform.position.y);
-            bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
-            bulletClone.GetComponent<Bullet>().InitialMove(mouseDirVector);
+            Vector2 initialAngle = Quaternion.Euler(0, 0, -20) * mouseDirVector;
+            for (int i = 0; i < 5; i++)
+            {
+                bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
+                bulletClone.GetComponent<Bullet>().InitialMove(initialAngle);
+                initialAngle = Quaternion.Euler(0, 0, 10) * initialAngle;
+            }
         }
+    }
+    private bool canShoot()
+    {
+        return (!GameManager.isPaused && isAiming && /*ammo > 0 &&*/ shootTimer <= 0);
     }
 
     public void Aim(InputAction.CallbackContext context)

@@ -70,9 +70,9 @@ public class ZombieController : MonoBehaviour
 
                 if (Random.Range(0, 1.0f) <= ammoHealthDropPercentage)
                 {
-                    //if (Random.Range(0, 1.0f) <= 0.5f)
-                    //    Instantiate(ammoDrop, transform.position, Quaternion.identity);
-                    //else
+                    if (Random.Range(0, 1.0f) <= 0.5f)
+                        Instantiate(ammoDrop, transform.position, Quaternion.identity);
+                    else
                     Instantiate(healthDrop, transform.position, Quaternion.identity);
                 }
             }
