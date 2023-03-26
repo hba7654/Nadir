@@ -38,19 +38,20 @@ public class ZombieController : MonoBehaviour
     void Update()
     {
         if(!GameManager.isPaused)
-        { playerPos = playerObject.transform.position;
-        agent.speed = zombieSpeed * GameManager.dopamine;
-        agent.SetDestination(playerObject.transform.position);
+        { 
+            playerPos = playerObject.transform.position;
+            agent.speed = zombieSpeed * GameManager.dopamine;
+            agent.SetDestination(playerObject.transform.position);
 
-           // Flip the zombies X based off of where the player is moving
-           //if(rb.velocity.x > 0)
-           // {
-           //     sr.flipX = false;
-           // }
-           // else
-           // {
-           //     sr.flipX = true;
-           // }
+           //Flip the zombies X based off of where the player is moving
+           if (rb.velocity.x > 0)
+           {
+               sr.flipX = false;
+           }
+           else
+           {
+               sr.flipX = true;
+           }
 
             //if (agent.CalculatePath(playerPos, path))
             //{

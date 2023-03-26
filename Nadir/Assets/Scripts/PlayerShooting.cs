@@ -45,14 +45,17 @@ public class PlayerShooting : MonoBehaviour
                 case Weapons.Pistol:
                     fireRate = 1f;
                     bulletDamage = 5;
+                    GameManager.dopamineIncreaseRate = 1;
                     break;
                 case Weapons.Machinegun:
                     fireRate = 5f;
                     bulletDamage = 10;
+                    GameManager.dopamineIncreaseRate = 0.05f;
                     break;
                 case Weapons.Shotgun:
                     fireRate = 0.25f;
                     bulletDamage = 2;
+                    GameManager.dopamineIncreaseRate = 0.5f;
                     break;
             }
 

@@ -27,11 +27,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float dopamineStart;
     [SerializeField] private float dopamineMax;
     public static float dopamine = 2;
+    public static float dopamineIncreaseRate;
     private static float dopamineDecreaseRate = 0.25f;
-    private static float dopamineIncreaseRate = 1;
     private static float dopamineLimit;
     private static float timeSinceLastKill;
     private static float dopamineIncrease;
+    private static float dopamineIncreaseLimit = 2.5f;
 
     [Header("UI Objects")]
     [SerializeField] private Text dopamineText;
@@ -72,7 +73,6 @@ public class GameManager : MonoBehaviour
             {
                 //Debug.Log("Time to Spawn");
                 isSpawning = true;
-                //FindNearestSpawns();
                 StartCoroutine(SpawnZombie());
             }
 
@@ -104,31 +104,28 @@ public class GameManager : MonoBehaviour
 
     public static void IncreaseDopamine()
     {
-        dopamineIncrease = 1 / timeSinceLastKill;
-
-        if ((dopamine + dopamineIncrease) <= dopamineLimit)
+        dopamineIncrease = dopamineIncreaseRate / timeSinceLastKill;
+        Debug.Log("Dopamine Increase = " + dopamineIncrease);
+        if (dopamineIncrease >= dopamineIncreaseLimit)
         {
-            dopamine += dopamineIncrease;
+            Debug.Log("Having a bit too much fun there, eh? Increase is now 2.5");
+            dopamineIncrease = dopamineIncreaseLimit;
+        }
+
+        if ((dopamine + dopamineIncrease) >= dopamineLimit)
+        {
+            Debug.Log("Way too high dope, set to max");
+            dopamine = dopamineLimit;
         }
         else
         {
-            dopamine = dopamineLimit;
+            Debug.Log("Good, take your time, relax c:");
+            dopamine += dopamineIncrease;
         }
 
         timeSinceLastKill = 0;
         
     }
-
-    //private void FindNearestSpawns()
-    //{
-    //    Collider2D[] collisions = Physics2D.OverlapCircleAll(playerObject.transform.position, zombieSpawnRadius, LayerMask.NameToLayer("ZombieSpawns"));
-    //    Debug.Log(collisions.Length);
-    //    for (int i = 0; i < collisions.Length; i++)
-    //    {
-    //        closestZombieSpawnPoints.Add(collisions[i].transform.position);
-    //        //Debug.Log("Spawn point " + i + ": " + closestZombieSpawnPoints[i]);
-    //    }
-    //}
 
     private IEnumerator SpawnZombie()
     {
@@ -138,7 +135,7 @@ public class GameManager : MonoBehaviour
         {
             if (zombieSpawnPoints.Count > 0)
             {
-                int spawnIndex = Random.Range(0, zombieSpawnPoints.Count);
+                int spawnIndex = zombieSpawnPoints.Count > 1 ? Random.Range(0, zombieSpawnPoints.Count) : 0;
                 Vector2 spawnPos = zombieSpawnPoints[spawnIndex];
                 //Debug.Log("SpawnPoint: " + spawnPos);
 
