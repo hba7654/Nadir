@@ -12,6 +12,7 @@ TagManager:
   - Cave 1
   - Cave 2
   - Cave 2 Inner
+  - Bomb Part
   layers:
   - Default
   - TransparentFX

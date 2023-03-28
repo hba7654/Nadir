@@ -34,7 +34,7 @@ public class PlayerManager : MonoBehaviour
         questPickup1 = false;
         questPickup2 = false;
         questPickup3 = false;
-        bombParts = 1;
+        bombParts = 0;
 
         questStep = 1;
     }
@@ -49,24 +49,6 @@ public class PlayerManager : MonoBehaviour
                 health = 0;
                 Debug.Log("Dead");
                 SceneManager.LoadScene("Main Menu");
-            }
-
-            if (!questPickup1 && rb.position.x > 20.5 && rb.position.x < 21.5 && rb.position.y > 24 && rb.position.y < 25)
-            {
-                questPickup1 = true;
-                tilemap.SetTile(new Vector3Int(42, 48, 0), null);
-
-                bombParts++;
-                Debug.Log("QUEST PICKUP  " + bombParts + " Bomb parts have been collected");
-            }
-
-            if (!questPickup2 && rb.position.x > -35 && rb.position.x < -34 && rb.position.y > 8.5 && rb.position.y < 9.5)
-            {
-                questPickup2 = true;
-                tilemap.SetTile(new Vector3Int(-70, 17, 0), null);
-
-                bombParts++;
-                Debug.Log("quest pickup  " + bombParts + " bomb parts have been collected");
             }
 
             if (bombParts == 3)
@@ -95,6 +77,14 @@ public class PlayerManager : MonoBehaviour
         if (collision.tag == "Health")
         {
             health += 5;
+            Destroy(collision.gameObject);
+        }
+
+        else if (collision.tag == "Bomb Part")
+        {
+            bombParts++;
+            Debug.Log("quest pickup  " + bombParts + " bomb parts have been collected");
+
             Destroy(collision.gameObject);
         }
     }
