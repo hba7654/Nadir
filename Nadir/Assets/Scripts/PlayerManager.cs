@@ -22,8 +22,7 @@ public class PlayerManager : MonoBehaviour
     private bool questPickup2;
     private bool questPickup3;
 
-    private int questStep;
-
+    public int questStep;
 
     // Start is called before the first frame update
     void Start()
@@ -55,7 +54,8 @@ public class PlayerManager : MonoBehaviour
             {
                 Debug.Log("Mountain EXPLODED!!!!");
                 mountainTileSet.SetActive(false);
-                bombParts++; 
+                bombParts++;
+                questStep = 3;
             }
         }
     }
@@ -80,12 +80,15 @@ public class PlayerManager : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        else if (collision.tag == "Bomb Part")
+        else if(questStep == 2)
         {
-            bombParts++;
-            Debug.Log("quest pickup  " + bombParts + " bomb parts have been collected");
+            if (collision.tag == "Bomb Part")
+            {
+                bombParts++;
+                Debug.Log("quest pickup  " + bombParts + " bomb parts have been collected");
 
-            Destroy(collision.gameObject);
+                Destroy(collision.gameObject);
+            }
         }
     }
 }

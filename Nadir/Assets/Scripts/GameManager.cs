@@ -33,10 +33,13 @@ public class GameManager : MonoBehaviour
     private static float timeSinceLastKill;
     private static float dopamineIncrease;
     private static float dopamineIncreaseLimit = 2.5f;
+    private static int zombieCounter = 0; 
 
     [Header("UI Objects")]
     [SerializeField] private Text dopamineText;
     [SerializeField] private Text healthText;
+    [SerializeField] private Text zombieCounterText;
+    [SerializeField] private Text questText;
     [SerializeField] private GameObject panel;
 
 
@@ -68,6 +71,30 @@ public class GameManager : MonoBehaviour
 
             dopamineText.text = string.Format("Dopamine: {0:F1}", dopamine);
             healthText.text = "Health: " + playerObject.GetComponent<PlayerManager>().health;
+
+            // Quest step 1 TEMPORARY 
+            if (playerObject.GetComponent<PlayerManager>().questStep == 1)
+            {
+                if (zombieCounter >= 15)
+                {
+                    playerObject.GetComponent<PlayerManager>().questStep++;
+                }
+            }
+
+            // Quest step 2 TEMPORARY
+            else if (playerObject.GetComponent<PlayerManager>().questStep == 2)
+            {
+                questText.text = "Find 3 Bomb Parts";
+            }
+
+            else if (playerObject.GetComponent<PlayerManager>().questStep == 3)
+            {
+                questText.text = "Find the Zombie Kingdom";
+            }
+
+
+            zombieCounterText.text = string.Format("Kills: {0}", zombieCounter); 
+            
 
             if (!isSpawning && (zombies.Count == 0 || Mathf.FloorToInt(Time.time) % (zombieSpawnFrequency * 5 / Mathf.Floor(dopamine)) == 0))
             {
@@ -124,7 +151,11 @@ public class GameManager : MonoBehaviour
         }
 
         timeSinceLastKill = 0;
-        
+
+        // For Quest step 1
+        zombieCounter++;
+
+       
     }
 
     private IEnumerator SpawnZombie()
