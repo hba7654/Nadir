@@ -40,7 +40,7 @@ public class ZombieController : MonoBehaviour
         if(!GameManager.isPaused)
         { 
             playerPos = playerObject.transform.position;
-            agent.speed = zombieSpeed * GameManager.dopamine;
+            agent.speed = zombieSpeed * GameManager.dopamine * 0.7f;
             agent.SetDestination(playerObject.transform.position);
 
            //Flip the zombies X based off of where the player is moving
