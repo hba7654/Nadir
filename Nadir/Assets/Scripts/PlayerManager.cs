@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int startHealth;
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private Tile mockTile;
-    [SerializeField] private GameObject mountainTileSet;
+    [SerializeField] public GameObject mountainTileSet;
 
     private int bombParts;
 
@@ -80,14 +80,34 @@ public class PlayerManager : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        else if(questStep == 2)
+        else if(collision.tag == "Bomb Part")
         {
-            if (collision.tag == "Bomb Part")
+            if (questStep == 2)
             {
                 bombParts++;
                 Debug.Log("quest pickup  " + bombParts + " bomb parts have been collected");
 
                 Destroy(collision.gameObject);
+            }
+
+            else if(questStep == 3 || questStep == 6)
+            {
+                Debug.Log("ZOMBIE KINGDOM");
+               
+
+                questStep++; 
+            }
+
+            else if(questStep == 4)
+            {
+                Debug.Log("OH NO SURVIVE NOW YO UNEED TO SURVIVE BOY");
+
+                // Make the cave wall visable
+                mountainTileSet.SetActive(true);
+
+                Destroy(collision.gameObject);
+
+                questStep++;
             }
         }
     }

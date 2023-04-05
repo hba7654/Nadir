@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text questText;
     [SerializeField] private GameObject panel;
 
+    private float timer = 300.0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -72,24 +74,53 @@ public class GameManager : MonoBehaviour
             dopamineText.text = string.Format("Dopamine: {0:F1}", dopamine);
             healthText.text = "Health: " + playerObject.GetComponent<PlayerManager>().health;
 
-            // Quest step 1 TEMPORARY 
-            if (playerObject.GetComponent<PlayerManager>().questStep == 1)
+            switch (playerObject.GetComponent<PlayerManager>().questStep)
             {
-                if (zombieCounter >= 15)
-                {
-                    playerObject.GetComponent<PlayerManager>().questStep++;
-                }
-            }
+                // Quest step 1
+                case 1:
+                    if (zombieCounter >= 15)
+                    {
+                        playerObject.GetComponent<PlayerManager>().questStep++;
+                    }
+                    break;
 
-            // Quest step 2 TEMPORARY
-            else if (playerObject.GetComponent<PlayerManager>().questStep == 2)
-            {
-                questText.text = "Find 3 Bomb Parts";
-            }
+                // Quest step 2
+                case 2:
+                    UpdateText(questText, "Find 3 Bomb Parts");
+                    break;
 
-            else if (playerObject.GetComponent<PlayerManager>().questStep == 3)
-            {
-                questText.text = "Find the Zombie Kingdom";
+                // Quest step 3
+                case 3:
+                    UpdateText(questText, "Find the Zombie Kingdom");
+                    break;
+
+                // Quest step 4
+                case 4:
+                    UpdateText(questText, "Find the Zombie Key (Hint: nearby cave)");
+                    break;
+
+                // Quest step 5
+                case 5:
+                    timer -= Time.deltaTime * dopamine;
+                    UpdateText(questText, string.Format("SURVIVE for {0:F2}", timer));
+                    
+                    if(timer < 0)
+                    {
+                        playerObject.GetComponent<PlayerManager>().mountainTileSet.SetActive(false);
+                        playerObject.GetComponent<PlayerManager>().questStep++;
+                    }
+
+                    break;
+
+                // Quest step 6
+                case 6:
+                    UpdateText(questText, "Use the key on the gates of the Zombie Kingdom");
+                    break;
+
+                // Quest step 6
+                case 7:
+                    UpdateText(questText, "ANDDD THATS ALL FOLKS");
+                    break;
             }
 
 
@@ -197,5 +228,10 @@ public class GameManager : MonoBehaviour
         {
             isPaused = !isPaused;
         }
+    }
+
+    private void UpdateText(Text text,string data)
+    {
+        text.text = data;
     }
 }
