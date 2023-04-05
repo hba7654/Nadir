@@ -11,7 +11,7 @@ public class PlayerShooting : MonoBehaviour
     public int sgAmmo;
 
     [SerializeField] private GameObject bullet;
-    [SerializeField] private Weapons weapon;
+    [SerializeField] public Weapons weapon;
 
     private int startMGAmmo;
     private int startSGAmmo;
@@ -23,7 +23,7 @@ public class PlayerShooting : MonoBehaviour
     private Vector2 mousePosition;
     private float shootTimer;
 
-    enum Weapons { Pistol, Machinegun, Shotgun };
+    public enum Weapons { Pistol, Machinegun, Shotgun };
     // Start is called before the first frame update
     void Start()
     {

@@ -40,9 +40,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text healthText;
     [SerializeField] private Text zombieCounterText;
     [SerializeField] private Text questText;
+    [SerializeField] private Text ammoText;
+    [SerializeField] private GameObject gunImage;
     [SerializeField] private GameObject panel;
 
+    [SerializeField] private Sprite[] gunImages;
+
+
     private float timer = 300.0f;
+
+    private PlayerShooting playerShooting;
 
 
     // Start is called before the first frame update
@@ -61,6 +68,8 @@ public class GameManager : MonoBehaviour
         timeSinceLastKill = 0;
         dopamineIncrease = 0;
 
+        playerShooting = playerObject.GetComponent<PlayerShooting>();
+
         //FindNearestSpawns();
     }
 
@@ -71,9 +80,29 @@ public class GameManager : MonoBehaviour
         {
             panel.SetActive(false);
 
-            dopamineText.text = string.Format("Dopamine: {0:F1}", dopamine);
-            healthText.text = "Health: " + playerObject.GetComponent<PlayerManager>().health;
+            dopamineText.text = string.Format("Dopamine {0:F1}", dopamine);
+            healthText.text = "Health " + playerObject.GetComponent<PlayerManager>().health;
 
+            // Updates the ammo count in the UI
+            switch (playerShooting.weapon)
+            {
+                case PlayerShooting.Weapons.Pistol:
+                    UpdateText(ammoText, "\u221E");
+                    break;
+
+                case PlayerShooting.Weapons.Machinegun:
+                    UpdateText(ammoText, playerShooting.mgAmmo.ToString());
+                    break;
+
+                case PlayerShooting.Weapons.Shotgun:
+                    UpdateText(ammoText, playerShooting.sgAmmo.ToString());
+                    break;
+
+            }
+
+            gunImage.GetComponent<SpriteRenderer>().sprite = gunImages[(int)playerShooting.weapon];
+
+            // Updates the quest and the quest text in the UI
             switch (playerObject.GetComponent<PlayerManager>().questStep)
             {
                 // Quest step 1
@@ -124,7 +153,7 @@ public class GameManager : MonoBehaviour
             }
 
 
-            zombieCounterText.text = string.Format("Kills: {0}", zombieCounter); 
+            zombieCounterText.text = string.Format("Kills {0}", zombieCounter); 
             
 
             if (!isSpawning && (zombies.Count == 0 || Mathf.FloorToInt(Time.time) % (zombieSpawnFrequency * 5 / Mathf.Floor(dopamine)) == 0))
