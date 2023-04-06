@@ -44,10 +44,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b281f819a92b094e9fa19133cde8aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dopamineDecreaseRate: 0.25
   camera: {fileID: 0}
   zombieObject: {fileID: 2632201647132010118, guid: 81d7b45518c151941907140770ed9b15, type: 3}
   playerObject: {fileID: 0}
+  zombieSpawnRadius: 0
   maxZombieCount: 15
   zombieSpawnFrequency: 2
   zombiesToSpawnAtOnce: 5
+  zombieDopamineMultiplier: 0
+  timeToStartLosingDopamine: 0
+  dopamineStart: 0
+  dopamineMax: 0
+  dopamineText: {fileID: 0}
+  healthText: {fileID: 0}
+  zombieCounterText: {fileID: 0}
+  questText: {fileID: 0}
+  ammoText: {fileID: 0}
+  gunImage: {fileID: 0}
+  panel: {fileID: 0}
+  gunImages:
+  - {fileID: 2032132514, guid: c43f0019998ccf847b9056e1eadbae10, type: 3}
+  - {fileID: 1266679173, guid: c43f0019998ccf847b9056e1eadbae10, type: 3}
+  - {fileID: -883399932, guid: c43f0019998ccf847b9056e1eadbae10, type: 3}

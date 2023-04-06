@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2544
     height: 1341
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 21825
+  controlID: 113
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 21854
+  controlID: 114
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 21855
+  controlID: 115
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -189,8 +189,8 @@ MonoBehaviour:
     y: 0
     width: 480
     height: 768
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -402,7 +402,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: cc92fcff14a9fcff24a9fcff8eaafcfffc50fdff0c51fdff0873fdff1ebffdff4abffdff5abffdff4686feff90a8feffa0a8feffe2fafffff2faffff2e7100004e71000012090100220901000a0c0100360c0100de0d01009a0f0100f210010044160100
+      m_ExpandedIDs: 3cdbffff4edcffffd0f8ffff0afbffffa270000094780000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -673,9 +673,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 775.95215, y: 347.55035, z: 134.37675}
+    m_Target: {x: 96.308, y: 77.89078, z: -15.388012}
     speed: 2
-    m_Value: {x: 775.95215, y: 347.55035, z: 134.37675}
+    m_Value: {x: 96.308, y: 77.89078, z: -15.388012}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -726,9 +726,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 509.9208
+    m_Target: 50.184864
     speed: 2
-    m_Value: 509.9208
+    m_Value: 50.184864
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -794,22 +794,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Nashf\OneDrive\Documents\GitHub\Nadir\Nadir
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d4770000
-    m_LastClickedID: 30676
-    m_ExpandedIDs: 00000000fc750000fe750000c0770000d4770000dc77000024870000e68c000048950000b29d0000d49e000054b7000000ca9a3b
+    m_SelectedIDs: ea770000
+    m_LastClickedID: 30698
+    m_ExpandedIDs: 00000000a6770000a8770000aa770000ac770000ae770000b0770000b277000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -837,7 +837,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fc750000fe750000e68c000048950000b29d0000d49e000054b7000000ca9a3b
+    m_ExpandedIDs: 00000000a6770000a8770000aa770000ac770000ae770000b0770000b2770000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
