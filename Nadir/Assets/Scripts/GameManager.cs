@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float dopamineMax;
     public static float dopamine = 2;
     public static float dopamineIncreaseRate;
-    private static float dopamineDecreaseRate = 0.25f;
+    private static float dopamineDecreaseRate = 0.75f;
     private static float dopamineLimit;
     private static float timeSinceLastKill;
     private static float dopamineIncrease;
