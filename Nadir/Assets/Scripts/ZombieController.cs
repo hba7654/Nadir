@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,6 +21,9 @@ public class ZombieController : MonoBehaviour
     private NavMeshPath path;
     private SpriteRenderer sr;
 
+    private Vector2 lastPos, curPos, dir;
+    float timer = 0, speed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,22 +33,37 @@ public class ZombieController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.speed = 5;
+        agent.updatePosition = true;
         path = new NavMeshPath();
 
         sr = GetComponent<SpriteRenderer>();
+        lastPos = transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(!GameManager.isPaused)
-        { 
+        {
+            timer += Time.deltaTime;
             playerPos = playerObject.transform.position;
-            agent.speed = zombieSpeed * GameManager.dopamine * 0.7f;
-            agent.SetDestination(playerObject.transform.position);
+            agent.speed = zombieSpeed * GameManager.dopamine;
+            //dir = lastPos - curPos;
+            //speed = dir.magnitude / Time.deltaTime;
+            //if (!agent.hasPath || speed <= 0.8 * agent.speed)
+            //{
+            //    agent.SetDestination(playerObject.transform.position);
+            //    Debug.Log("YOOOOOOOO");
+
+            //}
+
+            StartCoroutine(NewPath());
+
+            curPos = transform.position;
 
            //Flip the zombies X based off of where the player is moving
-           if (rb.velocity.x > 0)
+           if (lastPos.x < curPos.x)
            {
                sr.flipX = false;
            }
@@ -52,6 +71,19 @@ public class ZombieController : MonoBehaviour
            {
                sr.flipX = true;
            }
+
+            //dir = curPos - lastPos;
+            //dir = dir.normalized;
+            //if (dir.magnitude <= 0.1f)
+            //{
+            //    dir = (playerPos - curPos).normalized;
+            //}
+                    
+            //rb.velocity = dir * zombieSpeed * GameManager.dopamine;
+            //agent.speed = rb.velocity.magnitude;
+
+            lastPos = curPos;
+
 
             //if (agent.CalculatePath(playerPos, path))
             //{
@@ -98,5 +130,14 @@ public class ZombieController : MonoBehaviour
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.25f);
         spriteRenderer.color = Color.white;
+    }
+
+    private IEnumerator NewPath()
+    {
+        agent.CalculatePath(playerPos, path);
+
+        yield return new WaitUntil(() => !agent.pathPending);
+
+        agent.SetPath(path);
     }
 }

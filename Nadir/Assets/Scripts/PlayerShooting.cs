@@ -54,7 +54,7 @@ public class PlayerShooting : MonoBehaviour
                     break;
                 case Weapons.Shotgun:
                     fireRate = 0.25f;
-                    bulletDamage = 2;
+                    bulletDamage = 4;
                     GameManager.dopamineIncreaseRate = 0.5f;
                     break;
             }
