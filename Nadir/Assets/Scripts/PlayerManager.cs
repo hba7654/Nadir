@@ -90,14 +90,6 @@ public class PlayerManager : MonoBehaviour
                 Destroy(collision.gameObject);
             }
 
-            else if(questStep == 3 || questStep == 6)
-            {
-                Debug.Log("ZOMBIE KINGDOM");
-               
-
-                questStep++; 
-            }
-
             else if(questStep == 4)
             {
                 Debug.Log("OH NO SURVIVE NOW YO UNEED TO SURVIVE BOY");
@@ -106,6 +98,16 @@ public class PlayerManager : MonoBehaviour
                 mountainTileSet.SetActive(true);
 
                 Destroy(collision.gameObject);
+
+                questStep++;
+            }
+        }
+        else if(collision.tag == "Zombie Kingdom")
+        {
+            if (questStep == 3 || questStep == 6)
+            {
+                Debug.Log("ZOMBIE KINGDOM");
+
 
                 questStep++;
             }

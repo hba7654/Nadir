@@ -45,7 +45,7 @@ public class PlayerShooting : MonoBehaviour
                 case Weapons.Pistol:
                     fireRate = 1f;
                     bulletDamage = 5;
-                    GameManager.dopamineIncreaseRate = 1;
+                    GameManager.dopamineIncreaseRate = 0.25f;
                     break;
                 case Weapons.Machinegun:
                     fireRate = 5f;
@@ -55,7 +55,7 @@ public class PlayerShooting : MonoBehaviour
                 case Weapons.Shotgun:
                     fireRate = 0.25f;
                     bulletDamage = 4;
-                    GameManager.dopamineIncreaseRate = 0.5f;
+                    GameManager.dopamineIncreaseRate = 0.15f;
                     break;
             }
 
@@ -155,12 +155,12 @@ public class PlayerShooting : MonoBehaviour
             bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
             //else
             //    bulletSpawnPosition = new Vector2(transform.position.x - 0.5f, transform.position.y);
-            Vector2 initialAngle = Quaternion.Euler(0, 0, -20) * mouseDirVector;
+            Vector2 initialAngle = Quaternion.Euler(0, 0, -15) * mouseDirVector;
             for (int i = 0; i < 5; i++)
             {
                 bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
                 bulletClone.GetComponent<Bullet>().InitialMove(initialAngle);
-                initialAngle = Quaternion.Euler(0, 0, 10) * initialAngle;
+                initialAngle = Quaternion.Euler(0, 0, 7.5f) * initialAngle;
             }
         }
     }

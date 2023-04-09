@@ -28,12 +28,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float dopamineMax;
     public static float dopamine = 2;
     public static float dopamineIncreaseRate;
-    private static float dopamineDecreaseRate = 0.75f;
+    private static float dopamineDecreaseRate = 1.5f;
     private static float dopamineLimit;
     private static float timeSinceLastKill;
     private static float dopamineIncrease;
-    private static float dopamineIncreaseLimit = 2.5f;
-    private static int zombieCounter = 0; 
+    private static float dopamineIncreaseLimit = 1;
+    private static int zombieCounter; 
 
     [Header("UI Objects")]
     [SerializeField] private Text dopamineText;
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite[] gunImages;
 
 
-    private float timer = 300.0f;
+    private float timer;
 
     private PlayerShooting playerShooting;
 
@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
 
         playerShooting = playerObject.GetComponent<PlayerShooting>();
 
+        zombieCounter = 0;
+        timer = 300.0f;
         //FindNearestSpawns();
     }
 
@@ -132,7 +134,7 @@ public class GameManager : MonoBehaviour
                 // Quest step 5
                 case 5:
                     timer -= Time.deltaTime * dopamine;
-                    UpdateText(questText, string.Format("SURVIVE for {0:F2}", timer));
+                    UpdateText(questText, string.Format("SURVIVE for {0:F2}", timer / dopamineStart));
                     
                     if(timer < 0)
                     {
