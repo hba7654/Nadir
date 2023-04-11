@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            Debug.Log("FPS: " + 1 / Time.deltaTime);
         if (!isPaused)
         {
             panel.SetActive(false);

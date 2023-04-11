@@ -49,14 +49,6 @@ public class ZombieController : MonoBehaviour
             timer += Time.deltaTime;
             playerPos = playerObject.transform.position;
             agent.speed = zombieSpeed * GameManager.dopamine;
-            //dir = lastPos - curPos;
-            //speed = dir.magnitude / Time.deltaTime;
-            //if (!agent.hasPath || speed <= 0.8 * agent.speed)
-            //{
-            //    agent.SetDestination(playerObject.transform.position);
-            //    Debug.Log("YOOOOOOOO");
-
-            //}
 
             StartCoroutine(NewPath());
 
@@ -72,28 +64,8 @@ public class ZombieController : MonoBehaviour
                sr.flipX = true;
            }
 
-            //dir = curPos - lastPos;
-            //dir = dir.normalized;
-            //if (dir.magnitude <= 0.1f)
-            //{
-            //    dir = (playerPos - curPos).normalized;
-            //}
-                    
-            //rb.velocity = dir * zombieSpeed * GameManager.dopamine;
-            //agent.speed = rb.velocity.magnitude;
-
             lastPos = curPos;
 
-
-            //if (agent.CalculatePath(playerPos, path))
-            //{
-            //    agent.SetPath(path);
-            //}
-            //agent.speed = zombieSpeed * GameManager.dopamine;
-            //else
-            //{
-            //    rb.velocity = new Vector2(playerPos.x - transform.position.x, playerPos.y - transform.position.y).normalized * zombieSpeed * GameManager.dopamine;
-            //}
 
             if (health <= 0)
             {
