@@ -11,7 +11,9 @@ public class PlayerShooting : MonoBehaviour
     public int sgAmmo;
 
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletSibling;
     [SerializeField] public Weapons weapon;
+    [SerializeField] private float altFireTime;
 
     private int startMGAmmo;
     private int startSGAmmo;
@@ -22,6 +24,7 @@ public class PlayerShooting : MonoBehaviour
     private Vector2 mouseDirVector;
     private Vector2 mousePosition;
     private float shootTimer;
+    private float sgSpread;
 
     public enum Weapons { Pistol, Machinegun, Shotgun };
     // Start is called before the first frame update
@@ -49,7 +52,7 @@ public class PlayerShooting : MonoBehaviour
                     break;
                 case Weapons.Machinegun:
                     fireRate = 2.5f;
-                    bulletDamage = 10;
+                    bulletDamage = 8;
                     GameManager.dopamineIncreaseRate = 0.05f;
                     break;
                 case Weapons.Shotgun:
@@ -143,19 +146,83 @@ public class PlayerShooting : MonoBehaviour
             //soundManager.PlaySound("shotgun");
             GameObject bulletClone;
             Vector2 bulletSpawnPosition;
-            //if (playerManager.isFacingRight)
             bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
-            //else
-            //    bulletSpawnPosition = new Vector2(transform.position.x - 0.5f, transform.position.y);
-            Vector2 initialAngle = Quaternion.Euler(0, 0, -15) * mouseDirVector;
+            if (GameManager.dopamine >= 15)
+                sgSpread = 5;
+            else
+                sgSpread = 7.5f;
+
+            Vector2 initialAngle = Quaternion.Euler(0, 0, -2 *sgSpread) * mouseDirVector;
             for (int i = 0; i < 5; i++)
             {
                 bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
                 bulletClone.GetComponent<Bullet>().InitialMove(initialAngle);
-                initialAngle = Quaternion.Euler(0, 0, 7.5f) * initialAngle;
+                initialAngle = Quaternion.Euler(0, 0, sgSpread) * initialAngle;
             }
         }
     }
+
+    public void AltFire()
+    {
+        if (GameManager.dopamine >= 20)
+        {
+            GameManager.DepleteDopamine();
+            switch (weapon)
+            {
+                case Weapons.Pistol:
+                    StartCoroutine(PistolAlt());
+                    break;
+                case Weapons.Machinegun:
+                    StartCoroutine(MGAlt());
+                    break;
+                case Weapons.Shotgun:
+                    StartCoroutine(SGAlt());
+                    break;
+            }
+        }
+    }
+
+    private IEnumerator PistolAlt()
+    {
+        GameObject bulletSiblingClone;
+        Vector2 spawnPos = (Vector2)transform.position + mouseDirVector / 2;
+        bulletSiblingClone = Instantiate(bulletSibling, spawnPos, Quaternion.identity);
+
+        yield return new WaitForSeconds(altFireTime);
+
+        Destroy(bulletSiblingClone);
+    }
+    private IEnumerator MGAlt()
+    {
+        int tempMGAmmo = mgAmmo;
+        mgAmmo = 100000;
+
+        yield return new WaitForSeconds(altFireTime);
+
+        mgAmmo = tempMGAmmo;
+    }
+    private IEnumerator SGAlt()
+    {
+        GameObject bulletClone;
+        Vector2 bulletSpawnPosition;
+
+        Vector2 initialAngle = mouseDirVector;
+
+        for (int j = 0; j < 5; j++)
+        {
+            bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
+            for (int i = 0; i < 72; i++)
+            {
+                bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
+                bulletClone.GetComponent<Bullet>().InitialMove(initialAngle);
+                initialAngle = Quaternion.Euler(0, 0, 5) * initialAngle;
+            }
+            yield return new WaitForSeconds(0.8f);
+        }
+
+        yield return null;
+    }
+
     private bool canShoot()
     {
         return (!GameManager.isPaused && isAiming && /*ammo > 0 &&*/ shootTimer <= 0);
@@ -211,7 +278,10 @@ public class PlayerShooting : MonoBehaviour
         if (collision.tag == "Ammo")
         {
             sgAmmo += 4;
-            mgAmmo += 15;
+            if (GameManager.dopamine >= 15)
+                mgAmmo += 40;
+            else
+                mgAmmo += 15;
             Destroy(collision.gameObject);
         }
     }

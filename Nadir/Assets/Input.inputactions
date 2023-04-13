@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Alt Fire",
+                    "type": "Button",
+                    "id": "5726350e-ec38-4d5b-bcc1-2fb6ff547d18",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -276,6 +285,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ShootMG",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25cf5b18-40e1-44e8-a9bf-8e1f0282abd8",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Alt Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b96ccb48-761a-4634-8d83-791509489058",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Alt Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

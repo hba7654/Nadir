@@ -15,6 +15,7 @@ TagManager:
   - Bomb Part
   - Zombie Kingdom
   - Sibling
+  - Sibling Bullet
   layers:
   - Default
   - TransparentFX

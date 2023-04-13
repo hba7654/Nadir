@@ -89,7 +89,10 @@ public class ZombieController : MonoBehaviour
         if (collision.tag == "Bullet")
         {
             Destroy(collision.gameObject);
-            health -= playerObject.GetComponent<PlayerShooting>().bulletDamage;
+            if(GameManager.dopamine >= 10)
+                health -= 2 * playerObject.GetComponent<PlayerShooting>().bulletDamage;
+            else
+                health -= playerObject.GetComponent<PlayerShooting>().bulletDamage;
 
             StartCoroutine(Hurt());
         }

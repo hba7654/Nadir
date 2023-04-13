@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float dopamineStart;
     [SerializeField] private float dopamineMax;
     public static float dopamine = 2;
+    private static float dopamineStartStatic;
     public static float dopamineIncreaseRate;
     private static float dopamineDecreaseRate = 1.5f;
     private static float dopamineLimit;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         dopamine = dopamineStart;
+        dopamineStartStatic = dopamineStart;
         dopamineLimit = dopamineMax;
 
         zombies = new List<GameObject>();
@@ -189,6 +191,11 @@ public class GameManager : MonoBehaviour
             dopamine += context.ReadValue<float>();
 
         Debug.Log(dopamine);
+    }
+
+    public static void DepleteDopamine()
+    {
+        dopamine = dopamineStartStatic;
     }
 
     public static void IncreaseDopamine()
