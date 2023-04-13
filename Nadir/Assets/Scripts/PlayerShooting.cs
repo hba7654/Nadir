@@ -15,7 +15,7 @@ public class PlayerShooting : MonoBehaviour
 
     private int startMGAmmo;
     private int startSGAmmo;
-    private bool isShootingMG;
+    private bool isShooting;
     private float fireRate;
     private bool isAiming;
     private bool usingMouse;
@@ -43,17 +43,17 @@ public class PlayerShooting : MonoBehaviour
             switch (weapon)
             {
                 case Weapons.Pistol:
-                    fireRate = 1f;
+                    fireRate = 0.5f;
                     bulletDamage = 5;
                     GameManager.dopamineIncreaseRate = 0.25f;
                     break;
                 case Weapons.Machinegun:
-                    fireRate = 5f;
+                    fireRate = 2.5f;
                     bulletDamage = 10;
                     GameManager.dopamineIncreaseRate = 0.05f;
                     break;
                 case Weapons.Shotgun:
-                    fireRate = 0.25f;
+                    fireRate = 0.125f;
                     bulletDamage = 4;
                     GameManager.dopamineIncreaseRate = 0.15f;
                     break;
@@ -83,11 +83,22 @@ public class PlayerShooting : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Shoot Machine Gun
-        while (mgAmmo > 0 && isShootingMG && canShoot())
+        while (isShooting && canShoot())
         {
-            mgAmmo--;
-            StartCoroutine(ShootBullet());
+            switch (weapon)
+            {
+                case Weapons.Pistol:
+                    StartCoroutine(ShootBullet());
+                    break;
+                case Weapons.Machinegun:
+                    mgAmmo--;
+                    if(mgAmmo > 0)
+                        StartCoroutine(ShootBullet());
+                    break;
+                case Weapons.Shotgun:
+                    ShootSG();
+                    break;
+            }
         }
     }
 
@@ -101,22 +112,11 @@ public class PlayerShooting : MonoBehaviour
     {
         if (context.canceled)
         {
-            isShootingMG = false;
+            isShooting = false;
         }
         if (context.started && canShoot())
         {
-            switch(weapon)
-            {
-                case Weapons.Pistol:
-                    StartCoroutine(ShootBullet());
-                    break;
-                case Weapons.Machinegun: //Code handling machine gin fire is in FixedUpdate
-                    isShootingMG=true;
-                    break;
-                case Weapons.Shotgun:
-                    ShootSG();
-                    break;
-            }
+            isShooting = true;
         }
     }
 
@@ -124,17 +124,9 @@ public class PlayerShooting : MonoBehaviour
     private IEnumerator ShootBullet()
     {
         shootTimer = 1 / fireRate;
-
-        //ammo--;
-        //Debug.Log(ammo + " ammo left");
-
-        //soundManager.PlaySound("shoot");
         GameObject bulletClone;
         Vector2 bulletSpawnPosition;
-        //if (playerManager.isFacingRight)
         bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
-        //else
-        //    bulletSpawnPosition = new Vector2(transform.position.x - 0.5f, transform.position.y);
         bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
         bulletClone.GetComponent<Bullet>().InitialMove(mouseDirVector);
 

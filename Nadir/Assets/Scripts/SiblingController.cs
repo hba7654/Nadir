@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class SiblingController : MonoBehaviour
 {
-    public GameObject playerObject;
-
+    [SerializeField] private GameObject playerObject;
+    [SerializeField] private GameObject bullet;
     [SerializeField] private float siblingSpeed;
+    [SerializeField] private float fireRate;
 
     private Vector2 playerPos;
     private Rigidbody2D rb;
@@ -16,8 +18,13 @@ public class SiblingController : MonoBehaviour
     private NavMeshPath path;
     private SpriteRenderer sr;
 
-    private Vector2 lastPos, curPos, dir;
-    float timer = 0, speed;
+    private Vector2 lastPos;
+    private Vector2 curPos;
+    private Vector2 dir;
+    private Vector2 shootDirVector;
+    float timer;
+    float shootTimer;
+    float speed;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +40,7 @@ public class SiblingController : MonoBehaviour
 
         sr = GetComponent<SpriteRenderer>();
         lastPos = transform.position;
+        timer = 0;
     }
 
     // Update is called once per frame
@@ -59,16 +67,14 @@ public class SiblingController : MonoBehaviour
             }
 
             lastPos = curPos;
+
+            shootTimer -= Time.deltaTime * GameManager.dopamine;
+            if(shootTimer < 0)
+            {
+                shootTimer = fireRate;
+                Shoot();
+            }
         }
-    }
-
-    private IEnumerator Hurt()
-    {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-
-        spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.25f);
-        spriteRenderer.color = Color.white;
     }
 
     private IEnumerator PathToPlayer()
@@ -78,5 +84,18 @@ public class SiblingController : MonoBehaviour
         yield return new WaitUntil(() => !agent.pathPending);
 
         agent.SetPath(path);
+    }
+
+    private void Shoot()
+    {
+        //shootTimer = 1 / fireRate;
+        GameObject bulletClone;
+        Vector2 bulletSpawnPosition;
+        shootDirVector = GameManager.zombies[Random.Range(0, GameManager.zombies.Count)].transform.position - transform.position;
+        //shootDirVector = Mouse.current.position.ReadValue() - (Vector2)transform.position;
+        bulletSpawnPosition = (Vector2)transform.position + shootDirVector / 2;
+        bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
+        bulletClone.tag = "Sibling Bullet";
+        bulletClone.GetComponent<Bullet>().InitialMove(shootDirVector);
     }
 }

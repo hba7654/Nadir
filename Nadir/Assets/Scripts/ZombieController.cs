@@ -93,6 +93,13 @@ public class ZombieController : MonoBehaviour
 
             StartCoroutine(Hurt());
         }
+        else if (collision.tag == "Sibling Bullet")
+        {
+            Destroy(collision.gameObject);
+            health -= 2;
+
+            StartCoroutine(Hurt());
+        }
     }
 
     private IEnumerator Hurt()
