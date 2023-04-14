@@ -14,6 +14,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private GameObject bulletSibling;
     [SerializeField] public Weapons weapon;
     [SerializeField] private float altFireTime;
+    [SerializeField] private GameObject crosshair;
 
     private int startMGAmmo;
     private int startSGAmmo;
@@ -94,12 +95,24 @@ public class PlayerShooting : MonoBehaviour
                     StartCoroutine(ShootBullet());
                     break;
                 case Weapons.Machinegun:
-                    mgAmmo--;
-                    if(mgAmmo > 0)
-                        StartCoroutine(ShootBullet());
+                    if (mgAmmo > 0)
+                    {
+                        StartCoroutine(ShootMG());
+                    }
+                    else
+                    {
+                        isShooting = false;
+                    }
                     break;
                 case Weapons.Shotgun:
-                    ShootSG();
+                    if (sgAmmo > 0)
+                    {
+                        ShootSG();
+                    }
+                    else
+                    {
+                        isShooting = false;
+                    }
                     break;
             }
         }
@@ -115,11 +128,13 @@ public class PlayerShooting : MonoBehaviour
     {
         if (context.canceled)
         {
+            Debug.Log("STOP");
             isShooting = false;
         }
         if (context.started && canShoot())
         {
             isShooting = true;
+            Debug.Log("SHOOT");
         }
     }
 
@@ -136,9 +151,27 @@ public class PlayerShooting : MonoBehaviour
         yield return null;
     }
 
+    private IEnumerator ShootMG()
+    {
+        //if (mgAmmo > 0)
+        {
+            mgAmmo--;
+            shootTimer = 1 / fireRate;
+
+            GameObject bulletClone;
+            Vector2 bulletSpawnPosition;
+            bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
+            bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
+            bulletClone.GetComponent<Bullet>().InitialMove(mouseDirVector);
+
+            yield return null;
+        }
+        //yield return null;
+    }
+
     private void ShootSG()
     {
-        if(sgAmmo > 0)
+        //if(sgAmmo > 0)
         {
             sgAmmo--;
             shootTimer = 1 / fireRate;
@@ -239,20 +272,20 @@ public class PlayerShooting : MonoBehaviour
 
             isAiming = true;
             usingMouse = false;
-            //crosshair.SetActive(true);
+            crosshair.SetActive(true);
         }
         //Mouse Controls
         else if (context.control.displayName == "Position")
         {
             isAiming = true;
             usingMouse = true;
-            //crosshair.SetActive(true);
+            crosshair.SetActive(true);
         }
 
         if (context.canceled)
         {
             isAiming = false;
-            //crosshair.SetActive(false);
+            crosshair.SetActive(false);
         }
     }
 
