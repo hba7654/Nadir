@@ -14,7 +14,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private GameObject bulletSibling;
     [SerializeField] public Weapons weapon;
     [SerializeField] private float altFireTime;
-    [SerializeField] private SpriteRenderer crosshair;
+    [SerializeField] private GameObject crosshair;
     [SerializeField] private Sprite[] gunImages;
 
     private int startMGAmmo;
@@ -27,6 +27,7 @@ public class PlayerShooting : MonoBehaviour
     private Vector2 mousePosition;
     private float shootTimer;
     private float sgSpread;
+    private SpriteRenderer crosshairSprite;
 
     public enum Weapons { Pistol, Machinegun, Shotgun };
     // Start is called before the first frame update
@@ -38,6 +39,7 @@ public class PlayerShooting : MonoBehaviour
         startSGAmmo = 16;
         mgAmmo = startMGAmmo;
         sgAmmo = startSGAmmo;
+        crosshairSprite = crosshair.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -51,19 +53,19 @@ public class PlayerShooting : MonoBehaviour
                     fireRate = 0.5f;
                     bulletDamage = 5;
                     GameManager.dopamineIncreaseRate = 0.25f;
-                    crosshair.sprite = gunImages[0];
+                    crosshairSprite.sprite = gunImages[0];
                     break;
                 case Weapons.Machinegun:
                     fireRate = 2.5f;
                     bulletDamage = 8;
                     GameManager.dopamineIncreaseRate = 0.05f;
-                    crosshair.sprite = gunImages[1];
+                    crosshairSprite.sprite = gunImages[1];
                     break;
                 case Weapons.Shotgun:
                     fireRate = 0.125f;
                     bulletDamage = 4;
                     GameManager.dopamineIncreaseRate = 0.15f;
-                    crosshair.sprite = gunImages[2];
+                    crosshairSprite.sprite = gunImages[2];
                     break;
             }
 
@@ -270,26 +272,41 @@ public class PlayerShooting : MonoBehaviour
         //Controller Controls
         if (context.control.displayName == "Right Stick")
         {
+            Debug.Log("AIMING W CONTROLLER");
             mouseDirVector = context.ReadValue<Vector2>();
             //mouseDirVector.x = Mathf.Round(mouseDirVector.x * 50) / 50;
             //mouseDirVector.y = Mathf.Round(mouseDirVector.y * 50) / 50;
 
             isAiming = true;
             usingMouse = false;
-            crosshair.gameObject.SetActive(true);
+            crosshair.SetActive(true);
+            crosshair.transform.position = (Vector2)transform.position + mouseDirVector;
+
         }
         //Mouse Controls
         else if (context.control.displayName == "Position")
         {
+            Debug.Log("AIMING W MOUSE");
             isAiming = true;
             usingMouse = true;
-            crosshair.gameObject.SetActive(true);
+            crosshair.SetActive(true);
+            crosshair.transform.position = (Vector2)transform.position + mouseDirVector;
+            if (mouseDirVector.x < 0)
+            {
+                crosshairSprite.flipY = false;
+                crosshair.transform.rotation = Quaternion.EulerRotation(0, 0, MathF.Tanh(mouseDirVector.y / mouseDirVector.x));
+            }
+            else
+            {
+                crosshairSprite.flipY = true;
+                crosshair.transform.rotation = Quaternion.EulerRotation(0, 0, 180 + MathF.Tanh(mouseDirVector.y / mouseDirVector.x));
+            }
         }
-
         if (context.canceled)
         {
+            Debug.Log("STOPPED AIMING W CONTROLLER");
             isAiming = false;
-            crosshair.gameObject.SetActive(false);
+            crosshair.SetActive(false);
         }
     }
 
