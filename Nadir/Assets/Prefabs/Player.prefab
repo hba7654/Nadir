@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 973597252136112486}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &6705354342402068243
 CircleCollider2D:
@@ -251,6 +251,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5213919955585676705}
+  - {fileID: 9085478333606416348}
   - {fileID: 1085938885073253924}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -557,7 +558,10 @@ MonoBehaviour:
   weapon: 0
   altFireTime: 0
   crosshair: {fileID: 7375046181835745393, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
-  gunImages: []
+  gunImages:
+  - {fileID: 2032132514, guid: c43f0019998ccf847b9056e1eadbae10, type: 3}
+  - {fileID: 1266679173, guid: c43f0019998ccf847b9056e1eadbae10, type: 3}
+  - {fileID: -883399932, guid: c43f0019998ccf847b9056e1eadbae10, type: 3}
 --- !u!114 &3253272015980294290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,4 +579,67 @@ MonoBehaviour:
   tilemap: {fileID: 0}
   mockTile: {fileID: 0}
   mountainTileSet: {fileID: 0}
+  bombParts: 0
   questStep: 0
+--- !u!1001 &8155141712658126435
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 973597252136112486}
+    m_Modifications:
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.273652
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.2711031
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7375046181835745393, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+      propertyPath: m_Name
+      value: Gun Image
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+--- !u!4 &9085478333606416348 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1097462440274893247, guid: ef03d4b440295af4a86cbc8b001f0773, type: 3}
+  m_PrefabInstance: {fileID: 8155141712658126435}
+  m_PrefabAsset: {fileID: 0}

@@ -290,16 +290,17 @@ public class PlayerShooting : MonoBehaviour
             isAiming = true;
             usingMouse = true;
             crosshair.SetActive(true);
-            crosshair.transform.position = (Vector2)transform.position + mouseDirVector;
+            crosshair.transform.rotation = Quaternion.EulerRotation(0, 0, MathF.Tanh(mouseDirVector.y / mouseDirVector.x));
+            crosshair.transform.position = (Vector2)transform.position + mouseDirVector/2.5f;
             if (mouseDirVector.x < 0)
             {
+                crosshairSprite.flipX = false;
                 crosshairSprite.flipY = false;
-                crosshair.transform.rotation = Quaternion.EulerRotation(0, 0, MathF.Tanh(mouseDirVector.y / mouseDirVector.x));
             }
             else
             {
-                crosshairSprite.flipY = true;
-                crosshair.transform.rotation = Quaternion.EulerRotation(0, 0, 180 + MathF.Tanh(mouseDirVector.y / mouseDirVector.x));
+                crosshairSprite.flipX = true;
+                crosshairSprite.flipY = false;
             }
         }
         if (context.canceled)
