@@ -14,7 +14,8 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private GameObject bulletSibling;
     [SerializeField] public Weapons weapon;
     [SerializeField] private float altFireTime;
-    [SerializeField] private GameObject crosshair;
+    [SerializeField] private SpriteRenderer crosshair;
+    [SerializeField] private Sprite[] gunImages;
 
     private int startMGAmmo;
     private int startSGAmmo;
@@ -50,16 +51,19 @@ public class PlayerShooting : MonoBehaviour
                     fireRate = 0.5f;
                     bulletDamage = 5;
                     GameManager.dopamineIncreaseRate = 0.25f;
+                    crosshair.sprite = gunImages[0];
                     break;
                 case Weapons.Machinegun:
                     fireRate = 2.5f;
                     bulletDamage = 8;
                     GameManager.dopamineIncreaseRate = 0.05f;
+                    crosshair.sprite = gunImages[1];
                     break;
                 case Weapons.Shotgun:
                     fireRate = 0.125f;
                     bulletDamage = 4;
                     GameManager.dopamineIncreaseRate = 0.15f;
+                    crosshair.sprite = gunImages[2];
                     break;
             }
 
@@ -272,20 +276,20 @@ public class PlayerShooting : MonoBehaviour
 
             isAiming = true;
             usingMouse = false;
-            crosshair.SetActive(true);
+            crosshair.gameObject.SetActive(true);
         }
         //Mouse Controls
         else if (context.control.displayName == "Position")
         {
             isAiming = true;
             usingMouse = true;
-            crosshair.SetActive(true);
+            crosshair.gameObject.SetActive(true);
         }
 
         if (context.canceled)
         {
             isAiming = false;
-            crosshair.SetActive(false);
+            crosshair.gameObject.SetActive(false);
         }
     }
 

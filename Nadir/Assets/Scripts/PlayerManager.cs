@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Tile mockTile;
     [SerializeField] public GameObject mountainTileSet;
 
-    private int bombParts;
+    public int bombParts;
 
     private Rigidbody2D rb;
     private bool questPickup1;
@@ -66,51 +66,10 @@ public class PlayerManager : MonoBehaviour
     {
         if (collision.collider.tag == "Zombie")
         {
-            health--;
-            Debug.Log("OUCH, health = " + health);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-        if (collision.tag == "Health")
-        {
-            health += 5;
-            Destroy(collision.gameObject);
-        }
-
-        else if(collision.tag == "Bomb Part")
-        {
-            if (questStep == 2)
-            {
-                bombParts++;
-                Debug.Log("quest pickup  " + bombParts + " bomb parts have been collected");
-
-                Destroy(collision.gameObject);
-            }
-
-            else if(questStep == 4)
-            {
-                Debug.Log("OH NO SURVIVE NOW YO UNEED TO SURVIVE BOY");
-
-                // Make the cave wall visable
-                mountainTileSet.SetActive(true);
-
-                Destroy(collision.gameObject);
-
-                questStep++;
-            }
-        }
-        else if(collision.tag == "Zombie Kingdom")
-        {
-            if (questStep == 3 || questStep == 6)
-            {
-                Debug.Log("ZOMBIE KINGDOM");
-
-
-                questStep++;
-            }
+            if (GameManager.dopamine >= 15)
+                GameManager.dopamine--;
+            else
+                health--;
         }
     }
 }
