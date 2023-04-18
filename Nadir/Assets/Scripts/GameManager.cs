@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
             {
                 // Quest step 1
                 case 1:
+                    questText.text = string.Format("Kill {0} zombies", 15 - zombieCounter);
                     if (zombieCounter >= 15)
                     {
                         playerObject.GetComponent<PlayerManager>().questStep++;
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
 
                 // Quest step 2
                 case 2:
-                    UpdateText(questText, "Find 3 Bomb Parts");
+                    questText.text = string.Format("Find {0} bomb parts", 3 - playerObject.GetComponent<PlayerManager>().bombParts);
                     break;
 
                 // Quest step 3
@@ -129,7 +130,7 @@ public class GameManager : MonoBehaviour
 
                 // Quest step 4
                 case 4:
-                    UpdateText(questText, "Find the Zombie Key (Hint: nearby cave)");
+                    UpdateText(questText, "Find the Zombie Key. Hint nearby cave");
                     break;
 
                 // Quest step 5
