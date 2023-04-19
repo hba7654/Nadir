@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text zombieCounterText;
     [SerializeField] private Text questText;
     [SerializeField] private Text ammoText;
+    [SerializeField] private Text dopEnhanceText;
     [SerializeField] private GameObject gunImage;
     [SerializeField] private GameObject panel;
 
@@ -92,16 +93,42 @@ public class GameManager : MonoBehaviour
             {
                 case PlayerShooting.Weapons.Pistol:
                     UpdateText(ammoText, "\u221E");
+
+                    if (dopamine > 15 && dopamine < 20)
+                    {
+                        UpdateText(dopEnhanceText, "Pistol Enhanced");
+                    }
                     break;
 
                 case PlayerShooting.Weapons.Machinegun:
                     UpdateText(ammoText, playerShooting.mgAmmo.ToString());
+                    if (dopamine > 15 && dopamine < 20)
+                    {
+                        UpdateText(dopEnhanceText, "Ammo packs give double ammo");
+                    }
                     break;
 
                 case PlayerShooting.Weapons.Shotgun:
                     UpdateText(ammoText, playerShooting.sgAmmo.ToString());
+                    if (dopamine > 15 && dopamine < 20)
+                    {
+                        UpdateText(dopEnhanceText, "Tighter bullet spread");
+                    }
                     break;
 
+            }
+
+            if (dopamine >= 20)
+            {
+                UpdateText(dopEnhanceText, "Alternate Fire ready!");
+            }
+            else if (dopamine > 10 && dopamine < 15)
+            {
+                UpdateText(dopEnhanceText, "Damage boost active");
+            }
+            else if (dopamine < 10) 
+            {
+                UpdateText(dopEnhanceText, "No Dopamine Enhancements");
             }
 
             gunImage.GetComponent<SpriteRenderer>().sprite = gunImages[(int)playerShooting.weapon];
@@ -126,11 +153,15 @@ public class GameManager : MonoBehaviour
                 // Quest step 3
                 case 3:
                     UpdateText(questText, "Find the Zombie Kingdom");
+                    maxZombieCount = 25;
+                    dopamineMax = 20;
                     break;
 
                 // Quest step 4
                 case 4:
                     UpdateText(questText, "Find the Zombie Key. Hint nearby cave");
+                    maxZombieCount = 40;
+                    zombieSpawnFrequency = 4;
                     break;
 
                 // Quest step 5
@@ -148,12 +179,14 @@ public class GameManager : MonoBehaviour
 
                 // Quest step 6
                 case 6:
-                    UpdateText(questText, "Use the key on the gates of the Zombie Kingdom");
+                    UpdateText(questText, "Use the key on the gates of the Zombie Kingdom. Hint Top of the map");
                     break;
 
                 // Quest step 6
                 case 7:
-                    UpdateText(questText, "ANDDD THATS ALL FOLKS");
+                    UpdateText(questText, "ANDDD THATS ALL FOLKS... GOOD LUCK SURVIVING");
+                    maxZombieCount = 60;
+                    zombieSpawnFrequency = 3;
                     break;
             }
 
