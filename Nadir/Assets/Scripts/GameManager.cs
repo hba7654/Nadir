@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Sprite[] gunImages;
 
+    private SpriteRenderer gunImageSprite;
+
 
     private float timer;
 
@@ -81,6 +83,8 @@ public class GameManager : MonoBehaviour
         panel.SetActive(false);
 
         canGainDopamine = true;
+
+        gunImageSprite = gunImage.GetComponent<SpriteRenderer>();
         //FindNearestSpawns();
     }
 
@@ -128,16 +132,20 @@ public class GameManager : MonoBehaviour
             {
                 UpdateText(dopEnhanceText, "Alternate Fire ready!");
             }
-            else if (dopamine >= 10 && dopamine < 15)
+            else if (dopamine >= 15)
             {
-                UpdateText(dopEnhanceText, "Damage boost active");
+                UpdateText(dopEnhanceText, "Weapon Special Active");
             }
-            else if (dopamine < 10) 
+            else if (dopamine >= 10)
+            {
+                UpdateText(dopEnhanceText, "Damage Boost Active");
+            }
+            else
             {
                 UpdateText(dopEnhanceText, "No Dopamine Enhancements");
             }
 
-            gunImage.GetComponent<SpriteRenderer>().sprite = gunImages[(int)playerShooting.weapon];
+            gunImageSprite.sprite = gunImages[(int)playerShooting.weapon];
 
             // Updates the quest and the quest text in the UI
             switch (playerObject.GetComponent<PlayerManager>().questStep)
