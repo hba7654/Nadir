@@ -85,8 +85,6 @@ public class GameManager : MonoBehaviour
     {
         if (!isPaused)
         {
-            panel.SetActive(false);
-
             dopamineText.text = string.Format("Dopamine {0:F1}", dopamine);
 
             dopamineBar.transform.localScale = new Vector3((dopamine - 5) / 2.173f, 1, 1);
@@ -217,11 +215,6 @@ public class GameManager : MonoBehaviour
 
             timeSinceLastKill += Time.deltaTime;
         }
-
-        if (isPaused)
-        {
-            panel.SetActive(true);
-        }
     }
 
     public void DopamineTest(InputAction.CallbackContext context)
@@ -299,11 +292,12 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public static void Pause(InputAction.CallbackContext context)
+    public void Pause(InputAction.CallbackContext context)
     {
         if(context.performed)
         {
             isPaused = !isPaused;
+            panel.SetActive(!panel.activeInHierarchy);
         }
     }
 

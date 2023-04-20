@@ -82,6 +82,10 @@ public class ZombieController : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            agent.speed = 0;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
