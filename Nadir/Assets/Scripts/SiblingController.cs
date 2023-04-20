@@ -75,6 +75,10 @@ public class SiblingController : MonoBehaviour
                 Shoot();
             }
         }
+        else
+        {
+            agent.speed = 0;
+        }
     }
 
     private IEnumerator PathToPlayer()

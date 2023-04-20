@@ -214,11 +214,6 @@ public class GameManager : MonoBehaviour
 
             timeSinceLastKill += Time.deltaTime;
         }
-
-        if (isPaused)
-        {
-            panel.SetActive(true);
-        }
     }
 
     public void DopamineTest(InputAction.CallbackContext context)
@@ -296,11 +291,12 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public static void Pause(InputAction.CallbackContext context)
+    public void Pause(InputAction.CallbackContext context)
     {
         if(context.performed)
         {
             isPaused = !isPaused;
+            panel.SetActive(!panel.activeInHierarchy);
         }
     }
 
