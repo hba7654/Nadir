@@ -16,7 +16,16 @@ public class Grabber : MonoBehaviour
 
         if (collision.tag == "Health")
         {
-            playerManager.health += 5;
+            if (playerManager.health > 15 && playerManager.health <= 20)
+            {
+                playerManager.health = 20;
+            }
+
+            else if(playerManager.health < 15)
+            {
+                playerManager.health += 5;
+            }
+            
             Destroy(collision.gameObject);
         }
 

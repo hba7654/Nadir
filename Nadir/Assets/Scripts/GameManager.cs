@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     private static int zombieCounter; 
 
     [Header("UI Objects")]
-    [SerializeField] private Text dopamineText;
     [SerializeField] private Text zombieCounterText;
     [SerializeField] private Text questText;
     [SerializeField] private Text ammoText;
@@ -86,8 +85,6 @@ public class GameManager : MonoBehaviour
         if (!isPaused)
         {
             panel.SetActive(false);
-
-            dopamineText.text = string.Format("Dopamine {0:F1}", dopamine);
 
             dopamineBar.transform.localScale = new Vector3((dopamine - 5) / 2.173f, 1, 1);
             healthBar.transform.localScale = new Vector3(playerObject.GetComponent<PlayerManager>().health/2.87f, 1, 1);
