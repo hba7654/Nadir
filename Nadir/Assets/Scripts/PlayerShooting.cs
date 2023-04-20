@@ -223,21 +223,25 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator PistolAlt()
     {
-        GameObject bulletSiblingClone;
-        Vector2 spawnPos = (Vector2)transform.position + mouseDirVector / 2;
-        bulletSiblingClone = Instantiate(bulletSibling, spawnPos, Quaternion.identity);
+        Vector2 spawnPos = (Vector2)transform.position + mouseDirVector / 2.5f;
+        GameObject bulletSiblingClone = Instantiate(bulletSibling, spawnPos, Quaternion.identity);
+        bulletSiblingClone.GetComponent<SiblingController>().playerObject = gameObject;
+        GameManager.canGainDopamine = false;
 
         yield return new WaitForSeconds(altFireTime);
 
+        GameManager.canGainDopamine = true;
         Destroy(bulletSiblingClone);
     }
     private IEnumerator MGAlt()
     {
         int tempMGAmmo = mgAmmo;
         mgAmmo = 100000;
+        GameManager.canGainDopamine = false;
 
         yield return new WaitForSeconds(altFireTime);
 
+        GameManager.canGainDopamine = true;
         mgAmmo = tempMGAmmo;
     }
     private IEnumerator SGAlt()
@@ -246,6 +250,7 @@ public class PlayerShooting : MonoBehaviour
         Vector2 bulletSpawnPosition;
 
         Vector2 initialAngle = mouseDirVector;
+        GameManager.canGainDopamine = false;
 
         for (int j = 0; j < 5; j++)
         {
@@ -258,6 +263,7 @@ public class PlayerShooting : MonoBehaviour
             }
             yield return new WaitForSeconds(0.8f);
         }
+        GameManager.canGainDopamine = true;
 
         yield return null;
     }
@@ -280,7 +286,7 @@ public class PlayerShooting : MonoBehaviour
             isAiming = true;
             usingMouse = false;
             crosshair.SetActive(true);
-            crosshair.transform.position = (Vector2)transform.position + mouseDirVector;
+            crosshair.transform.position = (Vector2)transform.position + mouseDirVector/2.5f;
 
         }
         //Mouse Controls

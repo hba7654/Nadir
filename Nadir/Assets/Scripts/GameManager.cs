@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     private static float timeSinceLastKill;
     private static float dopamineIncrease;
     private static float dopamineIncreaseLimit = 1;
+    public static bool canGainDopamine;
     private static int zombieCounter; 
 
     [Header("UI Objects")]
@@ -78,6 +79,8 @@ public class GameManager : MonoBehaviour
         timer = 300.0f;
 
         panel.SetActive(false);
+
+        canGainDopamine = true;
         //FindNearestSpawns();
     }
 
@@ -234,26 +237,28 @@ public class GameManager : MonoBehaviour
     public static void IncreaseDopamine()
     {
         dopamineIncrease = dopamineIncreaseRate / timeSinceLastKill;
-        Debug.Log("Dopamine Increase = " + dopamineIncrease);
-        if (dopamineIncrease >= dopamineIncreaseLimit)
+        if (canGainDopamine)
         {
-            Debug.Log("Having a bit too much fun there, eh? Increase is now 2.5");
-            dopamineIncrease = dopamineIncreaseLimit;
-        }
+            Debug.Log("Dopamine Increase = " + dopamineIncrease);
+            if (dopamineIncrease >= dopamineIncreaseLimit)
+            {
+                Debug.Log("Having a bit too much fun there, eh? Increase is now 2.5");
+                dopamineIncrease = dopamineIncreaseLimit;
+            }
 
-        if ((dopamine + dopamineIncrease) >= dopamineLimit)
-        {
-            Debug.Log("Way too high dope, set to max");
-            dopamine = dopamineLimit;
-        }
-        else
-        {
-            Debug.Log("Good, take your time, relax c:");
-            dopamine += dopamineIncrease;
-        }
+            if ((dopamine + dopamineIncrease) >= dopamineLimit)
+            {
+                Debug.Log("Way too high dope, set to max");
+                dopamine = dopamineLimit;
+            }
+            else
+            {
+                Debug.Log("Good, take your time, relax c:");
+                dopamine += dopamineIncrease;
+            }
 
-        timeSinceLastKill = 0;
-
+            timeSinceLastKill = 0;
+        }
         // For Quest step 1
         zombieCounter++;
 

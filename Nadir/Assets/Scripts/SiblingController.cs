@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class SiblingController : MonoBehaviour
 {
-    [SerializeField] private GameObject playerObject;
+    [SerializeField] public GameObject playerObject;
     [SerializeField] private GameObject bullet;
     [SerializeField] private float siblingSpeed;
     [SerializeField] private float fireRate;
@@ -41,6 +41,8 @@ public class SiblingController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         lastPos = transform.position;
         timer = 0;
+
+        transform.rotation = Quaternion.identity;
     }
 
     // Update is called once per frame
