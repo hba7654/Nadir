@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
 
         zombieCounter = 0;
         timer = 300.0f;
+
+        panel.SetActive(false);
         //FindNearestSpawns();
     }
 
