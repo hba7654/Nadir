@@ -38,13 +38,15 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Objects")]
     [SerializeField] private Text dopamineText;
-    [SerializeField] private Text healthText;
     [SerializeField] private Text zombieCounterText;
     [SerializeField] private Text questText;
     [SerializeField] private Text ammoText;
     [SerializeField] private Text dopEnhanceText;
     [SerializeField] private GameObject gunImage;
     [SerializeField] private GameObject panel;
+
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private GameObject dopamineBar;
 
     [SerializeField] private Sprite[] gunImages;
 
@@ -86,7 +88,9 @@ public class GameManager : MonoBehaviour
             panel.SetActive(false);
 
             dopamineText.text = string.Format("Dopamine {0:F1}", dopamine);
-            healthText.text = "Health " + playerObject.GetComponent<PlayerManager>().health;
+
+            dopamineBar.transform.localScale = new Vector3((dopamine - 5) / 2.173f, 1, 1);
+            healthBar.transform.localScale = new Vector3(playerObject.GetComponent<PlayerManager>().health/2.87f, 1, 1);
 
             // Updates the ammo count in the UI
             switch (playerShooting.weapon)
@@ -122,7 +126,7 @@ public class GameManager : MonoBehaviour
             {
                 UpdateText(dopEnhanceText, "Alternate Fire ready!");
             }
-            else if (dopamine > 10 && dopamine < 15)
+            else if (dopamine >= 10 && dopamine < 15)
             {
                 UpdateText(dopEnhanceText, "Damage boost active");
             }
@@ -155,6 +159,7 @@ public class GameManager : MonoBehaviour
                     UpdateText(questText, "Find the Zombie Kingdom");
                     maxZombieCount = 25;
                     dopamineMax = 20;
+                    dopamineLimit = dopamineMax;
                     break;
 
                 // Quest step 4
