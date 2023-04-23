@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class SiblingController : MonoBehaviour
 {
@@ -97,11 +99,22 @@ public class SiblingController : MonoBehaviour
         //shootTimer = 1 / fireRate;
         GameObject bulletClone;
         Vector2 bulletSpawnPosition;
-        shootDirVector = GameManager.zombies[Random.Range(0, GameManager.zombies.Count)].transform.position - transform.position;
+        shootDirVector = (GameManager.zombies[Random.Range(0, GameManager.zombies.Count)].transform.position - transform.position).normalized;
         //shootDirVector = Mouse.current.position.ReadValue() - (Vector2)transform.position;
         bulletSpawnPosition = (Vector2)transform.position + shootDirVector / 2;
-        bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
+        Quaternion rotation = Quaternion.EulerRotation(0, 0, MathF.Tanh(shootDirVector.y / shootDirVector.x));
+        bulletClone = Instantiate(bullet, bulletSpawnPosition, rotation);
         bulletClone.tag = "Sibling Bullet";
+        if (shootDirVector.x < 0)
+        {
+            bulletClone.GetComponent<SpriteRenderer>().flipX = true;
+            bulletClone.GetComponent<SpriteRenderer>().flipY = false;
+        }
+        else
+        {
+            bulletClone.GetComponent<SpriteRenderer>().flipX = false;
+            bulletClone.GetComponent<SpriteRenderer>().flipY = false;
+        }
         bulletClone.GetComponent<Bullet>().InitialMove(shootDirVector);
     }
 }

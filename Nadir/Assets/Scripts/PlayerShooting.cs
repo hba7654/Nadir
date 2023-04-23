@@ -43,6 +43,13 @@ public class PlayerShooting : MonoBehaviour
         sgAmmo = startSGAmmo;
         crosshairSprite = crosshair.GetComponent<SpriteRenderer>();
         bulletSprite = bullet.GetComponent<SpriteRenderer>();
+
+
+        fireRate = 0.5f;
+        bulletDamage = 5;
+        GameManager.dopamineIncreaseRate = 0.25f;
+        crosshairSprite.sprite = gunImages[0];
+        bulletSprite.sprite = bulletImages[0];
     }
 
     // Update is called once per frame
@@ -50,31 +57,6 @@ public class PlayerShooting : MonoBehaviour
     {
         if(!GameManager.isPaused)
         {
-            switch (weapon)
-            {
-                case Weapons.Pistol:
-                    fireRate = 0.5f;
-                    bulletDamage = 5;
-                    GameManager.dopamineIncreaseRate = 0.25f;
-                    crosshairSprite.sprite = gunImages[0];
-                    bulletSprite.sprite = bulletImages[0];
-                    break;
-                case Weapons.Machinegun:
-                    fireRate = 2.5f;
-                    bulletDamage = 4;
-                    GameManager.dopamineIncreaseRate = 0.05f;
-                    crosshairSprite.sprite = gunImages[1];
-                    bulletSprite.sprite = bulletImages[1];
-                    break;
-                case Weapons.Shotgun:
-                    fireRate = 0.125f;
-                    bulletDamage = 3;
-                    GameManager.dopamineIncreaseRate = 0.15f;
-                    crosshairSprite.sprite = gunImages[2];
-                    bulletSprite.sprite = bulletImages[2];
-                    break;
-            }
-
             shootTimer -= (Time.deltaTime * GameManager.dopamine);
 
             if (usingMouse)
@@ -83,15 +65,6 @@ public class PlayerShooting : MonoBehaviour
                     mousePosition = GetMousePosition();
                     mouseDirVector = GetMouseVector();
                 }
-                //crosshair.transform.position = mousePosition;
-            }
-            else if (isAiming)
-            {
-                //RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseDirVector);
-                //if (hit.collider != null)
-                //{
-                //    //crosshair.transform.position = hit.point;
-                //}
             }
         }
 
@@ -132,9 +105,38 @@ public class PlayerShooting : MonoBehaviour
 
     public void NextWeapon(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started)
+        {
             weapon = (Weapons)((int)(weapon + 1) % (Enum.GetValues(typeof(Weapons)).Length));
-    }
+
+            switch (weapon)
+            {
+                case Weapons.Pistol:
+                    fireRate = 0.5f;
+                    bulletDamage = 5;
+                    GameManager.dopamineIncreaseRate = 0.25f;
+                    crosshairSprite.sprite = gunImages[0];
+                    bulletSprite.sprite = bulletImages[0];
+                    break;
+                case Weapons.Machinegun:
+                    fireRate = 2.5f;
+                    bulletDamage = 4;
+                    GameManager.dopamineIncreaseRate = 0.05f;
+                    crosshairSprite.sprite = gunImages[1];
+                    bulletSprite.sprite = bulletImages[1];
+                    break;
+                case Weapons.Shotgun:
+                    fireRate = 0.125f;
+                    bulletDamage = 3;
+                    GameManager.dopamineIncreaseRate = 0.15f;
+                    crosshairSprite.sprite = gunImages[2];
+                    bulletSprite.sprite = bulletImages[2];
+                    break;
+            }
+        }
+
+
+        }
 
     public void Shoot(InputAction.CallbackContext context)
     {
@@ -166,7 +168,6 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator ShootMG()
     {
-        //if (mgAmmo > 0)
         {
             mgAmmo--;
             shootTimer = 1 / fireRate;
@@ -180,12 +181,10 @@ public class PlayerShooting : MonoBehaviour
 
             yield return null;
         }
-        //yield return null;
     }
 
     private void ShootSG()
     {
-        //if(sgAmmo > 0)
         {
             sgAmmo--;
             shootTimer = 1 / fireRate;
