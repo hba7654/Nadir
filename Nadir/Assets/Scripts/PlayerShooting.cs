@@ -16,6 +16,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float altFireTime;
     [SerializeField] private GameObject crosshair;
     [SerializeField] private Sprite[] gunImages;
+    [SerializeField] private Sprite[] bulletImages;
 
     private int startMGAmmo;
     private int startSGAmmo;
@@ -28,6 +29,7 @@ public class PlayerShooting : MonoBehaviour
     private float shootTimer;
     private float sgSpread;
     private SpriteRenderer crosshairSprite;
+    private SpriteRenderer bulletSprite;
 
     public enum Weapons { Pistol, Machinegun, Shotgun };
     // Start is called before the first frame update
@@ -40,6 +42,7 @@ public class PlayerShooting : MonoBehaviour
         mgAmmo = startMGAmmo;
         sgAmmo = startSGAmmo;
         crosshairSprite = crosshair.GetComponent<SpriteRenderer>();
+        bulletSprite = bullet.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -54,18 +57,21 @@ public class PlayerShooting : MonoBehaviour
                     bulletDamage = 5;
                     GameManager.dopamineIncreaseRate = 0.25f;
                     crosshairSprite.sprite = gunImages[0];
+                    bulletSprite.sprite = bulletImages[0];
                     break;
                 case Weapons.Machinegun:
                     fireRate = 2.5f;
-                    bulletDamage = 8;
+                    bulletDamage = 4;
                     GameManager.dopamineIncreaseRate = 0.05f;
                     crosshairSprite.sprite = gunImages[1];
+                    bulletSprite.sprite = bulletImages[1];
                     break;
                 case Weapons.Shotgun:
                     fireRate = 0.125f;
-                    bulletDamage = 4;
+                    bulletDamage = 3;
                     GameManager.dopamineIncreaseRate = 0.15f;
                     crosshairSprite.sprite = gunImages[2];
+                    bulletSprite.sprite = bulletImages[2];
                     break;
             }
 
@@ -151,7 +157,8 @@ public class PlayerShooting : MonoBehaviour
         GameObject bulletClone;
         Vector2 bulletSpawnPosition;
         bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
-        bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
+        Quaternion rotation = Quaternion.EulerRotation(0, 0, MathF.Tanh(mouseDirVector.y / mouseDirVector.x));
+        bulletClone = Instantiate(bullet, bulletSpawnPosition, rotation);
         bulletClone.GetComponent<Bullet>().InitialMove(mouseDirVector);
 
         yield return null;
@@ -167,7 +174,8 @@ public class PlayerShooting : MonoBehaviour
             GameObject bulletClone;
             Vector2 bulletSpawnPosition;
             bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
-            bulletClone = Instantiate(bullet, bulletSpawnPosition, transform.rotation);
+            Quaternion rotation = Quaternion.EulerRotation(0, 0, MathF.Tanh(mouseDirVector.y / mouseDirVector.x));
+            bulletClone = Instantiate(bullet, bulletSpawnPosition, rotation);
             bulletClone.GetComponent<Bullet>().InitialMove(mouseDirVector);
 
             yield return null;
@@ -302,11 +310,15 @@ public class PlayerShooting : MonoBehaviour
             {
                 crosshairSprite.flipX = false;
                 crosshairSprite.flipY = false;
+                bulletSprite.flipX = true;
+                bulletSprite.flipY = false;
             }
             else
             {
                 crosshairSprite.flipX = true;
                 crosshairSprite.flipY = false;
+                bulletSprite.flipX = false;
+                bulletSprite.flipY = false;
             }
         }
         if (context.canceled)
