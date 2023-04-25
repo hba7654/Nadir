@@ -13,9 +13,13 @@ public class Grabber : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //TODO
 
         if (collision.tag == "Health")
         {
+            //Play health pickup sound
+
+
             if (playerManager.health > 15 && playerManager.health <= 20)
             {
                 playerManager.health = 20;
@@ -31,6 +35,8 @@ public class Grabber : MonoBehaviour
 
         else if (collision.tag == "Bomb Part")
         {
+            //Play part pickup sound
+
             if (playerManager.questStep == 2)
             {
                 playerManager.bombParts++;

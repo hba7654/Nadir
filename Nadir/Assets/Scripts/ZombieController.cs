@@ -105,8 +105,11 @@ public class ZombieController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //TODO
         if (collision.tag == "Bullet")
         {
+            //Play hurt sound
+
             //Deagle bullets go through
             if(!(playerObject.GetComponent<PlayerShooting>().weapon == PlayerShooting.Weapons.Pistol && GameManager.dopamine >= 15))
                 Destroy(collision.gameObject);
@@ -121,6 +124,8 @@ public class ZombieController : MonoBehaviour
         }
         else if (collision.tag == "Sibling Bullet")
         {
+            //Play hurt sound
+
             Destroy(collision.gameObject);
             health -= 2;
 

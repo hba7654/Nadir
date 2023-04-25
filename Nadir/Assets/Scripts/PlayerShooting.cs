@@ -117,6 +117,8 @@ public class PlayerShooting : MonoBehaviour
             switch (weapon)
             {
                 case Weapons.Pistol:
+                    //play pistol swap sound
+
                     fireRate = 0.5f;
                     bulletDamage = 4;
                     GameManager.dopamineIncreaseRate = 0.25f;
@@ -124,6 +126,8 @@ public class PlayerShooting : MonoBehaviour
                     bulletSprite.sprite = bulletImages[0];
                     break;
                 case Weapons.Machinegun:
+                    //play mg swap sound
+
                     fireRate = 2.5f;
                     bulletDamage = 4;
                     GameManager.dopamineIncreaseRate = 0.05f;
@@ -131,6 +135,8 @@ public class PlayerShooting : MonoBehaviour
                     bulletSprite.sprite = bulletImages[1];
                     break;
                 case Weapons.Shotgun:
+                    //play sg swap sound
+
                     fireRate = 0.125f;
                     bulletDamage = 3;
                     GameManager.dopamineIncreaseRate = 0.15f;
@@ -141,7 +147,7 @@ public class PlayerShooting : MonoBehaviour
         }
 
 
-        }
+    }
 
     public void Shoot(InputAction.CallbackContext context)
     {
@@ -158,8 +164,12 @@ public class PlayerShooting : MonoBehaviour
     }
 
 
+    //TODO
+
     private IEnumerator ShootBullet()
     {
+        //Play pistol shoot sound
+
         shootTimer = 1 / fireRate;
         GameObject bulletClone;
         Vector2 bulletSpawnPosition;
@@ -173,6 +183,8 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator ShootMG()
     {
+        //Play mg shoot sound
+
         {
             mgAmmo--;
             shootTimer = 1 / fireRate;
@@ -190,6 +202,8 @@ public class PlayerShooting : MonoBehaviour
 
     private void ShootSG()
     {
+        //Play sg shoot sound
+
         {
             sgAmmo--;
             shootTimer = 1 / fireRate;
@@ -235,6 +249,8 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator PistolAlt()
     {
+        //Play pistol alt sound
+
         Vector2 spawnPos = (Vector2)transform.position + mouseDirVector / 2.5f;
         GameObject bulletSiblingClone = Instantiate(bulletSibling, spawnPos, Quaternion.identity);
         bulletSiblingClone.GetComponent<SiblingController>().playerObject = gameObject;
@@ -247,6 +263,8 @@ public class PlayerShooting : MonoBehaviour
     }
     private IEnumerator MGAlt()
     {
+        //Play mg alt sound
+
         int tempMGAmmo = mgAmmo;
         mgAmmo = 100000;
         GameManager.canGainDopamine = false;
@@ -258,6 +276,8 @@ public class PlayerShooting : MonoBehaviour
     }
     private IEnumerator SGAlt()
     {
+        //Play sg alt sound
+
         GameObject bulletClone;
         Vector2 bulletSpawnPosition;
 
@@ -352,8 +372,11 @@ public class PlayerShooting : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //TODO
         if (collision.tag == "Ammo")
         {
+            //Play health pickup sound
+
             sgAmmo += 4;
             if (GameManager.dopamine >= 15)
                 mgAmmo += 40;
