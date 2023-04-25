@@ -22,6 +22,7 @@ public class ZombieController : MonoBehaviour
     private NavMeshPath path;
     private SpriteRenderer sr;
     private float despawnTimer;
+    private bool isInvis;
 
     private Vector2 lastPos, curPos, dir;
     float timer = 0, speed;
@@ -42,13 +43,14 @@ public class ZombieController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         lastPos = transform.position;
 
-        despawnTimer = 0;
+        despawnTimer = despawnTime;
+        isInvis = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!GameManager.isPaused)
+        if (!GameManager.isPaused)
         {
             timer += Time.deltaTime;
             playerPos = playerObject.transform.position;
@@ -58,15 +60,15 @@ public class ZombieController : MonoBehaviour
 
             curPos = transform.position;
 
-           //Flip the zombies X based off of where the player is moving
-           if (lastPos.x < curPos.x)
-           {
-               sr.flipX = false;
-           }
-           else
-           {
-               sr.flipX = true;
-           }
+            //Flip the zombies X based off of where the player is moving
+            if (lastPos.x < curPos.x)
+            {
+                sr.flipX = false;
+            }
+            else
+            {
+                sr.flipX = true;
+            }
 
             lastPos = curPos;
 
@@ -82,8 +84,17 @@ public class ZombieController : MonoBehaviour
                     if (Random.Range(0, 1.0f) <= 0.75f)
                         Instantiate(ammoDrop, transform.position, Quaternion.identity);
                     else
-                    Instantiate(healthDrop, transform.position, Quaternion.identity);
+                        Instantiate(healthDrop, transform.position, Quaternion.identity);
                 }
+            }
+
+            if (isInvis)
+                despawnTimer -= Time.deltaTime;
+
+            if (despawnTimer < 0)
+            {
+                GameManager.zombies.Remove(gameObject);
+                Destroy(gameObject);
             }
         }
         else
@@ -119,7 +130,8 @@ public class ZombieController : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        
+        despawnTimer = despawnTime;
+        isInvis = true;
     }
 
     private IEnumerator Hurt()

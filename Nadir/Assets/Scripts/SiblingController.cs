@@ -73,7 +73,7 @@ public class SiblingController : MonoBehaviour
             lastPos = curPos;
 
             shootTimer -= Time.deltaTime * GameManager.dopamine;
-            if(shootTimer < 0)
+            if(shootTimer < 0 && GameManager.zombies.Count > 0)
             {
                 shootTimer = fireRate;
                 Shoot();

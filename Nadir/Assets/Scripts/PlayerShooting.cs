@@ -77,6 +77,11 @@ public class PlayerShooting : MonoBehaviour
             switch (weapon)
             {
                 case Weapons.Pistol:
+                    if (GameManager.dopamine >= 15)
+                        fireRate = 0.3f;
+                    else
+                        fireRate = 0.5f;
+
                     StartCoroutine(ShootBullet());
                     break;
                 case Weapons.Machinegun:
@@ -113,7 +118,7 @@ public class PlayerShooting : MonoBehaviour
             {
                 case Weapons.Pistol:
                     fireRate = 0.5f;
-                    bulletDamage = 5;
+                    bulletDamage = 4;
                     GameManager.dopamineIncreaseRate = 0.25f;
                     crosshairSprite.sprite = gunImages[0];
                     bulletSprite.sprite = bulletImages[0];
