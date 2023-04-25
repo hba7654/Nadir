@@ -10,6 +10,7 @@ public class ZombieController : MonoBehaviour
 
     [SerializeField] private int startHealth;
     [SerializeField] private float zombieSpeed;
+    [SerializeField] private float despawnTime;
     [SerializeField] private float ammoHealthDropPercentage;
     [SerializeField] private GameObject ammoDrop;
     [SerializeField] private GameObject healthDrop;
@@ -20,6 +21,7 @@ public class ZombieController : MonoBehaviour
     private NavMeshAgent agent;
     private NavMeshPath path;
     private SpriteRenderer sr;
+    private float despawnTimer;
 
     private Vector2 lastPos, curPos, dir;
     float timer = 0, speed;
@@ -39,6 +41,8 @@ public class ZombieController : MonoBehaviour
 
         sr = GetComponent<SpriteRenderer>();
         lastPos = transform.position;
+
+        despawnTimer = 0;
     }
 
     // Update is called once per frame
@@ -92,7 +96,11 @@ public class ZombieController : MonoBehaviour
     {
         if (collision.tag == "Bullet")
         {
-            Destroy(collision.gameObject);
+            //Deagle bullets go through
+            if(!(playerObject.GetComponent<PlayerShooting>().weapon == PlayerShooting.Weapons.Pistol && GameManager.dopamine >= 15))
+                Destroy(collision.gameObject);
+
+
             if(GameManager.dopamine >= 10)
                 health -= 2 * playerObject.GetComponent<PlayerShooting>().bulletDamage;
             else
@@ -107,6 +115,11 @@ public class ZombieController : MonoBehaviour
 
             StartCoroutine(Hurt());
         }
+    }
+
+    private void OnBecameInvisible()
+    {
+        
     }
 
     private IEnumerator Hurt()
