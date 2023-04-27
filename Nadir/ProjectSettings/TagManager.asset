@@ -16,6 +16,8 @@ TagManager:
   - Zombie Kingdom
   - Sibling
   - Sibling Bullet
+  - GunPickup
+  - GunPickup2
   layers:
   - Default
   - TransparentFX

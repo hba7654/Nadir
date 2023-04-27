@@ -31,6 +31,9 @@ public class PlayerShooting : MonoBehaviour
     private SpriteRenderer crosshairSprite;
     private SpriteRenderer bulletSprite;
 
+    public bool mgUnlocked = false;
+    public bool sgUnlocked = false;
+
     public enum Weapons { Pistol, Machinegun, Shotgun };
     // Start is called before the first frame update
     void Start()
@@ -113,6 +116,14 @@ public class PlayerShooting : MonoBehaviour
         if (context.started)
         {
             weapon = (Weapons)((int)(weapon + 1) % (Enum.GetValues(typeof(Weapons)).Length));
+
+            if (!mgUnlocked)
+            {
+                if (sgUnlocked)
+                {
+                    weapon = (Weapons)((int)(weapon + 1) % (Enum.GetValues(typeof(Weapons)).Length));
+                }
+            }
 
             switch (weapon)
             {

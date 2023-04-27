@@ -67,5 +67,15 @@ public class Grabber : MonoBehaviour
                 playerManager.questStep++;
             }
         }
+
+        else if (collision.tag == "GunPickup")
+        {
+        
+        }
+
+        else if (collision.tag == "GunPickup2")
+        {
+
+        }
     }
 }
