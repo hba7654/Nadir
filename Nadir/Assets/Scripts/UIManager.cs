@@ -30,6 +30,11 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Level 1");
     }
 
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
     public void MainMenu()
     {
         mainMenu.SetActive(true);
