@@ -285,6 +285,8 @@ public class GameManager : MonoBehaviour
 
         while (zombies.Count < (maxZombieCount + dopamine * zombieDopamineMultiplier) && numSpawned < (zombiesToSpawnAtOnce + dopamine))
         {
+            if (isPaused)
+                yield return new WaitUntil(() => !isPaused);
             if (zombieSpawnPoints.Count > 0)
             {
                 int spawnIndex = zombieSpawnPoints.Count > 1 ? Random.Range(0, zombieSpawnPoints.Count) : 0;

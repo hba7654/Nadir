@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject howTo;
     [SerializeField] private GameObject credits;
+    [SerializeField] private GameObject minimap;
 
     // Start is called before the first frame update
     void Start()
@@ -17,12 +18,21 @@ public class UIManager : MonoBehaviour
 
         howTo.SetActive(false);
         credits.SetActive(false);
+
+        minimap.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(GameManager.isPaused)
+        {
+            minimap.SetActive(true);
+        }
+        else
+        {
+            minimap.SetActive(false);
+        }
     }
 
     public void StartGame()
