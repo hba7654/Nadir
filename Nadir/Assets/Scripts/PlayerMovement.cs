@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveVector;
     private Animator animator;
     private SpriteRenderer playerSr;
+    private CinemachineVirtualCamera mainCam, cave1Cam, cave2Cam, cave2InnerCam;
+    private float mainCamSize, cave1CamSize, cave2CamSize, cave2InnerCamSize;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,16 @@ public class PlayerMovement : MonoBehaviour
         caveOne.SetActive(false);
         caveTwo.SetActive(false);
         caveTwoInner.SetActive(false);
+
+        mainCam = mainFloor.GetComponent<CinemachineVirtualCamera>();
+        cave1Cam = caveOne.GetComponent<CinemachineVirtualCamera>();
+        cave2Cam = caveTwo.GetComponent<CinemachineVirtualCamera>();
+        cave2InnerCam = caveTwoInner.GetComponent<CinemachineVirtualCamera>();
+
+        mainCamSize = mainCam.m_Lens.OrthographicSize;
+        cave1CamSize = cave1Cam.m_Lens.OrthographicSize;
+        cave2CamSize = cave2Cam.m_Lens.OrthographicSize;
+        cave2InnerCamSize = cave2InnerCam.m_Lens.OrthographicSize;
     }
 
     void FixedUpdate()
@@ -43,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
+
+        mainCam.m_Lens.OrthographicSize = mainCamSize - 1 + GameManager.dopamine/5;
+        cave1Cam.m_Lens.OrthographicSize = cave1CamSize - 1 + GameManager.dopamine / 5;
+        cave2Cam.m_Lens.OrthographicSize = cave2CamSize - 1 + GameManager.dopamine / 5;
+        cave2InnerCam.m_Lens.OrthographicSize = cave2InnerCamSize - 1 + GameManager.dopamine / 5;
     }
 
     public void Move(InputAction.CallbackContext context)

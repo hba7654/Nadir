@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -57,6 +58,8 @@ public class GameManager : MonoBehaviour
 
     private PlayerShooting playerShooting;
 
+    private CinemachineBrain camBrain;
+
 
     // Start is called before the first frame update
     void Start()
@@ -85,7 +88,8 @@ public class GameManager : MonoBehaviour
         canGainDopamine = true;
 
         gunImageSprite = gunImage.GetComponent<SpriteRenderer>();
-        //FindNearestSpawns();
+
+        camBrain = camera.GetComponent<CinemachineBrain>();
     }
 
     // Update is called once per frame
@@ -226,6 +230,8 @@ public class GameManager : MonoBehaviour
             }
 
             timeSinceLastKill += Time.deltaTime;
+
+            camBrain.m_DefaultBlend.m_Time = 2 - (1.5f * dopamine / 20f);
         }
     }
 
