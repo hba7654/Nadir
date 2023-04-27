@@ -118,6 +118,7 @@ public class PlayerShooting : MonoBehaviour
             {
                 case Weapons.Pistol:
                     //play pistol swap sound
+                    SoundManager.PlaySound("pistol_swap");
 
                     fireRate = 0.5f;
                     bulletDamage = 4;
@@ -127,6 +128,7 @@ public class PlayerShooting : MonoBehaviour
                     break;
                 case Weapons.Machinegun:
                     //play mg swap sound
+                    SoundManager.PlaySound("mg_swap");
 
                     fireRate = 2.5f;
                     bulletDamage = 4;
@@ -136,6 +138,7 @@ public class PlayerShooting : MonoBehaviour
                     break;
                 case Weapons.Shotgun:
                     //play sg swap sound
+                    SoundManager.PlaySound("sg_swap");
 
                     fireRate = 0.125f;
                     bulletDamage = 3;
@@ -169,6 +172,7 @@ public class PlayerShooting : MonoBehaviour
     private IEnumerator ShootBullet()
     {
         //Play pistol shoot sound
+        SoundManager.PlaySound("pistol_shoot");
 
         shootTimer = 1 / fireRate;
         GameObject bulletClone;
@@ -184,6 +188,7 @@ public class PlayerShooting : MonoBehaviour
     private IEnumerator ShootMG()
     {
         //Play mg shoot sound
+        SoundManager.PlaySound("mg_shoot");
 
         {
             mgAmmo--;
@@ -203,12 +208,11 @@ public class PlayerShooting : MonoBehaviour
     private void ShootSG()
     {
         //Play sg shoot sound
+        SoundManager.PlaySound("sg_shoot");
 
         {
             sgAmmo--;
             shootTimer = 1 / fireRate;
-
-            //soundManager.PlaySound("shotgun");
             GameObject bulletClone;
             Vector2 bulletSpawnPosition;
             bulletSpawnPosition = (Vector2)transform.position + mouseDirVector / 2;
@@ -375,7 +379,8 @@ public class PlayerShooting : MonoBehaviour
         //TODO
         if (collision.tag == "Ammo")
         {
-            //Play health pickup sound
+            //Play ammo pickup sound
+            SoundManager.PlaySound("ammo");
 
             sgAmmo += 4;
             if (GameManager.dopamine >= 15)

@@ -18,7 +18,7 @@ public class Grabber : MonoBehaviour
         if (collision.tag == "Health")
         {
             //Play health pickup sound
-
+            SoundManager.PlaySound("health");
 
             if (playerManager.health > 15 && playerManager.health <= 20)
             {
