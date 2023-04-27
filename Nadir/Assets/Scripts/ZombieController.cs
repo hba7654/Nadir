@@ -75,21 +75,6 @@ public class ZombieController : MonoBehaviour
             lastPos = curPos;
 
 
-            if (health <= 0)
-            {
-                GameManager.IncreaseDopamine();
-                GameManager.zombies.Remove(gameObject);
-                Destroy(gameObject);
-
-                if (Random.Range(0, 1.0f) <= ammoHealthDropPercentage)
-                {
-                    if (Random.Range(0, 1.0f) <= 0.75f)
-                        Instantiate(ammoDrop, transform.position, Quaternion.identity);
-                    else
-                        Instantiate(healthDrop, transform.position, Quaternion.identity);
-                }
-            }
-
             if (isInvis)
                 despawnTimer -= Time.deltaTime;
 
@@ -133,12 +118,34 @@ public class ZombieController : MonoBehaviour
 
             StartCoroutine(Hurt());
         }
+
+
+        if (health <= 0)
+        {
+            GameManager.IncreaseDopamine();
+            GameManager.zombies.Remove(gameObject);
+            Destroy(gameObject);
+
+            if (Random.Range(0, 1.0f) <= ammoHealthDropPercentage)
+            {
+                if (Random.Range(0, 1.0f) <= 0.75f)
+                    Instantiate(ammoDrop, transform.position, Quaternion.identity);
+                else
+                    Instantiate(healthDrop, transform.position, Quaternion.identity);
+            }
+        }
     }
 
     private void OnBecameInvisible()
     {
         despawnTimer = despawnTime;
         isInvis = true;
+    }
+
+    private void OnBecameVisible()
+    {
+        despawnTimer = despawnTime;
+        isInvis = false;
     }
 
     private IEnumerator Hurt()
