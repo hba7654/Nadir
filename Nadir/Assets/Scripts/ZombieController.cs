@@ -164,7 +164,7 @@ public class ZombieController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(3, 10.5f));
             if (!GameManager.isPaused)
             {
-                SoundManager.PlaySound("zombie_" + Random.Range(0, 4).ToString());
+                SoundManager.PlaySound("zombie_" + Random.Range(0, 5).ToString());
             }
         }
     }
