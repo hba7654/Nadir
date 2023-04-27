@@ -45,6 +45,8 @@ public class ZombieController : MonoBehaviour
 
         despawnTimer = despawnTime;
         isInvis = false;
+
+        StartCoroutine(Groan());
     }
 
     // Update is called once per frame
@@ -146,6 +148,15 @@ public class ZombieController : MonoBehaviour
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.25f);
         spriteRenderer.color = Color.white;
+    }
+
+    private IEnumerator Groan()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(3, 10.5f));
+            SoundManager.PlaySound("zombie_" + Random.Range(0, 4).ToString());
+        }
     }
 
     private IEnumerator NewPath()

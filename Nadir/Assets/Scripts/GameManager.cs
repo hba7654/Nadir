@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text dopEnhanceText;
     [SerializeField] private GameObject gunImage;
     [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject minimap;
 
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject dopamineBar;
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour
         timer = 300.0f;
 
         panel.SetActive(false);
+        minimap.SetActive(false);
 
         canGainDopamine = true;
 
@@ -320,6 +322,7 @@ public class GameManager : MonoBehaviour
         {
             isPaused = !isPaused;
             panel.SetActive(!panel.activeInHierarchy);
+            minimap.SetActive(!minimap.activeInHierarchy);
         }
     }
 

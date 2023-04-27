@@ -9,7 +9,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject howTo;
     [SerializeField] private GameObject credits;
-    [SerializeField] private GameObject minimap;
+
+    [SerializeField] private Image bg;
+    [SerializeField] private Sprite[] bgAnim;
+
+    private int arrCounter;
+    private int updateCounter;
 
     // Start is called before the first frame update
     void Start()
@@ -19,19 +24,21 @@ public class UIManager : MonoBehaviour
         howTo.SetActive(false);
         credits.SetActive(false);
 
-        minimap.SetActive(false);
+        arrCounter = 0;
+        updateCounter = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(GameManager.isPaused)
+        if (bg != null)
         {
-            minimap.SetActive(true);
-        }
-        else
-        {
-            minimap.SetActive(false);
+            updateCounter = (updateCounter + 1) % 5;
+            if (updateCounter == 0)
+            {
+                bg.sprite = bgAnim[arrCounter];
+                arrCounter = (arrCounter + 1) % bgAnim.Length;
+            }
         }
     }
 
