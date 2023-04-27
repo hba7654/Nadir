@@ -31,8 +31,8 @@ public class PlayerShooting : MonoBehaviour
     private SpriteRenderer crosshairSprite;
     private SpriteRenderer bulletSprite;
 
-    public bool mgUnlocked = false;
-    public bool sgUnlocked = false;
+    public bool mgUnlocked;
+    public bool sgUnlocked;
 
     public enum Weapons { Pistol, Machinegun, Shotgun };
     // Start is called before the first frame update
@@ -53,6 +53,9 @@ public class PlayerShooting : MonoBehaviour
         GameManager.dopamineIncreaseRate = 0.25f;
         crosshairSprite.sprite = gunImages[0];
         bulletSprite.sprite = bulletImages[0];
+
+        mgUnlocked = false;
+        sgUnlocked = false;
     }
 
     // Update is called once per frame
@@ -117,12 +120,21 @@ public class PlayerShooting : MonoBehaviour
         {
             weapon = (Weapons)((int)(weapon + 1) % (Enum.GetValues(typeof(Weapons)).Length));
 
-            if (!mgUnlocked)
+            if (weapon == Weapons.Machinegun && !mgUnlocked)
             {
                 if (sgUnlocked)
                 {
-                    weapon = (Weapons)((int)(weapon + 1) % (Enum.GetValues(typeof(Weapons)).Length));
+                    weapon = Weapons.Shotgun;
                 }
+                else
+                {
+                    weapon = Weapons.Pistol;
+                }
+            }
+
+            if (weapon == Weapons.Shotgun && !sgUnlocked)
+            {
+                weapon = Weapons.Pistol;
             }
 
             switch (weapon)
@@ -398,6 +410,16 @@ public class PlayerShooting : MonoBehaviour
                 mgAmmo += 40;
             else
                 mgAmmo += 15;
+            Destroy(collision.gameObject);
+        }
+        else if(collision.tag == "GunPickup")
+        {
+            mgUnlocked = true;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.tag == "GunPickup2")
+        {
+            sgUnlocked = true;
             Destroy(collision.gameObject);
         }
     }
