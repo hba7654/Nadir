@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 19191
+  controlID: 20880
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 19192
+  controlID: 20827
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 19193
+  controlID: 20767
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -623,8 +623,8 @@ MonoBehaviour:
     y: 600.8
     width: 1561.6
     height: 410.00006
-  m_MinSize: {x: 231, y: 271}
-  m_MaxSize: {x: 10001, y: 10021}
+  m_MinSize: {x: 230, y: 250}
+  m_MaxSize: {x: 10000, y: 10000}
   m_ActualView: {fileID: 10}
   m_Panes:
   - {fileID: 10}
@@ -672,21 +672,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Audio
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Audio
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Hadi\Desktop\Uni\IGME 580 Spring 23\Nadir\Nadir
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 46.99994}
-    m_SelectedIDs: 447f0000
-    m_LastClickedID: 32580
+    m_SelectedIDs: 2a7f0000
+    m_LastClickedID: 32554
     m_ExpandedIDs: 000000002a7f00002c7f00002e7f000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -740,8 +740,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 843e01007a3e01007e3e01007c3e0100
-    m_LastClickedInstanceID: 81540
+    m_SelectedInstanceIDs: c8e2f0ff0ad2f0ff
+    m_LastClickedInstanceID: -990520
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300007c3600007a360000e0880000e436000094880000
     m_RenameOverlay:
@@ -855,6 +855,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_ObjectsLockedBeforeSerialization:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   m_InstanceIDsLockedBeforeSerialization: d851f0ff

@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
-        musicPlayer.volume = GameManager.isPaused ? musicVolumeSlider.value * 0.5f : musicVolumeSlider.value;
+        musicPlayer.volume = GameManager.isPaused ? musicVolumeSlider.value * 0.25f : musicVolumeSlider.value;
         if(!musicPlayer.isPlaying)
         {
             musicPlayer.clip = songs[Random.Range(0, songs.Length)];
