@@ -97,9 +97,9 @@ public class GameManager : MonoBehaviour
     {
         if (!isPaused)
         {
-            panel.SetActive(false);
-
             dopamineLimit = dopamineMax;
+            panel.SetActive(false);
+            minimap.SetActive(false);
 
             dopamineBar.transform.localScale = new Vector3((dopamine - 5) / 2.173f, 1, 1);
             healthBar.transform.localScale = new Vector3(playerObject.GetComponent<PlayerManager>().health/2.87f, 1, 1);
@@ -178,6 +178,11 @@ public class GameManager : MonoBehaviour
 
             //Change camera transition time based on dopamine
             camBrain.m_DefaultBlend.m_Time = 2 - (1.5f * dopamine / 20f);
+        }
+        else
+        {
+            panel.SetActive(true);
+            minimap.SetActive(true);
         }
     }
 
@@ -264,6 +269,7 @@ public class GameManager : MonoBehaviour
     {
         if(context.performed)
         {
+            Debug.Log("Panel is: " + panel);
             isPaused = !isPaused;
             panel.SetActive(!panel.activeInHierarchy);
             minimap.SetActive(!minimap.activeInHierarchy);

@@ -337,7 +337,7 @@ public class PlayerShooting : MonoBehaviour
         //Controller Controls
         if (context.control.displayName == "Right Stick")
         {
-            Debug.Log("AIMING W CONTROLLER");
+            //Debug.Log("AIMING W CONTROLLER");
             mouseDirVector = context.ReadValue<Vector2>();
             //mouseDirVector.x = Mathf.Round(mouseDirVector.x * 50) / 50;
             //mouseDirVector.y = Mathf.Round(mouseDirVector.y * 50) / 50;
@@ -351,7 +351,7 @@ public class PlayerShooting : MonoBehaviour
         //Mouse Controls
         else if (context.control.displayName == "Position")
         {
-            Debug.Log("AIMING W MOUSE");
+            //Debug.Log("AIMING W MOUSE");
             isAiming = true;
             usingMouse = true;
             crosshair.SetActive(true);

@@ -16,8 +16,11 @@ public class UnlimitedHordeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        gameManager.UpdateText(gameManager.questText, string.Format("Time {0:F2}s", timer));
-        //gameManager.maxZombieCount = ...
+        if (!GameManager.isPaused)
+        {
+            timer += Time.deltaTime;
+            gameManager.UpdateText(gameManager.questText, string.Format("Time {0:F2}s", timer));
+            //gameManager.maxZombieCount = ...
+        }
     }
 }
