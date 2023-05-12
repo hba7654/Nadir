@@ -8,12 +8,40 @@ public class MainGameManager : MonoBehaviour
 {
     private GameManager gameManager;
     private float timer;
+    private CinemachineVirtualCamera mainCam, cave1Cam, cave2Cam, cave2InnerCam;
+    private float mainCamSize, cave1CamSize, cave2CamSize, cave2InnerCamSize;
+
+    public GameObject mainFloor;
+    public GameObject caveOne;
+    public GameObject caveTwo;
+    public GameObject caveTwoInner;
+    private static GameObject mainFloorS, caveOneS, caveTwoS, caveTwoInnerS;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = this.GetComponent<GameManager>();
         timer = 300.0f;
+
+        mainFloor.SetActive(true);
+        caveOne.SetActive(false);
+        caveTwo.SetActive(false);
+        caveTwoInner.SetActive(false);
+
+        mainCam = mainFloor.GetComponent<CinemachineVirtualCamera>();
+        cave1Cam = caveOne.GetComponent<CinemachineVirtualCamera>();
+        cave2Cam = caveTwo.GetComponent<CinemachineVirtualCamera>();
+        cave2InnerCam = caveTwoInner.GetComponent<CinemachineVirtualCamera>();
+
+        mainCamSize = mainCam.m_Lens.OrthographicSize;
+        cave1CamSize = cave1Cam.m_Lens.OrthographicSize;
+        cave2CamSize = cave2Cam.m_Lens.OrthographicSize;
+        cave2InnerCamSize = cave2InnerCam.m_Lens.OrthographicSize;
+
+        mainFloorS = mainFloor;
+        caveOneS = caveOne;
+        caveTwoS = caveTwo;
+        caveTwoInnerS = caveTwoInner;
     }
 
     // Update is called once per frame
@@ -73,6 +101,38 @@ public class MainGameManager : MonoBehaviour
                 gameManager.UpdateText(gameManager.questText, "ANDDD THATS ALL FOLKS... GOOD LUCK SURVIVING");
                 gameManager.maxZombieCount = 60;
                 gameManager.zombieSpawnFrequency = 3;
+                break;
+        }
+
+
+        mainCam.m_Lens.OrthographicSize = mainCamSize - 1 + GameManager.dopamine / 5;
+        cave1Cam.m_Lens.OrthographicSize = cave1CamSize - 1 + GameManager.dopamine / 5;
+        cave2Cam.m_Lens.OrthographicSize = cave2CamSize - 1 + GameManager.dopamine / 5;
+        cave2InnerCam.m_Lens.OrthographicSize = cave2InnerCamSize - 1 + GameManager.dopamine / 5;
+    }
+
+    public static void ChangeToCam(string name)
+    {
+        switch (name)
+        {
+            case "main":
+                mainFloorS.SetActive(true);
+                caveOneS.SetActive(false);
+                caveTwoS.SetActive(false);
+                caveTwoInnerS.SetActive(false);
+                break;
+            case "cave 1":
+                mainFloorS.SetActive(false);
+                caveOneS.SetActive(true);
+                break;
+            case "cave 2":
+                mainFloorS.SetActive(false);
+                caveTwoInnerS.SetActive(false);
+                caveTwoS.SetActive(true);
+                break;
+            case "cave 2 inner":
+                caveTwoS.SetActive(false);
+                caveTwoInnerS.SetActive(true);
                 break;
         }
     }
