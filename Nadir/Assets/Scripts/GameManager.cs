@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     private bool isSpawning;
 
     [Header("Dopamine Variables")]
-    [SerializeField] private float timeToStartLosingDopamine;
+    public float timeToStartLosingDopamine;
     public float dopamineStart;
     public float dopamineMax;
     public static float dopamine = 2;
@@ -32,11 +32,12 @@ public class GameManager : MonoBehaviour
     public static float dopamineDecreaseRate;
     public static float initDopamineDecreaseRate = 1.15f;
     private static float dopamineLimit;
-    private static float timeSinceLastKill;
+    public static float timeSinceLastKill;
     private static float dopamineIncrease;
     private static float dopamineIncreaseLimit = 1;
     public static bool canGainDopamine;
-    public static int zombieCounter; 
+    public static int zombieCounter;
+    public static bool isLosingDopamine;
 
     [Header("UI Objects")]
     [SerializeField] private Text zombieCounterText;
@@ -90,6 +91,8 @@ public class GameManager : MonoBehaviour
         gunImageSprite = gunImage.GetComponent<SpriteRenderer>();
 
         camBrain = camera.GetComponent<CinemachineBrain>();
+
+        isLosingDopamine = false;
     }
 
     // Update is called once per frame
@@ -168,6 +171,15 @@ public class GameManager : MonoBehaviour
             //Player starts losing dopamine after a certain amount of time after gaining it
             if (timeSinceLastKill > timeToStartLosingDopamine)
             {
+                isLosingDopamine = true;
+            }
+            else
+            {
+                isLosingDopamine = false;
+            }
+
+            if(isLosingDopamine)
+            {
                 if (dopamine > dopamineStart)
                     dopamine -= (Time.deltaTime * dopamineDecreaseRate);
                 else
@@ -197,9 +209,7 @@ public class GameManager : MonoBehaviour
     public static void DepleteDopamine()
     {
         timeSinceLastKill = 100;
-        //dopamine = dopamineStartStatic;
     }
-
     public static void IncreaseDopamine()
     {
         dopamineIncrease = dopamineIncreaseRate / timeSinceLastKill;

@@ -283,11 +283,13 @@ public class PlayerShooting : MonoBehaviour
         bulletSiblingClone.GetComponent<SiblingController>().playerObject = gameObject;
 
         GameManager.dopamineDecreaseRate = 10.0f;
+        GameManager.isLosingDopamine = true;
         GameManager.canGainDopamine = false;
 
         yield return new WaitForSeconds(altFireTime);
 
         GameManager.dopamineDecreaseRate = GameManager.initDopamineDecreaseRate;
+        GameManager.isLosingDopamine = false;
         GameManager.canGainDopamine = true;
         Destroy(bulletSiblingClone);
     }
@@ -299,11 +301,13 @@ public class PlayerShooting : MonoBehaviour
         mgAmmo = 100000;
 
         GameManager.dopamineDecreaseRate = 10.0f;
+        GameManager.isLosingDopamine = true;
         GameManager.canGainDopamine = false;
 
         yield return new WaitForSeconds(altFireTime);
 
         GameManager.dopamineDecreaseRate = GameManager.initDopamineDecreaseRate;
+        GameManager.isLosingDopamine = false;
         GameManager.canGainDopamine = true;
         mgAmmo = tempMGAmmo;
     }
@@ -317,6 +321,7 @@ public class PlayerShooting : MonoBehaviour
         Vector2 initialAngle = mouseDirVector;
 
         GameManager.dopamineDecreaseRate = 10.0f;
+        GameManager.isLosingDopamine = true;
         GameManager.canGainDopamine = false;
 
         for (int j = 0; j < 5; j++)
@@ -331,6 +336,7 @@ public class PlayerShooting : MonoBehaviour
             yield return new WaitForSeconds(0.8f);
         }
         GameManager.dopamineDecreaseRate = GameManager.initDopamineDecreaseRate;
+        GameManager.isLosingDopamine = false;
         GameManager.canGainDopamine = true;
 
         yield return null;
