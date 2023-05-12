@@ -28,9 +28,9 @@ public class GameManager : MonoBehaviour
     public float dopamineStart;
     public float dopamineMax;
     public static float dopamine = 2;
-    private static float dopamineStartStatic;
     public static float dopamineIncreaseRate;
-    private static float dopamineDecreaseRate = 1.5f;
+    public static float dopamineDecreaseRate;
+    public static float initDopamineDecreaseRate = 1.15f;
     private static float dopamineLimit;
     private static float timeSinceLastKill;
     private static float dopamineIncrease;
@@ -65,8 +65,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         dopamine = dopamineStart;
-        dopamineStartStatic = dopamineStart;
         dopamineLimit = dopamineMax;
+        dopamineDecreaseRate = initDopamineDecreaseRate;
 
         zombies = new List<GameObject>();
         zombieSpawnPoints = new List<Vector2>();
@@ -196,7 +196,6 @@ public class GameManager : MonoBehaviour
 
     public static void DepleteDopamine()
     {
-        dopamineDecreaseRate = 10.0f;
         timeSinceLastKill = 100;
         //dopamine = dopamineStartStatic;
     }

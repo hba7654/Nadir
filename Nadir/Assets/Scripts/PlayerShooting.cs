@@ -281,10 +281,13 @@ public class PlayerShooting : MonoBehaviour
         Vector2 spawnPos = (Vector2)transform.position + mouseDirVector / 2.5f;
         GameObject bulletSiblingClone = Instantiate(bulletSibling, spawnPos, Quaternion.identity);
         bulletSiblingClone.GetComponent<SiblingController>().playerObject = gameObject;
+
+        GameManager.dopamineDecreaseRate = 10.0f;
         GameManager.canGainDopamine = false;
 
         yield return new WaitForSeconds(altFireTime);
 
+        GameManager.dopamineDecreaseRate = GameManager.initDopamineDecreaseRate;
         GameManager.canGainDopamine = true;
         Destroy(bulletSiblingClone);
     }
@@ -294,10 +297,13 @@ public class PlayerShooting : MonoBehaviour
 
         int tempMGAmmo = mgAmmo;
         mgAmmo = 100000;
+
+        GameManager.dopamineDecreaseRate = 10.0f;
         GameManager.canGainDopamine = false;
 
         yield return new WaitForSeconds(altFireTime);
 
+        GameManager.dopamineDecreaseRate = GameManager.initDopamineDecreaseRate;
         GameManager.canGainDopamine = true;
         mgAmmo = tempMGAmmo;
     }
@@ -309,6 +315,8 @@ public class PlayerShooting : MonoBehaviour
         Vector2 bulletSpawnPosition;
 
         Vector2 initialAngle = mouseDirVector;
+
+        GameManager.dopamineDecreaseRate = 10.0f;
         GameManager.canGainDopamine = false;
 
         for (int j = 0; j < 5; j++)
@@ -322,6 +330,7 @@ public class PlayerShooting : MonoBehaviour
             }
             yield return new WaitForSeconds(0.8f);
         }
+        GameManager.dopamineDecreaseRate = GameManager.initDopamineDecreaseRate;
         GameManager.canGainDopamine = true;
 
         yield return null;
