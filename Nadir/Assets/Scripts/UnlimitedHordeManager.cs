@@ -17,7 +17,7 @@ public class UnlimitedHordeManager : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        gameManager.UpdateText(gameManager.questText, string.Format("Time: {0:F2}s", timer));
-
+        gameManager.UpdateText(gameManager.questText, string.Format("Time {0:F2}s", timer));
+        //gameManager.maxZombieCount = ...
     }
 }
