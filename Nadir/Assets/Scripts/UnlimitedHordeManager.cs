@@ -19,7 +19,7 @@ public class UnlimitedHordeManager : MonoBehaviour
         if (!GameManager.isPaused)
         {
             timer += Time.deltaTime;
-            gameManager.UpdateText(gameManager.questText, string.Format("Time {0:F2}s", gameManager.timeToStartLosingDopamine - GameManager.timeSinceLastKill));
+            gameManager.UpdateText(gameManager.questText, string.Format("Time {0:F2}s", timer));
             //gameManager.maxZombieCount = ...
         }
     }
