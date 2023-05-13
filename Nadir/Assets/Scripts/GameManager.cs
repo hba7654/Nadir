@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public float timeToStartLosingDopamine;
     public float dopamineStart;
     public float dopamineMax;
+    public static float dopamineStartStatic;
     public static float dopamine = 2;
     public static float dopamineIncreaseRate;
     public static float dopamineDecreaseRate;
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
     public static bool canGainDopamine;
     public static int zombieCounter;
     public static bool isLosingDopamine;
+    public static bool reverseDopamine;
+
 
     [Header("UI Objects")]
     [SerializeField] private Text zombieCounterText;
@@ -61,6 +64,10 @@ public class GameManager : MonoBehaviour
 
     private CinemachineBrain camBrain;
 
+    private void Awake()
+    {
+        reverseDopamine = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -93,6 +100,8 @@ public class GameManager : MonoBehaviour
         camBrain = camera.GetComponent<CinemachineBrain>();
 
         isLosingDopamine = false;
+
+        dopamineStartStatic = dopamineStart;
     }
 
     // Update is called once per frame
@@ -180,10 +189,20 @@ public class GameManager : MonoBehaviour
 
             if(isLosingDopamine)
             {
-                if (dopamine > dopamineStart)
-                    dopamine -= (Time.deltaTime * dopamineDecreaseRate);
+                if (!reverseDopamine)
+                {
+                    if (dopamine > dopamineStart)
+                        dopamine -= (Time.deltaTime * dopamineDecreaseRate);
+                    else
+                        dopamine = dopamineStart;
+                }
                 else
-                    dopamine = dopamineStart;
+                {
+                    if (dopamine < dopamineMax)
+                        dopamine += (Time.deltaTime * dopamineDecreaseRate);
+                    else
+                        dopamine = dopamineMax;
+                }
             }
 
             timeSinceLastKill += Time.deltaTime;
@@ -215,22 +234,45 @@ public class GameManager : MonoBehaviour
         dopamineIncrease = dopamineIncreaseRate / timeSinceLastKill;
         if (canGainDopamine)
         {
-            //Debug.Log("Dopamine Increase = " + dopamineIncrease);
-            if (dopamineIncrease >= dopamineIncreaseLimit)
+            if (!reverseDopamine)
             {
-                //Debug.Log("Having a bit too much fun there, eh? Increase is now 2.5");
-                dopamineIncrease = dopamineIncreaseLimit;
-            }
+                //Debug.Log("Dopamine Increase = " + dopamineIncrease);
+                if (dopamineIncrease >= dopamineIncreaseLimit)
+                {
+                    //Debug.Log("Having a bit too much fun there, eh? Increase is now 2.5");
+                    dopamineIncrease = dopamineIncreaseLimit;
+                }
 
-            if ((dopamine + dopamineIncrease) >= dopamineLimit)
-            {
-                //Debug.Log("Way too high dope, set to max");
-                dopamine = dopamineLimit;
-            }
+                if ((dopamine + dopamineIncrease) >= dopamineLimit)
+                {
+                    //Debug.Log("Way too high dope, set to max");
+                    dopamine = dopamineLimit;
+                }
+                else
+                {
+                    //Debug.Log("Good, take your time, relax c:");
+                    dopamine += dopamineIncrease;
+                }
+            } 
             else
             {
-                //Debug.Log("Good, take your time, relax c:");
-                dopamine += dopamineIncrease;
+                //Debug.Log("Dopamine Increase = " + dopamineIncrease);
+                if (dopamineIncrease >= dopamineIncreaseLimit)
+                {
+                    //Debug.Log("Having a bit too much fun there, eh? Increase is now 2.5");
+                    dopamineIncrease = dopamineIncreaseLimit;
+                }
+
+                if ((dopamine - dopamineIncrease) <= dopamineStartStatic)
+                {
+                    //Debug.Log("Way too high dope, set to max");
+                    dopamine = dopamineStartStatic;
+                }
+                else
+                {
+                    //Debug.Log("Good, take your time, relax c:");
+                    dopamine -= dopamineIncrease;
+                }
             }
 
             timeSinceLastKill = 0;

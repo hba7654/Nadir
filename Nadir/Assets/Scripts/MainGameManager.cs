@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MainGameManager : MonoBehaviour
 {
+    [SerializeField] private bool reverseDopamine;
+
     private GameManager gameManager;
     private float timer;
     private CinemachineVirtualCamera mainCam, cave1Cam, cave2Cam, cave2InnerCam;
@@ -42,6 +44,8 @@ public class MainGameManager : MonoBehaviour
         caveOneS = caveOne;
         caveTwoS = caveTwo;
         caveTwoInnerS = caveTwoInner;
+
+        GameManager.reverseDopamine = reverseDopamine;
     }
 
     // Update is called once per frame

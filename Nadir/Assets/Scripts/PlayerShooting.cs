@@ -21,6 +21,7 @@ public class PlayerShooting : MonoBehaviour
     private int startMGAmmo;
     private int startSGAmmo;
     private bool isShooting;
+    private bool alting;
     private float fireRate;
     private bool isAiming;
     private bool usingMouse;
@@ -39,6 +40,7 @@ public class PlayerShooting : MonoBehaviour
     void Start()
     {
         shootTimer = 0;
+        alting = false;
 
         startMGAmmo = 60;
         startSGAmmo = 16;
@@ -256,8 +258,9 @@ public class PlayerShooting : MonoBehaviour
 
     public void AltFire()
     {
-        if (GameManager.dopamine >= 20)
+        if (!alting && GameManager.dopamine >= 20)
         {
+            alting = true;
             GameManager.DepleteDopamine();
             switch (weapon)
             {
@@ -276,21 +279,27 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator PistolAlt()
     {
-        //Play pistol alt sound
-
-        Vector2 spawnPos = (Vector2)transform.position + mouseDirVector / 2.5f;
-        GameObject bulletSiblingClone = Instantiate(bulletSibling, spawnPos, Quaternion.identity);
-        bulletSiblingClone.GetComponent<SiblingController>().playerObject = gameObject;
 
         GameManager.dopamineDecreaseRate = 10.0f;
         GameManager.isLosingDopamine = true;
         GameManager.canGainDopamine = false;
+
+        //yield return new WaitForSeconds(0.05f);
+        GameObject bulletSiblingClone = null;
+
+        //Play pistol alt sound
+
+        Vector2 spawnPos = (Vector2)transform.position + mouseDirVector / 2.5f;
+        bulletSiblingClone = Instantiate(bulletSibling, spawnPos, Quaternion.identity);
+        bulletSiblingClone.GetComponent<SiblingController>().playerObject = gameObject;
+        
 
         yield return new WaitForSeconds(altFireTime);
 
         GameManager.dopamineDecreaseRate = GameManager.initDopamineDecreaseRate;
         GameManager.isLosingDopamine = false;
         GameManager.canGainDopamine = true;
+        alting = false;
         Destroy(bulletSiblingClone);
     }
     private IEnumerator MGAlt()
@@ -309,6 +318,7 @@ public class PlayerShooting : MonoBehaviour
         GameManager.dopamineDecreaseRate = GameManager.initDopamineDecreaseRate;
         GameManager.isLosingDopamine = false;
         GameManager.canGainDopamine = true;
+        alting = false;
         mgAmmo = tempMGAmmo;
     }
     private IEnumerator SGAlt()
@@ -338,6 +348,7 @@ public class PlayerShooting : MonoBehaviour
         GameManager.dopamineDecreaseRate = GameManager.initDopamineDecreaseRate;
         GameManager.isLosingDopamine = false;
         GameManager.canGainDopamine = true;
+        alting = false;
 
         yield return null;
     }
