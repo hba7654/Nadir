@@ -11,36 +11,40 @@ public class GameManager : MonoBehaviour
     public static bool isPaused;
     [SerializeField] private Camera camera;
     [SerializeField] private GameObject zombieObject;
-    [SerializeField] private GameObject playerObject;
+    public GameObject playerObject;
 
     [Header("Zombie Spawning Variables")]
     public static List<GameObject> zombies;
     public static List<Vector2> zombieSpawnPoints;
     [SerializeField] private int zombieSpawnRadius;
-    [SerializeField] private int maxZombieCount;
-    [SerializeField] private int zombieSpawnFrequency;
+    public int maxZombieCount;
+    public int zombieSpawnFrequency;
     [SerializeField] private int zombiesToSpawnAtOnce;
     [SerializeField] private int zombieDopamineMultiplier;
     private bool isSpawning;
 
     [Header("Dopamine Variables")]
-    [SerializeField] private float timeToStartLosingDopamine;
-    [SerializeField] private float dopamineStart;
-    [SerializeField] private float dopamineMax;
+    public float timeToStartLosingDopamine;
+    public float dopamineStart;
+    public float dopamineMax;
+    public static float dopamineStartStatic;
     public static float dopamine = 2;
-    private static float dopamineStartStatic;
     public static float dopamineIncreaseRate;
-    private static float dopamineDecreaseRate = 1.5f;
+    public static float dopamineDecreaseRate;
+    public static float initDopamineDecreaseRate = 1.15f;
     private static float dopamineLimit;
-    private static float timeSinceLastKill;
+    public static float timeSinceLastKill;
     private static float dopamineIncrease;
     private static float dopamineIncreaseLimit = 1;
     public static bool canGainDopamine;
-    private static int zombieCounter; 
+    public static int zombieCounter;
+    public static bool isLosingDopamine;
+    public static bool reverseDopamine;
+
 
     [Header("UI Objects")]
     [SerializeField] private Text zombieCounterText;
-    [SerializeField] private Text questText;
+    public Text questText;
     [SerializeField] private Text ammoText;
     [SerializeField] private Text dopEnhanceText;
     [SerializeField] private GameObject gunImage;
@@ -55,19 +59,22 @@ public class GameManager : MonoBehaviour
     private SpriteRenderer gunImageSprite;
 
 
-    private float timer;
 
     private PlayerShooting playerShooting;
 
     private CinemachineBrain camBrain;
 
+    private void Awake()
+    {
+        reverseDopamine = false;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         dopamine = dopamineStart;
-        dopamineStartStatic = dopamineStart;
         dopamineLimit = dopamineMax;
+        dopamineDecreaseRate = initDopamineDecreaseRate;
 
         zombies = new List<GameObject>();
         zombieSpawnPoints = new List<Vector2>();
@@ -82,7 +89,6 @@ public class GameManager : MonoBehaviour
         playerShooting = playerObject.GetComponent<PlayerShooting>();
 
         zombieCounter = 0;
-        timer = 300.0f;
 
         panel.SetActive(false);
         minimap.SetActive(false);
@@ -92,6 +98,10 @@ public class GameManager : MonoBehaviour
         gunImageSprite = gunImage.GetComponent<SpriteRenderer>();
 
         camBrain = camera.GetComponent<CinemachineBrain>();
+
+        isLosingDopamine = false;
+
+        dopamineStartStatic = dopamineStart;
     }
 
     // Update is called once per frame
@@ -99,7 +109,9 @@ public class GameManager : MonoBehaviour
     {
         if (!isPaused)
         {
+            dopamineLimit = dopamineMax;
             panel.SetActive(false);
+            minimap.SetActive(false);
 
             dopamineBar.transform.localScale = new Vector3((dopamine - 5) / 2.173f, 1, 1);
             healthBar.transform.localScale = new Vector3(playerObject.GetComponent<PlayerManager>().health/2.87f, 1, 1);
@@ -153,68 +165,11 @@ public class GameManager : MonoBehaviour
 
             gunImageSprite.sprite = gunImages[(int)playerShooting.weapon];
 
-            // Updates the quest and the quest text in the UI
-            switch (playerObject.GetComponent<PlayerManager>().questStep)
-            {
-                // Quest step 1
-                case 1:
-                    questText.text = string.Format("Kill {0} zombies", 15 - zombieCounter);
-                    if (zombieCounter >= 15)
-                    {
-                        playerObject.GetComponent<PlayerManager>().questStep++;
-                    }
-                    break;
-
-                // Quest step 2
-                case 2:
-                    questText.text = string.Format("Find {0} bomb parts", 3 - playerObject.GetComponent<PlayerManager>().bombParts);
-                    break;
-
-                // Quest step 3
-                case 3:
-                    UpdateText(questText, "Find the Zombie Kingdom");
-                    maxZombieCount = 25;
-                    dopamineMax = 20;
-                    dopamineLimit = dopamineMax;
-                    break;
-
-                // Quest step 4
-                case 4:
-                    UpdateText(questText, "Find the Zombie Key. Hint nearby cave");
-                    maxZombieCount = 40;
-                    zombieSpawnFrequency = 4;
-                    break;
-
-                // Quest step 5
-                case 5:
-                    timer -= Time.deltaTime * dopamine;
-                    UpdateText(questText, string.Format("SURVIVE for {0:F2}", timer / dopamineStart));
-                    
-                    if(timer < 0)
-                    {
-                        playerObject.GetComponent<PlayerManager>().mountainTileSet.SetActive(false);
-                        playerObject.GetComponent<PlayerManager>().questStep++;
-                    }
-
-                    break;
-
-                // Quest step 6
-                case 6:
-                    UpdateText(questText, "Use the key on the gates of the Zombie Kingdom. Hint Top of the map");
-                    break;
-
-                // Quest step 6
-                case 7:
-                    UpdateText(questText, "ANDDD THATS ALL FOLKS... GOOD LUCK SURVIVING");
-                    maxZombieCount = 60;
-                    zombieSpawnFrequency = 3;
-                    break;
-            }
-
 
             zombieCounterText.text = string.Format("Kills {0}", zombieCounter); 
             
 
+            //Conditions to spawn zombies
             if (!isSpawning && (zombies.Count == 0 || Mathf.FloorToInt(Time.time) % (zombieSpawnFrequency * 5 / Mathf.Floor(dopamine)) == 0))
             {
                 //Debug.Log("Time to Spawn");
@@ -225,15 +180,40 @@ public class GameManager : MonoBehaviour
             //Player starts losing dopamine after a certain amount of time after gaining it
             if (timeSinceLastKill > timeToStartLosingDopamine)
             {
-                if (dopamine > dopamineStart)
-                    dopamine -= (Time.deltaTime * dopamineDecreaseRate);
+                isLosingDopamine = true;
+            }
+            else
+            {
+                isLosingDopamine = false;
+            }
+
+            if(isLosingDopamine)
+            {
+                if (!reverseDopamine)
+                {
+                    if (dopamine > dopamineStart)
+                        dopamine -= (Time.deltaTime * dopamineDecreaseRate);
+                    else
+                        dopamine = dopamineStart;
+                }
                 else
-                    dopamine = dopamineStart;
+                {
+                    if (dopamine < dopamineMax)
+                        dopamine += (Time.deltaTime * dopamineDecreaseRate);
+                    else
+                        dopamine = dopamineMax;
+                }
             }
 
             timeSinceLastKill += Time.deltaTime;
 
+            //Change camera transition time based on dopamine
             camBrain.m_DefaultBlend.m_Time = 2 - (1.5f * dopamine / 20f);
+        }
+        else
+        {
+            panel.SetActive(true);
+            minimap.SetActive(true);
         }
     }
 
@@ -247,36 +227,56 @@ public class GameManager : MonoBehaviour
 
     public static void DepleteDopamine()
     {
-        dopamine = dopamineStartStatic;
+        timeSinceLastKill = 100;
     }
-
     public static void IncreaseDopamine()
     {
         dopamineIncrease = dopamineIncreaseRate / timeSinceLastKill;
         if (canGainDopamine)
         {
-            Debug.Log("Dopamine Increase = " + dopamineIncrease);
-            if (dopamineIncrease >= dopamineIncreaseLimit)
+            if (!reverseDopamine)
             {
-                Debug.Log("Having a bit too much fun there, eh? Increase is now 2.5");
-                dopamineIncrease = dopamineIncreaseLimit;
-            }
+                //Debug.Log("Dopamine Increase = " + dopamineIncrease);
+                if (dopamineIncrease >= dopamineIncreaseLimit)
+                {
+                    //Debug.Log("Having a bit too much fun there, eh? Increase is now 2.5");
+                    dopamineIncrease = dopamineIncreaseLimit;
+                }
 
-            if ((dopamine + dopamineIncrease) >= dopamineLimit)
-            {
-                Debug.Log("Way too high dope, set to max");
-                dopamine = dopamineLimit;
-            }
+                if ((dopamine + dopamineIncrease) >= dopamineLimit)
+                {
+                    //Debug.Log("Way too high dope, set to max");
+                    dopamine = dopamineLimit;
+                }
+                else
+                {
+                    //Debug.Log("Good, take your time, relax c:");
+                    dopamine += dopamineIncrease;
+                }
+            } 
             else
             {
-                Debug.Log("Good, take your time, relax c:");
-                dopamine += dopamineIncrease;
+                //Debug.Log("Dopamine Increase = " + dopamineIncrease);
+                if (dopamineIncrease >= dopamineIncreaseLimit)
+                {
+                    //Debug.Log("Having a bit too much fun there, eh? Increase is now 2.5");
+                    dopamineIncrease = dopamineIncreaseLimit;
+                }
+
+                if ((dopamine - dopamineIncrease) <= dopamineStartStatic)
+                {
+                    //Debug.Log("Way too high dope, set to max");
+                    dopamine = dopamineStartStatic;
+                }
+                else
+                {
+                    //Debug.Log("Good, take your time, relax c:");
+                    dopamine -= dopamineIncrease;
+                }
             }
 
             timeSinceLastKill = 0;
         }
-        // For Quest step 1
-        zombieCounter++;
 
        
     }
@@ -320,13 +320,14 @@ public class GameManager : MonoBehaviour
     {
         if(context.performed)
         {
+            Debug.Log("Panel is: " + panel);
             isPaused = !isPaused;
             panel.SetActive(!panel.activeInHierarchy);
             minimap.SetActive(!minimap.activeInHierarchy);
         }
     }
 
-    private void UpdateText(Text text,string data)
+    public void UpdateText(Text text,string data)
     {
         text.text = data;
     }
