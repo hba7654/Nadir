@@ -20,4 +20,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameArena.unity
     guid: 3f47bb5d7d83ee64bb374fc116f26b28
+  - enabled: 1
+    path: Assets/Scenes/Cranked.unity
+    guid: 45e2f91df41b2d446bb88b94f4f48434
+  - enabled: 1
+    path: Assets/Scenes/Friends.unity
+    guid: 49083591b67db7f4dac97d7ea59fcac4
+  - enabled: 1
+    path: Assets/Scenes/Infected.unity
+    guid: d7ea01511599674439b4fee71c599958
+  - enabled: 1
+    path: Assets/Scenes/UnlimitedHorde.unity
+    guid: 5a79269c3fab77b4291a4f3ab8698a88
   m_configObjects: {}
