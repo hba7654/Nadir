@@ -596,7 +596,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: ed2c93e186565494faa876f1156890b5, type: 3}
+<<<<<<< Updated upstream
   m_Type: 1
+=======
+  m_Type: 0
+>>>>>>> Stashed changes
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

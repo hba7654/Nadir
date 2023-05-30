@@ -1,6 +1,10 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< Updated upstream
 --- !u!1 &7596596103327376355
+=======
+--- !u!1 &3210375633509228972
+>>>>>>> Stashed changes
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +12,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< Updated upstream
   - component: {fileID: 7596596103327376359}
   - component: {fileID: 7596596103327376358}
   - component: {fileID: 7596596103327376356}
+=======
+  - component: {fileID: 3210375633509228968}
+  - component: {fileID: 3210375633509228969}
+  - component: {fileID: 3210375633509228971}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Minimap Camera
   m_TagString: Untagged
@@ -18,13 +28,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< Updated upstream
 --- !u!4 &7596596103327376359
+=======
+--- !u!4 &3210375633509228968
+>>>>>>> Stashed changes
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 7596596103327376355}
+=======
+  m_GameObject: {fileID: 3210375633509228972}
+>>>>>>> Stashed changes
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 110.2, y: 52.008457, z: -933}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,13 +51,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
 --- !u!20 &7596596103327376358
+=======
+--- !u!20 &3210375633509228969
+>>>>>>> Stashed changes
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 7596596103327376355}
+=======
+  m_GameObject: {fileID: 3210375633509228972}
+>>>>>>> Stashed changes
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -76,13 +102,21 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+<<<<<<< Updated upstream
 --- !u!114 &7596596103327376356
+=======
+--- !u!114 &3210375633509228971
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 7596596103327376355}
+=======
+  m_GameObject: {fileID: 3210375633509228972}
+>>>>>>> Stashed changes
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
