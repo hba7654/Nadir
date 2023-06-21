@@ -122,6 +122,7 @@ public class ZombieController : MonoBehaviour
 
         if (health <= 0)
         {
+            GameManager.kills++;
             GameManager.zombieCounter++;
             GameManager.IncreaseDopamine();
             GameManager.zombies.Remove(gameObject);

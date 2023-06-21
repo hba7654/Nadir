@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UnlimitedHorde.unity
     guid: 5a79269c3fab77b4291a4f3ab8698a88
+  - enabled: 1
+    path: Assets/Scenes/End Screen.unity
+    guid: dfbb5943297f3b84b922e230570bf02f
   m_configObjects: {}

@@ -24,13 +24,8 @@ public class InfectedManager : MonoBehaviour
 
             if(timer <= 0)
             {
-                Die();
+                GameManager.Die();
             }
         }
-    }
-
-    void Die()
-    {
-        SceneManager.LoadScene("Main Menu");
     }
 }

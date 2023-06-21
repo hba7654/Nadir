@@ -24,13 +24,8 @@ public class CrankedManager : MonoBehaviour
             //gameManager.maxZombieCount = ...
             if(GameManager.isLosingDopamine)
             {
-                Die();
+                GameManager.Die();
             }
         }
-    }
-
-    void Die()
-    {
-        SceneManager.LoadScene("Main Menu");
     }
 }

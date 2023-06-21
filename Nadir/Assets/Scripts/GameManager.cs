@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -50,23 +51,29 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gunImage;
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject minimap;
-
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject dopamineBar;
-
     [SerializeField] private Sprite[] gunImages;
-
     private SpriteRenderer gunImageSprite;
 
+    //Gamemode related variables/enum
+    public enum GameMode { Story, Cranked, Friends, Infected, Unlimited};
+    public static GameMode gameMode;
 
+    //Scores to keep track of
+    public static int kills;
+    public static float timeElapsed;
 
+    //MISC
     private PlayerShooting playerShooting;
-
     private CinemachineBrain camBrain;
 
     private void Awake()
     {
         reverseDopamine = false;
+
+        kills = 0;
+        timeElapsed = 0;
     }
 
     // Start is called before the first frame update
@@ -109,6 +116,8 @@ public class GameManager : MonoBehaviour
     {
         if (!isPaused)
         {
+            timeElapsed += Time.deltaTime;
+
             dopamineLimit = dopamineMax;
             panel.SetActive(false);
             minimap.SetActive(false);
@@ -330,5 +339,10 @@ public class GameManager : MonoBehaviour
     public void UpdateText(Text text,string data)
     {
         text.text = data;
+    }
+
+    public static void Die()
+    {
+        SceneManager.LoadScene("End Screen");
     }
 }

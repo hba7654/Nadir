@@ -47,7 +47,7 @@ public class PlayerManager : MonoBehaviour
             {
                 health = 0;
                 Debug.Log("Dead");
-                SceneManager.LoadScene("Main Menu");
+                GameManager.Die();
             }
 
             if (bombParts == 3)
