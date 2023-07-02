@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class ZombieController : MonoBehaviour
 {
     public GameObject playerObject;
+    public int damageToPlayer;
 
     [SerializeField] private int startHealth;
     [SerializeField] private float zombieSpeed;

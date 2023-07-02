@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -6924933357165514412}
   - component: {fileID: -1279042513643855543}
   m_Layer: 0
-  m_Name: Zombie
+  m_Name: Brute
   m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,11 +102,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 8964056549215536531, guid: 33e24231928619f409230c31756f1119, type: 3}
-  damageToPlayer: 1
-  startHealth: 15
-  zombieSpeed: 0.75
-  despawnTime: 7
-  ammoHealthDropPercentage: 0.2
+  damageToPlayer: 5
+  startHealth: 75
+  zombieSpeed: 0.5
+  despawnTime: 100
+  ammoHealthDropPercentage: 1
   ammoDrop: {fileID: 1422922528226641674, guid: 34f98b02c1dc79c43bef54f404b8fd90, type: 3}
   healthDrop: {fileID: 1422922528226641674, guid: fb3505c73f2f5c148a3d889dcb0d94eb, type: 3}
 --- !u!50 &6221381493184551701
