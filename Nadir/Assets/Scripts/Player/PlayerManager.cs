@@ -69,7 +69,10 @@ public class PlayerManager : MonoBehaviour
             if (GameManager.dopamine >= 15)
                 GameManager.dopamine -= collision.gameObject.GetComponent<ZombieController>().damageToPlayer;
             else
+            {
                 health -= collision.gameObject.GetComponent<ZombieController>().damageToPlayer;
+                Debug.Log("Hurt");
+            }
         }
     }
 }

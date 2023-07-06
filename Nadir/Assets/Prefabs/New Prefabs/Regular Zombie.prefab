@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6636702829756305221}
   m_Layer: 0
   m_Name: Regular Zombie
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,7 +143,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.060447574, y: 0.07052231}
+  m_Offset: {x: -0.08519113, y: 0.06039524}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -154,7 +154,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.72089505, y: 1.2233315}
+  m_Size: {x: 0.7349975, y: 1.0946941}
   m_EdgeRadius: 0
 --- !u!195 &-7606702264875294947
 NavMeshAgent:

@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     [Header("Global varibales")]
     public static bool isPaused;
     [SerializeField] private Camera camera;
-    [SerializeField] private GameObject zombieObject;
+    [SerializeField] private GameObject regZombieObject;
+    [SerializeField] private GameObject bruteZombieObject;
     public GameObject playerObject;
 
     [Header("Zombie Spawning Variables")]
@@ -303,8 +304,17 @@ public class GameManager : MonoBehaviour
                 int spawnIndex = zombieSpawnPoints.Count > 1 ? Random.Range(0, zombieSpawnPoints.Count) : 0;
                 Vector2 spawnPos = zombieSpawnPoints[spawnIndex];
                 //Debug.Log("SpawnPoint: " + spawnPos);
+                GameObject zombie;
 
-                GameObject zombie = Instantiate(zombieObject, spawnPos, Quaternion.identity);
+                if(Random.Range(0,100) < 5)
+                {
+                     zombie = Instantiate(bruteZombieObject, spawnPos, Quaternion.identity);
+                }
+                else
+                {
+                     zombie = Instantiate(regZombieObject, spawnPos, Quaternion.identity);
+                }
+
                 zombie.GetComponent<ZombieController>().playerObject = playerObject;
                 zombies.Add(zombie);
 
