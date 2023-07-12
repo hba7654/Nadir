@@ -116,6 +116,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 5
+  damage: 0
+  speedMultiplier: 0
+  dopamineIncreaseRate: 0
 --- !u!50 &-6168704916569587636
 Rigidbody2D:
   serializedVersion: 4

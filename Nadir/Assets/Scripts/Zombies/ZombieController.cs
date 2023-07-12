@@ -99,14 +99,14 @@ public class ZombieController : MonoBehaviour
             //Play hurt sound
 
             //Deagle bullets go through
-            if(!(playerObject.GetComponent<PlayerShooting>().weapon == PlayerShooting.Weapons.Pistol && GameManager.dopamine >= 15))
+            //if(!(playerObject.GetComponent<PlayerShooting>().weapon == PlayerShooting.Weapons.Pistol && GameManager.dopamine >= 15))
                 Destroy(collision.gameObject);
 
 
             if(GameManager.dopamine >= 10)
-                health -= 2 * playerObject.GetComponent<PlayerShooting>().bulletDamage;
+                health -= 2 * collision.GetComponent<Bullet>().damage;
             else
-                health -= playerObject.GetComponent<PlayerShooting>().bulletDamage;
+                health -= collision.GetComponent<Bullet>().damage;
 
             StartCoroutine(Hurt());
         }

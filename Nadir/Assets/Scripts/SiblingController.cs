@@ -115,6 +115,8 @@ public class SiblingController : MonoBehaviour
             bulletClone.GetComponent<SpriteRenderer>().flipX = false;
             bulletClone.GetComponent<SpriteRenderer>().flipY = false;
         }
+        bulletClone.GetComponent<Bullet>().damage = 3;
+        bulletClone.GetComponent<Bullet>().speedMultiplier = 1;
         bulletClone.GetComponent<Bullet>().InitialMove(shootDirVector);
     }
 }

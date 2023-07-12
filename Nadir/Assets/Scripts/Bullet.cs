@@ -6,6 +6,10 @@ public class Bullet : MonoBehaviour
 {
     [Header("Movement Variables")]
     [SerializeField] private float bulletSpeed;
+
+    [HideInInspector] public int damage;
+    [HideInInspector] public float speedMultiplier;
+
     private Rigidbody2D rb;
 
 
@@ -22,7 +26,7 @@ public class Bullet : MonoBehaviour
 
     public void InitialMove(Vector2 initalVelocity)
     {
-        rb.velocity = initalVelocity * bulletSpeed * GameManager.dopamine;
+        rb.velocity = initalVelocity * bulletSpeed * speedMultiplier * GameManager.dopamine;
     }
 
 }

@@ -127,34 +127,34 @@ public class GameManager : MonoBehaviour
             healthBar.transform.localScale = new Vector3(playerObject.GetComponent<PlayerManager>().health/2.87f, 1, 1);
 
             // Updates the ammo count in the UI
-            switch (playerShooting.weapon)
-            {
-                case PlayerShooting.Weapons.Pistol:
-                    UpdateText(ammoText, "\u221E");
+            //switch (playerShooting.weapon)
+            //{
+            //    case PlayerShooting.Weapons.Pistol:
+            //        UpdateText(ammoText, "\u221E");
 
-                    if (dopamine > 15 && dopamine < 20)
-                    {
-                        UpdateText(dopEnhanceText, "Pistol Enhanced");
-                    }
-                    break;
+            //        if (dopamine > 15 && dopamine < 20)
+            //        {
+            //            UpdateText(dopEnhanceText, "Pistol Enhanced");
+            //        }
+            //        break;
 
-                case PlayerShooting.Weapons.Machinegun:
-                    UpdateText(ammoText, playerShooting.mgAmmo.ToString());
-                    if (dopamine > 15 && dopamine < 20)
-                    {
-                        UpdateText(dopEnhanceText, "Ammo packs give double ammo");
-                    }
-                    break;
+            //    case PlayerShooting.Weapons.Machinegun:
+            //        UpdateText(ammoText, playerShooting.mgAmmo.ToString());
+            //        if (dopamine > 15 && dopamine < 20)
+            //        {
+            //            UpdateText(dopEnhanceText, "Ammo packs give double ammo");
+            //        }
+            //        break;
 
-                case PlayerShooting.Weapons.Shotgun:
-                    UpdateText(ammoText, playerShooting.sgAmmo.ToString());
-                    if (dopamine > 15 && dopamine < 20)
-                    {
-                        UpdateText(dopEnhanceText, "Tighter bullet spread");
-                    }
-                    break;
+            //    case PlayerShooting.Weapons.Shotgun:
+            //        UpdateText(ammoText, playerShooting.sgAmmo.ToString());
+            //        if (dopamine > 15 && dopamine < 20)
+            //        {
+            //            UpdateText(dopEnhanceText, "Tighter bullet spread");
+            //        }
+            //        break;
 
-            }
+            //}
 
             if (dopamine >= 20)
             {
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
                 UpdateText(dopEnhanceText, "No Dopamine Enhancements");
             }
 
-            gunImageSprite.sprite = gunImages[(int)playerShooting.weapon];
+            //gunImageSprite.sprite = gunImages[(int)playerShooting.weapon];
 
 
             zombieCounterText.text = string.Format("Kills {0}", zombieCounter); 
