@@ -6,10 +6,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public int bulletDamage;
-    public int mgAmmo;
-    public int sgAmmo;
-
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject bulletSibling;
     [SerializeField] public List<Weapon> weapons;
@@ -20,8 +16,6 @@ public class PlayerShooting : MonoBehaviour
 
     private int equippedWeapon;
 
-    private int startMGAmmo;
-    private int startSGAmmo;
     private bool isShooting;
     private bool alting;
     private bool isAiming;
@@ -36,16 +30,9 @@ public class PlayerShooting : MonoBehaviour
         shootTimer = 0;
         alting = false;
 
-        startMGAmmo = 60;
-        startSGAmmo = 16;
-        mgAmmo = startMGAmmo;
-        sgAmmo = startSGAmmo;
-
         equippedWeapon = 0;
-        weapons[0].SetWeapon(bullet);
+        weapons[0].SetWeapon();
 
-        fireRate = 0.5f;
-        bulletDamage = 5;
         GameManager.dopamineIncreaseRate = 0.25f;
 
     }
@@ -82,7 +69,7 @@ public class PlayerShooting : MonoBehaviour
         if (context.started)
         {
             equippedWeapon = (equippedWeapon + 1) % weapons.Count;
-            weapons[equippedWeapon].SetWeapon(bullet);
+            weapons[equippedWeapon].SetWeapon();
         }
     }
 

@@ -55,7 +55,7 @@ public class Weapon : MonoBehaviour
         yield return null;  
     }
 
-    public void SetWeapon(GameObject bullet)
+    public void SetWeapon()
     {
         damage = weaponData.bulletDamage;
         bulletSpeedMult = weaponData.bulletSpeedMultiplier;
