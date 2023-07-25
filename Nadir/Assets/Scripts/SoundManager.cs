@@ -27,8 +27,7 @@ public class SoundManager : MonoBehaviour
         soundClipsStatic = soundClips;
         audioSource = GetComponent<AudioSource>();
 
-        if (musicLocation == MusicLocation.Menu)
-            musicPlayer2 = null;
+        musicLocation = MusicLocation.Menu;
     }
 
     private void Update()
