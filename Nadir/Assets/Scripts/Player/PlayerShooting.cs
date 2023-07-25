@@ -14,7 +14,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Sprite[] gunImages;
     [SerializeField] private Sprite[] bulletImages;
 
-    private int equippedWeapon;
+    public int equippedWeapon { get; private set; }
 
     private bool isShooting;
     private bool alting;

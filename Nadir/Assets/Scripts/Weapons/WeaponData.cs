@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Weapon Data")]
 public class WeaponData : ScriptableObject
 {
+    [Header("Name")]
+    public string weaponName;
     [Header("Damage")]
     //Damage
     [Range(1, 10)] public int bulletDamage;
