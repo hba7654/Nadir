@@ -72,10 +72,14 @@ public class PlayerMovement : MonoBehaviour
         if (collision.tag == "Cave 1")
         {
             MainGameManager.ChangeToCam("cave 1");
+            SoundManager.musicLocation = SoundManager.MusicLocation.Cave;
+            SoundManager.t = 0;
         }
         else if (collision.tag == "Cave 2")
         {
             MainGameManager.ChangeToCam("cave 2");
+            SoundManager.musicLocation = SoundManager.MusicLocation.Cave;
+            SoundManager.t = 0;
         }
         else if (collision.tag == "Cave 2 Inner")
         {
@@ -84,6 +88,8 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.tag == "Main Floor")
         {
             MainGameManager.ChangeToCam("main");
+            SoundManager.musicLocation = SoundManager.MusicLocation.Grass;
+            SoundManager.t = 0;
         }
     }
 }

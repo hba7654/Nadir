@@ -104,9 +104,12 @@ public class MainGameManager : MonoBehaviour
 
                 // Quest step 6
                 case 7:
+                    SoundManager.PlaySound("victory");
                     gameManager.UpdateText(gameManager.questText, "ANDDD THATS ALL FOLKS... GOOD LUCK SURVIVING");
                     gameManager.maxZombieCount = 60;
                     gameManager.zombieSpawnFrequency = 3;
+                    gameManager.playerObject.GetComponent<PlayerManager>().questStep++;
+
                     break;
             }
 

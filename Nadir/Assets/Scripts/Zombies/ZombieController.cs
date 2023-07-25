@@ -22,11 +22,14 @@ public class ZombieController : MonoBehaviour
     private NavMeshAgent agent;
     private NavMeshPath path;
     private SpriteRenderer sr;
+    private Animator anim;
     private float despawnTimer;
     private bool isInvis;
 
     private Vector2 lastPos, curPos, dir;
     float timer = 0, speed;
+
+    public int variant;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +44,9 @@ public class ZombieController : MonoBehaviour
         agent.updatePosition = true;
         path = new NavMeshPath();
 
+        anim = GetComponent<Animator>();
+        anim.SetInteger("variant", variant);
+        
         sr = GetComponent<SpriteRenderer>();
         lastPos = transform.position;
 

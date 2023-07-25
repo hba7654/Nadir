@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9840b507e0ed5994eb76fe02fbb40910, type: 3}
   m_Name: Machine Gun Data
   m_EditorClassIdentifier: 
+  weaponName: Machine Gun
   bulletDamage: 3
   infinteAmmo: 0
   ammo: 60

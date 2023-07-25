@@ -8,6 +8,7 @@ public class EndScreenManager : MonoBehaviour
 {
     [SerializeField] private Text kills;
     [SerializeField] private Text timeElapsed;
+    [SerializeField] private AudioSource music;
 
     // Start is called before the first frame update
     void Start()
@@ -16,8 +17,15 @@ public class EndScreenManager : MonoBehaviour
         kills.text = string.Format("Killed a total of {0} zombies", GameManager.kills); ;
     }
 
+    private void Update()
+    {
+        music.volume = VolumeManager.musicVolume;
+    }
+
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("Main Menu");
+        SoundManager.musicLocation = SoundManager.MusicLocation.Menu;
+        SoundManager.t = 0;
     }
 }

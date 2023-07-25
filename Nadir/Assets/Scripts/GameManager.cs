@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("Zombie Spawning Variables")]
     public static List<GameObject> zombies;
     public static List<Vector2> zombieSpawnPoints;
+    public static List<bool> zombieSpawnPointsCaveData;
     [SerializeField] private int zombieSpawnRadius;
     public int maxZombieCount;
     public int zombieSpawnFrequency;
@@ -296,6 +297,18 @@ public class GameManager : MonoBehaviour
        
     }
 
+    public static void AddToList(Vector2 pos, bool inCave)
+    {
+        zombieSpawnPoints.Add(pos);
+        zombieSpawnPointsCaveData.Add(inCave);
+    }
+    public static void RemoveFromList(Vector2 pos, bool inCave)
+    {
+        int i = zombieSpawnPoints.IndexOf(pos);
+        zombieSpawnPoints.RemoveAt(i);
+        zombieSpawnPointsCaveData.RemoveAt(i);
+    }
+
     private IEnumerator SpawnZombie()
     {
         int numSpawned = 0;
@@ -308,16 +321,19 @@ public class GameManager : MonoBehaviour
             {
                 int spawnIndex = zombieSpawnPoints.Count > 1 ? Random.Range(0, zombieSpawnPoints.Count) : 0;
                 Vector2 spawnPos = zombieSpawnPoints[spawnIndex];
+                int variant = zombieSpawnPointsCaveData[spawnIndex] ? Random.Range(3, 6) : Random.Range(0, 3);
                 //Debug.Log("SpawnPoint: " + spawnPos);
                 GameObject zombie;
 
                 if(Random.Range(0,100) < 5)
                 {
-                     zombie = Instantiate(bruteZombieObject, spawnPos, Quaternion.identity);
+                    zombie = Instantiate(bruteZombieObject, spawnPos, Quaternion.identity);
+                    zombie.GetComponent<ZombieController>().variant = 6;
                 }
                 else
                 {
-                     zombie = Instantiate(regZombieObject, spawnPos, Quaternion.identity);
+                    zombie = Instantiate(regZombieObject, spawnPos, Quaternion.identity);
+                    zombie.GetComponent<ZombieController>().variant = variant;
                 }
 
                 zombie.GetComponent<ZombieController>().playerObject = playerObject;

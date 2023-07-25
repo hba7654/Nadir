@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9840b507e0ed5994eb76fe02fbb40910, type: 3}
   m_Name: Pistol Data
   m_EditorClassIdentifier: 
+  weaponName: Pistol
   bulletDamage: 4
   infinteAmmo: 1
-  ammo: 0
+  ammo: -74
   maxAmmoCount: 0
   startingAmmoCount: 0
   ammoInAmmoPack: 0
