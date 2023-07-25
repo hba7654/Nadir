@@ -7,25 +7,21 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioClip[] soundClips;
     [SerializeField] private AudioClip[] songs;
-    [SerializeField] private Slider sfxVolumeSlider;
-    [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private AudioSource musicPlayer;
 
     private static AudioSource audioSource;
-    private static Slider sfxVolumeSliderStatic;
     private static AudioClip[] soundClipsStatic;
     // Start is called before the first frame update
 
     private void Start()
     {
         soundClipsStatic = soundClips;
-        sfxVolumeSliderStatic = sfxVolumeSlider;
         audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        musicPlayer.volume = GameManager.isPaused ? musicVolumeSlider.value * 0.25f : musicVolumeSlider.value;
+        musicPlayer.volume = GameManager.isPaused ? VolumeManager.musicVolume * 0.25f : VolumeManager.musicVolume;
         if(!musicPlayer.isPlaying)
         {
             musicPlayer.clip = songs[Random.Range(0, songs.Length)];
@@ -43,7 +39,7 @@ public class SoundManager : MonoBehaviour
         }
 
         //if(!audioSource.isPlaying)
-            audioSource.PlayOneShot(clip, sfxVolumeSliderStatic.value);
+            audioSource.PlayOneShot(clip, VolumeManager.sfxVolume);
     }
 
     private static AudioClip Contains(string name)
