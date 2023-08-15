@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
 
         zombies = new List<GameObject>();
         zombieSpawnPoints = new List<Vector2>();
+        zombieSpawnPointsCaveData = new List<bool>();
 
         isSpawning = false;
 
@@ -322,7 +323,6 @@ public class GameManager : MonoBehaviour
                 int spawnIndex = zombieSpawnPoints.Count > 1 ? Random.Range(0, zombieSpawnPoints.Count) : 0;
                 Vector2 spawnPos = zombieSpawnPoints[spawnIndex];
                 int variant = zombieSpawnPointsCaveData[spawnIndex] ? Random.Range(3, 6) : Random.Range(0, 3);
-                //Debug.Log("SpawnPoint: " + spawnPos);
                 GameObject zombie;
 
                 if(Random.Range(0,100) < 5)

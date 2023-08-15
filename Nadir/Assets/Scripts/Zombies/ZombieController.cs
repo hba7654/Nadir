@@ -45,7 +45,7 @@ public class ZombieController : MonoBehaviour
         path = new NavMeshPath();
 
         anim = GetComponent<Animator>();
-        anim.SetInteger("variant", variant);
+        anim.SetInteger("Variation", variant);
         
         sr = GetComponent<SpriteRenderer>();
         lastPos = transform.position;
