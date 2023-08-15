@@ -2442,6 +2442,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4419985636539762311, guid: e626ce45945e27842a4a6051f8d2042f, type: 3}
     - target: {fileID: 5320482975103882925, guid: 33e24231928619f409230c31756f1119, type: 3}
+      propertyPath: weapons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5320482975103882925, guid: 33e24231928619f409230c31756f1119, type: 3}
+      propertyPath: weapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 2632216744539723032, guid: 3be8af36917a4c34db8c5be4231a5411, type: 3}
+    - target: {fileID: 5320482975103882925, guid: 33e24231928619f409230c31756f1119, type: 3}
+      propertyPath: weapons.Array.data[1]
+      value: 
+      objectReference: {fileID: -6181486048742299794, guid: 6c2c82b1cf7164946bd30da3fb0ce2a5, type: 3}
+    - target: {fileID: 5320482975103882925, guid: 33e24231928619f409230c31756f1119, type: 3}
+      propertyPath: weapons.Array.data[2]
+      value: 
+      objectReference: {fileID: -6816000131017363616, guid: 911dc174f6874684799039e54efd2397, type: 3}
+    - target: {fileID: 5320482975103882925, guid: 33e24231928619f409230c31756f1119, type: 3}
       propertyPath: bulletImages.Array.size
       value: 3
       objectReference: {fileID: 0}
