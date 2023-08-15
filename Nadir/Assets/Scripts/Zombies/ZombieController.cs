@@ -31,6 +31,12 @@ public class ZombieController : MonoBehaviour
 
     public int variant;
 
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        anim.SetInteger("Variation", variant);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,9 +49,6 @@ public class ZombieController : MonoBehaviour
         agent.speed = 5;
         agent.updatePosition = true;
         path = new NavMeshPath();
-
-        anim = GetComponent<Animator>();
-        anim.SetInteger("Variation", variant);
         
         sr = GetComponent<SpriteRenderer>();
         lastPos = transform.position;
