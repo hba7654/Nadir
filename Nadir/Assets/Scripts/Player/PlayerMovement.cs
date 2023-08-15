@@ -44,12 +44,12 @@ public class PlayerMovement : MonoBehaviour
         if (context.started)
         {
             isMoving = true;
-            animator.SetBool("Walking", true);
+            animator.SetBool("isWalking", true);
         }
         else if (context.canceled)
         {
             isMoving = false;
-            animator.SetBool("Walking", false);
+            animator.SetBool("isWalking", false);
         }
 
         moveVector = context.ReadValue<Vector2>();

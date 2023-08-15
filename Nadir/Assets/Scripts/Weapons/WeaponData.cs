@@ -5,6 +5,8 @@ public class WeaponData : ScriptableObject
 {
     [Header("Name")]
     public string weaponName;
+    public int animationInteger;
+
     [Header("Damage")]
     //Damage
     [Range(1, 10)] public int bulletDamage;

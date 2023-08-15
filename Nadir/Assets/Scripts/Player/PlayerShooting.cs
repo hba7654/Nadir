@@ -23,6 +23,7 @@ public class PlayerShooting : MonoBehaviour
     private Vector2 mouseDirVector;
     private Vector2 mousePosition;
     private float shootTimer;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,8 @@ public class PlayerShooting : MonoBehaviour
         weapons[0].SetWeapon();
 
         GameManager.dopamineIncreaseRate = 0.25f;
+
+        anim = GetComponent<Animator>();
 
     }
 
@@ -70,6 +73,7 @@ public class PlayerShooting : MonoBehaviour
         {
             equippedWeapon = (equippedWeapon + 1) % weapons.Count;
             weapons[equippedWeapon].SetWeapon();
+            anim.SetInteger("weapon", weapons[equippedWeapon].weaponData.animationInteger);
         }
     }
 
