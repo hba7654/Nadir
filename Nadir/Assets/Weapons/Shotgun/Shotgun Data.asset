@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shotgun Data
   m_EditorClassIdentifier: 
   weaponName: Shotgun
+  animationInteger: 2
   bulletDamage: 3
   infinteAmmo: 0
   ammo: 20

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Machine Gun Data
   m_EditorClassIdentifier: 
   weaponName: Machine Gun
+  animationInteger: 1
   bulletDamage: 3
   infinteAmmo: 0
   ammo: 60
