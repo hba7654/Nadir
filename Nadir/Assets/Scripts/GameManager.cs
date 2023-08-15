@@ -335,6 +335,7 @@ public class GameManager : MonoBehaviour
                     zombie = Instantiate(regZombieObject, spawnPos, Quaternion.identity);
                     zombie.GetComponent<ZombieController>().variant = variant;
                 }
+                zombie.GetComponent<ZombieController>().anim.SetInteger("Variation", variant);
 
                 zombie.GetComponent<ZombieController>().playerObject = playerObject;
                 zombies.Add(zombie);

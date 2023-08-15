@@ -9,6 +9,8 @@ public class ZombieController : MonoBehaviour
     public GameObject playerObject;
     public int damageToPlayer;
 
+    public Animator anim;
+
     [SerializeField] private int startHealth;
     [SerializeField] private float zombieSpeed;
     [SerializeField] private float despawnTime;
@@ -22,7 +24,6 @@ public class ZombieController : MonoBehaviour
     private NavMeshAgent agent;
     private NavMeshPath path;
     private SpriteRenderer sr;
-    private Animator anim;
     private float despawnTimer;
     private bool isInvis;
 
@@ -31,11 +32,6 @@ public class ZombieController : MonoBehaviour
 
     public int variant;
 
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
-        anim.SetInteger("Variation", variant);
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +45,8 @@ public class ZombieController : MonoBehaviour
         agent.speed = 5;
         agent.updatePosition = true;
         path = new NavMeshPath();
+
+        anim = GetComponent<Animator>();
         
         sr = GetComponent<SpriteRenderer>();
         lastPos = transform.position;
