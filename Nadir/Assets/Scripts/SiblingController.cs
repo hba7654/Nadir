@@ -19,6 +19,7 @@ public class SiblingController : MonoBehaviour
     private NavMeshAgent agent;
     private NavMeshPath path;
     private SpriteRenderer sr;
+    private Animator anim;
 
     private Vector2 lastPos;
     private Vector2 curPos;
@@ -27,6 +28,7 @@ public class SiblingController : MonoBehaviour
     float timer;
     float shootTimer;
     float speed;
+
 
     // Start is called before the first frame update
     void Start()
@@ -78,6 +80,16 @@ public class SiblingController : MonoBehaviour
                 shootTimer = fireRate;
                 Shoot();
             }
+
+            if(playerObject.GetComponent<PlayerMovement>().isMoving)
+            {
+                anim.SetBool("isWalking", true);
+            }
+            else
+            {
+                anim.SetBool("isWalking", false);
+            }
+
         }
         else
         {

@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
 
     private Rigidbody2D rb;
-    private bool isMoving;
+    public bool isMoving;
     private Vector2 moveVector;
     private Animator animator;
     private SpriteRenderer playerSr;

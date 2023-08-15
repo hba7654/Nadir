@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1475473864, guid: 57fdf2ca5ad9a964f8827b4072a48685, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_Size: {x: 0.35, y: 0.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &8719240119254819875
@@ -103,12 +103,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObject: {fileID: 8964056549215536531, guid: 33e24231928619f409230c31756f1119, type: 3}
   damageToPlayer: 1
+  anim: {fileID: 0}
   startHealth: 15
   zombieSpeed: 0.75
   despawnTime: 7
   ammoHealthDropPercentage: 0.2
   ammoDrop: {fileID: 1422922528226641674, guid: 34f98b02c1dc79c43bef54f404b8fd90, type: 3}
   healthDrop: {fileID: 1422922528226641674, guid: fb3505c73f2f5c148a3d889dcb0d94eb, type: 3}
+  variant: 0
 --- !u!50 &-6568163868462238289
 Rigidbody2D:
   serializedVersion: 4
