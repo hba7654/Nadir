@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: ce86c3371ee257d408d7c12beb2779a8
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Birch Leaf
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 612a392f791022e4bb16ad28a1850457, type: 3}
+  - {fileID: 12800000, guid: d06e3ccd117cb0042b4a5bc7ac134e09, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
