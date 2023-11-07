@@ -366,6 +366,9 @@ public class GameManager : MonoBehaviour
             isPaused = !isPaused;
             panel.SetActive(!panel.activeInHierarchy);
             minimap.SetActive(!minimap.activeInHierarchy);
+
+            if (isPaused) Time.timeScale = 0;
+            else Time.timeScale = 1;
         }
     }
 

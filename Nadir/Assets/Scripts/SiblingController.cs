@@ -41,6 +41,7 @@ public class SiblingController : MonoBehaviour
         agent.speed = 5;
         agent.updatePosition = true;
         path = new NavMeshPath();
+        anim = GetComponent<Animator>();
 
         sr = GetComponent<SpriteRenderer>();
         lastPos = transform.position;
