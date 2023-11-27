@@ -26,6 +26,6 @@ public class EndScreenManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
         SoundManager.musicLocation = SoundManager.MusicLocation.Menu;
-        SoundManager.t = 0;
+        SoundManager.lerpT = 0;
     }
 }

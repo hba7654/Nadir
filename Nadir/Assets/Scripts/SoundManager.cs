@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
     private static AudioClip[] soundClipsStatic;
 
     private float volume;
-    public static float t;
+    public static float lerpT;
 
     public enum MusicLocation { Grass, Cave, Menu };
     public static MusicLocation musicLocation;
@@ -56,16 +56,16 @@ public class SoundManager : MonoBehaviour
         {
             case MusicLocation.Grass:
             case MusicLocation.Menu:
-                musicPlayer1.volume = Mathf.Lerp(0, volume, t);
-                musicPlayer2.volume = Mathf.Lerp(volume, 0, t);
+                musicPlayer1.volume = Mathf.Lerp(0, volume, lerpT);
+                musicPlayer2.volume = Mathf.Lerp(volume, 0, lerpT);
                 break;
 
             case MusicLocation.Cave:
-                musicPlayer2.volume = Mathf.Lerp(0, volume, t);
-                musicPlayer1.volume = Mathf.Lerp(volume, 0, t);
+                musicPlayer2.volume = Mathf.Lerp(0, volume, lerpT);
+                musicPlayer1.volume = Mathf.Lerp(volume, 0, lerpT);
                 break;
         }
-        t += volume * Time.deltaTime;
+        lerpT += volume * Time.deltaTime;
     }
 
     public static void PlaySound(string sound)

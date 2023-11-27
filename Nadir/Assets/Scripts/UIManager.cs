@@ -20,11 +20,14 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mainMenu.SetActive(true);
+        if (mainMenu != null)
+        {
+            mainMenu.SetActive(true);
 
-        howTo.SetActive(false);
-        credits.SetActive(false);
-        playMenu.SetActive(false);
+            howTo.SetActive(false);
+            credits.SetActive(false);
+            playMenu.SetActive(false);
+        }
 
         arrCounter = 0;
         updateCounter = 0;

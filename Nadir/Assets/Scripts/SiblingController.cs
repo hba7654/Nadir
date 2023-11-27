@@ -48,6 +48,9 @@ public class SiblingController : MonoBehaviour
         timer = 0;
 
         transform.rotation = Quaternion.identity;
+
+
+        StartCoroutine(PathToPlayer());
     }
 
     // Update is called once per frame
@@ -59,7 +62,6 @@ public class SiblingController : MonoBehaviour
             playerPos = playerObject.transform.position;
             agent.speed = siblingSpeed * GameManager.dopamine;
 
-            StartCoroutine(PathToPlayer());
 
             curPos = transform.position;
 
@@ -100,11 +102,15 @@ public class SiblingController : MonoBehaviour
 
     private IEnumerator PathToPlayer()
     {
-        agent.CalculatePath(playerPos, path);
+        while (true)
+        {
+            if (!GameManager.isPaused)
+                agent.CalculatePath(playerPos, path);
 
-        yield return new WaitUntil(() => !agent.pathPending);
+            yield return new WaitForSeconds(1);
 
-        agent.SetPath(path);
+            agent.SetPath(path);
+        }
     }
 
     private void Shoot()
