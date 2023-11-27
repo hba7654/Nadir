@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
             panel.SetActive(false);
             minimap.SetActive(false);
 
-            dopamineBar.transform.localScale = new Vector3((dopamine - 5) / 2.173f, 1, 1);
+            dopamineBar.transform.localScale = new Vector3((dopamine - 5) / 3.2f, 1, 1); // Old value 2.173f
             healthBar.transform.localScale = new Vector3(playerObject.GetComponent<PlayerManager>().health/2.87f, 1, 1);
 
             // Updates the ammo count in the UI
